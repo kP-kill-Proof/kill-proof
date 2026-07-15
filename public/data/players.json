@@ -1,0 +1,14 @@
+{
+  "updated": "2026-07-15",
+  "players": [
+    {
+      "id": "mati",
+      "name": "Mati",
+      "mainRole": "Healer",
+      "roles": ["Healer", "DPS"],
+      "bestClasses": [],
+      "mechanics": [],
+      "notes": "Ejemplo inicial — editar desde la app. Perfiles completos pendientes."
+    }
+  ]
+}

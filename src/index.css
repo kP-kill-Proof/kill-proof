@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-ink text-silver font-body antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(46, 122, 150, 0.18), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 110%, rgba(30, 75, 94, 0.22), transparent);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* ---- animaciones ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 179, 212, 0.35); }
+  50% { box-shadow: 0 0 24px 4px rgba(79, 179, 212, 0.25); }
+}
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.anim-in { animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-in-1 { animation-delay: 0.05s; }
+.anim-in-2 { animation-delay: 0.12s; }
+.anim-in-3 { animation-delay: 0.2s; }
+.glow-next { animation: pulseGlow 2.2s ease-in-out infinite; }
+
+/* ---- componentes ---- */
+.card {
+  @apply bg-panel/90 border border-teal-deep/40 rounded-2xl backdrop-blur-sm transition-all duration-300;
+}
+.card:hover { @apply border-teal/60; }
+
+.btn {
+  @apply px-4 py-2 rounded-xl font-semibold transition-all duration-200 select-none cursor-pointer;
+}
+.btn-primary { @apply bg-teal text-ink hover:bg-teal-light hover:shadow-lg hover:shadow-teal/20 active:scale-95; }
+.btn-ghost { @apply bg-transparent border border-teal-deep/60 text-silver hover:border-teal hover:text-cream active:scale-95; }
+.btn-danger { @apply bg-transparent border border-danger/50 text-danger/90 hover:bg-danger/10 hover:border-danger active:scale-95; }
+
+.chip {
+  @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold tracking-wide;
+}
+
+.input {
+  @apply bg-ink/80 border border-teal-deep/50 rounded-xl px-3 py-2 text-cream placeholder-silver/40
+    focus:outline-none focus:border-teal-light focus:ring-1 focus:ring-teal-light/40 transition-colors duration-200;
+}
+
+.tab-btn {
+  @apply px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer whitespace-nowrap;
+}
+.tab-active { @apply bg-teal-deep/60 text-cream shadow-inner; }
+.tab-idle { @apply text-silver/70 hover:text-cream hover:bg-teal-deep/25; }
+
+.row-done { @apply opacity-45; }
+.row-done .strike-name { text-decoration: line-through; }
+
+/* barra de progreso animada */
+.progress-track { @apply h-3 rounded-full bg-teal-deep/30 overflow-hidden; }
+.progress-fill {
+  @apply h-full rounded-full transition-all duration-700 ease-out;
+  background: linear-gradient(90deg, #1E4B5E, #2E7A96, #4FB3D4);
+  background-size: 400px 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* markdown de guidelines */
+.md h1 { @apply font-display text-3xl text-cream mt-2 mb-4; }
+.md h2 { @apply text-xl font-bold text-teal-light mt-6 mb-2; }
+.md p { @apply my-2 leading-relaxed; }
+.md ul, .md ol { @apply list-disc ml-6 my-2 space-y-1; }
+.md ol { @apply list-decimal; }
+.md table { @apply w-full my-3 text-sm; }
+.md th { @apply text-left text-teal-light border-b border-teal-deep/50 py-1.5 pr-4; }
+.md td { @apply border-b border-teal-deep/20 py-1.5 pr-4; }
+.md code { @apply bg-teal-deep/30 text-cream px-1.5 py-0.5 rounded text-xs; }
+.md strong { @apply text-cream; }

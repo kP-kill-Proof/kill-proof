@@ -1,0 +1,19 @@
+{
+  "updated": "2026-07-15",
+  "events": [
+    {
+      "id": "fractal_cms",
+      "name": "Fractal CMs",
+      "description": "Venta de Challenge Modes de fractals (96–100 + T4s según pedido).",
+      "estTime": null,
+      "notes": "Se coordina por evento. Editar detalles desde la app."
+    },
+    {
+      "id": "achievements",
+      "name": "Achievements",
+      "description": "Venta de logros específicos a pedido del comprador.",
+      "estTime": null,
+      "notes": "Definir alcance y precio por encargo."
+    }
+  ]
+}

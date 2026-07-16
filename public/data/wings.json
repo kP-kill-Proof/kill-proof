@@ -2,105 +2,487 @@
   "updated": "2026-07-15",
   "wings": [
     {
-      "id": "w1", "short": "W1", "name": "Spirit Vale", "type": "raid",
+      "id": "w1",
+      "short": "W1",
+      "name": "Spirit Vale",
+      "type": "raid",
       "bosses": [
-        { "id": "vale_guardian", "name": "Vale Guardian", "aliases": ["VG"], "time": 180, "li": 1 },
-        { "id": "gorseval", "name": "Gorseval", "aliases": ["Gorseval the Multifarious"], "time": 175, "li": 1 },
-        { "id": "sabetha", "name": "Sabetha", "aliases": ["Sabetha the Saboteur"], "time": 258, "li": 1 }
+        {
+          "id": "vale_guardian",
+          "name": "Vale Guardian",
+          "aliases": [
+            "VG"
+          ],
+          "time": 180,
+          "li": 1
+        },
+        {
+          "id": "gorseval",
+          "name": "Gorseval",
+          "aliases": [
+            "Gorseval the Multifarious"
+          ],
+          "time": 175,
+          "li": 1
+        },
+        {
+          "id": "sabetha",
+          "name": "Sabetha",
+          "aliases": [
+            "Sabetha the Saboteur"
+          ],
+          "time": 258,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "w2", "short": "W2", "name": "Salvation Pass", "type": "raid",
+      "id": "w2",
+      "short": "W2",
+      "name": "Salvation Pass",
+      "type": "raid",
       "bosses": [
-        { "id": "slothasor", "name": "Slothasor", "aliases": ["Sloth"], "time": 160, "li": 1 },
-        { "id": "trio", "name": "Bandit Trio", "aliases": ["Trio", "Protect the caged prisoners"], "time": 397, "li": 1 },
-        { "id": "matthias", "name": "Matthias", "aliases": ["Matthias Gabrel"], "time": 132, "li": 1 }
+        {
+          "id": "slothasor",
+          "name": "Slothasor",
+          "aliases": [
+            "Sloth"
+          ],
+          "time": 160,
+          "li": 1
+        },
+        {
+          "id": "trio",
+          "name": "Bandit Trio",
+          "aliases": [
+            "Trio",
+            "Protect the caged prisoners"
+          ],
+          "time": 397,
+          "li": 1
+        },
+        {
+          "id": "matthias",
+          "name": "Matthias",
+          "aliases": [
+            "Matthias Gabrel"
+          ],
+          "time": 132,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "w3", "short": "W3", "name": "Stronghold of the Faithful", "type": "raid",
+      "id": "w3",
+      "short": "W3",
+      "name": "Stronghold of the Faithful",
+      "type": "raid",
       "bosses": [
-        { "id": "escort", "name": "Escort", "aliases": ["Siege the Stronghold"], "time": 180, "li": 1 },
-        { "id": "keep_construct", "name": "Keep Construct", "aliases": ["KC"], "time": 361, "li": 1 },
-        { "id": "twisted_castle", "name": "Twisted Castle", "aliases": ["TC"], "time": 140, "li": 0 },
-        { "id": "xera", "name": "Xera", "aliases": [], "time": 180, "li": 1 }
+        {
+          "id": "escort",
+          "name": "Escort",
+          "aliases": [
+            "Siege the Stronghold"
+          ],
+          "time": 180,
+          "li": 1
+        },
+        {
+          "id": "keep_construct",
+          "name": "Keep Construct",
+          "aliases": [
+            "KC"
+          ],
+          "time": 361,
+          "li": 1
+        },
+        {
+          "id": "twisted_castle",
+          "name": "Twisted Castle",
+          "aliases": [
+            "TC"
+          ],
+          "time": 140,
+          "li": 0
+        },
+        {
+          "id": "xera",
+          "name": "Xera",
+          "aliases": [],
+          "time": 180,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "w4", "short": "W4", "name": "Bastion of the Penitent", "type": "raid",
+      "id": "w4",
+      "short": "W4",
+      "name": "Bastion of the Penitent",
+      "type": "raid",
       "bosses": [
-        { "id": "cairn", "name": "Cairn", "aliases": ["Cairn the Indomitable"], "time": 113, "li": 1 },
-        { "id": "mursaat", "name": "Mursaat Overseer", "aliases": ["MO"], "time": 115, "li": 1 },
-        { "id": "samarog", "name": "Samarog", "aliases": [], "time": 326, "li": 1 },
-        { "id": "deimos", "name": "Deimos", "aliases": [], "time": 267, "li": 1 }
+        {
+          "id": "cairn",
+          "name": "Cairn",
+          "aliases": [
+            "Cairn the Indomitable"
+          ],
+          "time": 113,
+          "li": 1
+        },
+        {
+          "id": "mursaat",
+          "name": "Mursaat Overseer",
+          "aliases": [
+            "MO"
+          ],
+          "time": 115,
+          "li": 1
+        },
+        {
+          "id": "samarog",
+          "name": "Samarog",
+          "aliases": [],
+          "time": 326,
+          "li": 1
+        },
+        {
+          "id": "deimos",
+          "name": "Deimos",
+          "aliases": [],
+          "time": 267,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "w5", "short": "W5", "name": "Hall of Chains", "type": "raid",
+      "id": "w5",
+      "short": "W5",
+      "name": "Hall of Chains",
+      "type": "raid",
       "bosses": [
-        { "id": "soulless_horror", "name": "Soulless Horror", "aliases": ["SH", "Desmina"], "time": 220, "li": 1 },
-        { "id": "river", "name": "River of Souls", "aliases": ["River"], "time": 126, "li": 1 },
-        { "id": "eyes", "name": "Eyes", "aliases": ["Statue of Darkness"], "time": null, "li": 1 },
-        { "id": "eater", "name": "Eater of Souls", "aliases": ["Statue of Death", "Eater"], "time": null, "li": 1 },
-        { "id": "broken_king", "name": "Broken King", "aliases": ["Statue of Ice"], "time": null, "li": 1 },
-        { "id": "dhuum", "name": "Dhuum", "aliases": [], "time": 404, "li": 1 }
+        {
+          "id": "soulless_horror",
+          "name": "Soulless Horror",
+          "aliases": [
+            "SH",
+            "Desmina"
+          ],
+          "time": 220,
+          "li": 1
+        },
+        {
+          "id": "river",
+          "name": "River of Souls",
+          "aliases": [
+            "River"
+          ],
+          "time": 126,
+          "li": 1
+        },
+        {
+          "id": "eyes",
+          "name": "Eyes",
+          "aliases": [
+            "Statue of Darkness"
+          ],
+          "time": null,
+          "li": 1
+        },
+        {
+          "id": "eater",
+          "name": "Eater of Souls",
+          "aliases": [
+            "Statue of Death",
+            "Eater"
+          ],
+          "time": null,
+          "li": 1
+        },
+        {
+          "id": "broken_king",
+          "name": "Broken King",
+          "aliases": [
+            "Statue of Ice"
+          ],
+          "time": null,
+          "li": 1
+        },
+        {
+          "id": "dhuum",
+          "name": "Dhuum",
+          "aliases": [],
+          "time": 404,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "w6", "short": "W6", "name": "Mythwright Gambit", "type": "raid",
+      "id": "w6",
+      "short": "W6",
+      "name": "Mythwright Gambit",
+      "type": "raid",
       "bosses": [
-        { "id": "ca", "name": "Conjured Amalgamate", "aliases": ["CA"], "time": 177, "li": 1 },
-        { "id": "largos", "name": "Twin Largos", "aliases": ["Largos", "Nikare", "Kenut"], "time": 438, "li": 1 },
-        { "id": "qadim", "name": "Qadim", "aliases": ["Q1"], "time": 420, "li": 1 }
+        {
+          "id": "ca",
+          "name": "Conjured Amalgamate",
+          "aliases": [
+            "CA"
+          ],
+          "time": 177,
+          "li": 1
+        },
+        {
+          "id": "largos",
+          "name": "Twin Largos",
+          "aliases": [
+            "Largos",
+            "Nikare",
+            "Kenut"
+          ],
+          "time": 438,
+          "li": 1
+        },
+        {
+          "id": "qadim",
+          "name": "Qadim",
+          "aliases": [
+            "Q1"
+          ],
+          "time": 420,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "w7", "short": "W7", "name": "The Key of Ahdashim", "type": "raid",
+      "id": "w7",
+      "short": "W7",
+      "name": "The Key of Ahdashim",
+      "type": "raid",
       "bosses": [
-        { "id": "sabir", "name": "Sabir", "aliases": ["Cardinal Sabir"], "time": 267, "li": 1 },
-        { "id": "adina", "name": "Adina", "aliases": ["Cardinal Adina"], "time": 256, "li": 1 },
-        { "id": "qtp", "name": "Qadim the Peerless", "aliases": ["QTP", "Q2"], "time": 319, "li": 1 }
+        {
+          "id": "sabir",
+          "name": "Sabir",
+          "aliases": [
+            "Cardinal Sabir"
+          ],
+          "time": 267,
+          "li": 1
+        },
+        {
+          "id": "adina",
+          "name": "Adina",
+          "aliases": [
+            "Cardinal Adina"
+          ],
+          "time": 256,
+          "li": 1
+        },
+        {
+          "id": "qtp",
+          "name": "Qadim the Peerless",
+          "aliases": [
+            "QTP",
+            "Q2"
+          ],
+          "time": 319,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "w8", "short": "W8", "name": "Mount Balrior", "type": "raid",
+      "id": "w8",
+      "short": "W8",
+      "name": "Mount Balrior",
+      "type": "raid",
       "bosses": [
-        { "id": "greer", "name": "Greer", "aliases": ["Greer, the Blightbringer"], "time": null, "li": 1 },
-        { "id": "decima", "name": "Decima", "aliases": ["Decima, the Stormsinger"], "time": null, "li": 1 },
-        { "id": "ura", "name": "Ura", "aliases": ["Ura, the Steamshrieker"], "time": null, "li": 1 }
+        {
+          "id": "greer",
+          "name": "Greer",
+          "aliases": [
+            "Greer, the Blightbringer"
+          ],
+          "time": null,
+          "li": 1
+        },
+        {
+          "id": "decima",
+          "name": "Decima",
+          "aliases": [
+            "Decima, the Stormsinger"
+          ],
+          "time": null,
+          "li": 1
+        },
+        {
+          "id": "ura",
+          "name": "Ura",
+          "aliases": [
+            "Ura, the Steamshrieker"
+          ],
+          "time": null,
+          "li": 1
+        }
       ]
     },
     {
-      "id": "ibs", "short": "IBS", "name": "Icebrood Saga Strikes", "type": "strike",
+      "id": "ibs",
+      "short": "IBS",
+      "name": "Icebrood Saga Strikes",
+      "type": "strike",
       "bosses": [
-        { "id": "icebrood_construct", "name": "Icebrood Construct", "aliases": ["Shiverpeaks Pass"], "time": 96, "li": 0 },
-        { "id": "voice_claw", "name": "Voice/Claw of the Fallen", "aliases": ["Voice of the Fallen and Claw of the Fallen", "Kodans"], "time": 66, "li": 0 },
-        { "id": "fraenir", "name": "Fraenir of Jormag", "aliases": ["Fraenir"], "time": 109, "li": 0 },
-        { "id": "boneskinner", "name": "Boneskinner", "aliases": [], "time": 121, "li": 0 },
-        { "id": "whisper", "name": "Whisper of Jormag", "aliases": ["Whisper"], "time": 203, "li": 0 }
+        {
+          "id": "icebrood_construct",
+          "name": "Icebrood Construct",
+          "aliases": [
+            "Shiverpeaks Pass"
+          ],
+          "time": 96,
+          "li": 0
+        },
+        {
+          "id": "voice_claw",
+          "name": "Voice/Claw of the Fallen",
+          "aliases": [
+            "Voice of the Fallen and Claw of the Fallen",
+            "Kodans"
+          ],
+          "time": 66,
+          "li": 0
+        },
+        {
+          "id": "fraenir",
+          "name": "Fraenir of Jormag",
+          "aliases": [
+            "Fraenir"
+          ],
+          "time": 109,
+          "li": 0
+        },
+        {
+          "id": "boneskinner",
+          "name": "Boneskinner",
+          "aliases": [],
+          "time": 121,
+          "li": 0
+        },
+        {
+          "id": "cold_war",
+          "name": "Cold War",
+          "aliases": [
+            "Varinia Stormsounder"
+          ],
+          "time": null,
+          "li": 0
+        },
+        {
+          "id": "whisper",
+          "name": "Whisper of Jormag",
+          "aliases": [
+            "Whisper"
+          ],
+          "time": 203,
+          "li": 0
+        }
       ]
     },
     {
-      "id": "eod", "short": "EoD", "name": "End of Dragons Strikes", "type": "strike",
+      "id": "eod",
+      "short": "EoD",
+      "name": "End of Dragons Strikes",
+      "type": "strike",
       "bosses": [
-        { "id": "aetherblade", "name": "Aetherblade Hideout", "aliases": ["AH", "Mai Trin"], "time": null, "li": 0 },
-        { "id": "junkyard", "name": "Xunlai Jade Junkyard", "aliases": ["XJJ", "Ankka"], "time": null, "li": 0 },
-        { "id": "kaineng", "name": "Kaineng Overlook", "aliases": ["KO", "Minister Li"], "time": null, "li": 0 },
-        { "id": "harvest_temple", "name": "Harvest Temple", "aliases": ["HT", "Dragonvoid"], "time": null, "li": 0 },
-        { "id": "olc", "name": "Old Lion's Court", "aliases": ["OLC"], "time": null, "li": 0 }
+        {
+          "id": "aetherblade",
+          "name": "Aetherblade Hideout",
+          "aliases": [
+            "AH",
+            "Mai Trin"
+          ],
+          "time": null,
+          "li": 0
+        },
+        {
+          "id": "junkyard",
+          "name": "Xunlai Jade Junkyard",
+          "aliases": [
+            "XJJ",
+            "Ankka"
+          ],
+          "time": null,
+          "li": 0
+        },
+        {
+          "id": "kaineng",
+          "name": "Kaineng Overlook",
+          "aliases": [
+            "KO",
+            "Minister Li"
+          ],
+          "time": null,
+          "li": 0
+        },
+        {
+          "id": "harvest_temple",
+          "name": "Harvest Temple",
+          "aliases": [
+            "HT",
+            "Dragonvoid"
+          ],
+          "time": null,
+          "li": 0
+        },
+        {
+          "id": "olc",
+          "name": "Old Lion's Court",
+          "aliases": [
+            "OLC"
+          ],
+          "time": null,
+          "li": 0
+        }
       ]
     },
     {
-      "id": "soto", "short": "SotO", "name": "Secrets of the Obscure Strikes", "type": "strike",
+      "id": "soto",
+      "short": "SotO",
+      "name": "Secrets of the Obscure Strikes",
+      "type": "strike",
       "bosses": [
-        { "id": "cosmic_observatory", "name": "Cosmic Observatory", "aliases": ["CO", "Dagda"], "time": null, "li": 0 },
-        { "id": "temple_of_febe", "name": "Temple of Febe", "aliases": ["ToF", "Cerus"], "time": null, "li": 0 }
+        {
+          "id": "cosmic_observatory",
+          "name": "Cosmic Observatory",
+          "aliases": [
+            "CO",
+            "Dagda"
+          ],
+          "time": null,
+          "li": 0
+        },
+        {
+          "id": "temple_of_febe",
+          "name": "Temple of Febe",
+          "aliases": [
+            "ToF",
+            "Cerus"
+          ],
+          "time": null,
+          "li": 0
+        }
       ]
     },
     {
-      "id": "voe", "short": "VoE", "name": "Visions of Eternity", "type": "strike",
+      "id": "voe",
+      "short": "VoE",
+      "name": "Visions of Eternity",
+      "type": "strike",
       "bosses": [
-        { "id": "guardians_glade", "name": "Guardian's Glade", "aliases": [], "time": null, "li": 0 }
+        {
+          "id": "guardians_glade",
+          "name": "Guardian's Glade",
+          "aliases": [],
+          "time": null,
+          "li": 0
+        }
       ]
     }
   ]

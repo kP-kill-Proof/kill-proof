@@ -42,11 +42,16 @@ export function matchBossId(bountyName, wings) {
       if (names.some((n) => norm(n) === target)) return b.id
     }
   }
-  // segundo intento: contains
+  // second pass: contains — but never on short aliases ("CO" inside "COld War")
   for (const w of wings) {
     for (const b of w.bosses) {
       const names = [b.name, ...(b.aliases || [])]
-      if (names.some((n) => norm(n).includes(target) || target.includes(norm(n)))) return b.id
+      const hit = names.some((n) => {
+        const nn = norm(n)
+        if (nn.length < 4 || target.length < 4) return false
+        return nn.includes(target) || target.includes(nn)
+      })
+      if (hit) return b.id
     }
   }
   return null

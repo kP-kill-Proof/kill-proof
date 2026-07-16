@@ -316,6 +316,11 @@ export default function SaleDay() {
           <div className="progress-track !h-1.5 mt-1.5">
             <div className="progress-fill" style={{ width: pct + '%' }} />
           </div>
+          {liTarget > 0 && (
+            <div className="text-[11px] text-silver/50 mt-1">
+              target {liTarget} · dailies always included
+            </div>
+          )}
         </div>
         <Stat label="Est. total" value={fmtTime(sale.totalTime)} sub={sale.hasUnknownTimes ? '+ unknown times' : null} />
         <Stat label="Wings" value={sale.wingCount} sub="grouped to cut downtime" />

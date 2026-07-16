@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useData } from '../App.jsx'
 import { fmtTime, parseTime } from '../lib/gw2.js'
+import { discardLocal } from '../lib/store.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
 
 export function SaveBar({ name }) {
@@ -19,6 +20,18 @@ export function SaveBar({ name }) {
       </button>
       <button className="btn btn-ghost !py-1 text-sm" onClick={() => exportJson(name, data)}>
         Export JSON
+      </button>
+      <button
+        className="btn btn-danger !py-1 text-sm"
+        title="Drop your local copy and reload the shared data from the site"
+        onClick={() => {
+          if (confirm(`Discard your local ${name} changes and reload the shared version?`)) {
+            discardLocal(name)
+            window.location.reload()
+          }
+        }}
+      >
+        Discard local
       </button>
     </div>
   )

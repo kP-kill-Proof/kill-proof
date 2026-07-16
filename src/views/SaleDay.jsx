@@ -323,7 +323,11 @@ export default function SaleDay() {
           )}
         </div>
         <Stat label="Est. total" value={fmtTime(sale.totalTime)} sub={sale.hasUnknownTimes ? '+ unknown times' : null} />
-        <Stat label="Wings" value={sale.wingCount} sub="grouped to cut downtime" />
+        <Stat
+          label="Wings"
+          value={sale.wingCount}
+          sub={`${sale.visits ?? sale.wingCount} instance visit${(sale.visits ?? 1) === 1 ? '' : 's'}`}
+        />
         <Stat label="Squad" value={`${roster.length} in`} sub={presentPlayers.map((p) => p.name).join(', ') || '—'} />
       </div>
       {liTarget > 0 && !sale.reached && (

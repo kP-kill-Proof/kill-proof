@@ -53,35 +53,60 @@ export function buildSaleList({ wings, dailyIds, discarded, liTarget }) {
     }
   }
 
+  // ---- ordering ----
+  // Inside a wing you can only chain CONTIGUOUS encounters. If selected bosses
+  // have unselected encounters between them (e.g. River -> statues -> Dhuum),
+  // split them into separate "runs": leave the wing, clear another one, and
+  // re-enter directly at the later boss.
   const byWing = new Map()
   for (const b of selected) {
     if (!byWing.has(b.wing.id)) byWing.set(b.wing.id, [])
     byWing.get(b.wing.id).push(b)
   }
 
-  const wingSortKey = (wid) => {
-    const items = byWing.get(wid)
-    const hasDaily = items.some((b) => b.isDaily)
-    const fastest = Math.min(...items.map((b) => b.time ?? Infinity))
-    return [hasDaily ? 0 : 1, fastest]
+  const runs = []
+  for (const wid of byWing.keys()) {
+    const wing = wings.find((w) => w.id === wid)
+    const idx = (b) => wing.bosses.findIndex((x) => x.id === b.id)
+    const items = byWing.get(wid).sort((a, z) => idx(a) - idx(z))
+    let cur = [items[0]]
+    for (let i = 1; i < items.length; i++) {
+      if (idx(items[i]) - idx(items[i - 1]) === 1) cur.push(items[i])
+      else {
+        runs.push(cur)
+        cur = [items[i]]
+      }
+    }
+    runs.push(cur)
   }
 
-  const orderedWingIds = [...byWing.keys()].sort((a, z) => {
-    const ka = wingSortKey(a)
-    const kz = wingSortKey(z)
+  const runKey = (r) => {
+    const hasDaily = r.some((b) => b.isDaily)
+    const fastest = Math.min(...r.map((b) => b.time ?? Infinity))
+    return [hasDaily ? 0 : 1, fastest]
+  }
+  runs.sort((a, z) => {
+    const ka = runKey(a)
+    const kz = runKey(z)
     return ka[0] - kz[0] || ka[1] - kz[1]
   })
 
-  const list = []
-  for (const wid of orderedWingIds) {
-    const wing = wings.find((w) => w.id === wid)
-    const naturalIndex = (b) => wing.bosses.findIndex((x) => x.id === b.id)
-    list.push(...byWing.get(wid).sort((a, z) => naturalIndex(a) - naturalIndex(z)))
+  // avoid two runs of the same wing back-to-back: interleave another wing
+  for (let i = 1; i < runs.length; i++) {
+    if (runs[i][0].wing.id === runs[i - 1][0].wing.id) {
+      const j = runs.findIndex((r, k) => k > i && r[0].wing.id !== runs[i - 1][0].wing.id)
+      if (j > i) {
+        const [moved] = runs.splice(j, 1)
+        runs.splice(i, 0, moved)
+      }
+    }
   }
 
+  const list = runs.flat()
   const totalLi = list.reduce((s, b) => s + b.effLi, 0)
   const totalTime = list.reduce((s, b) => s + (b.time ?? 0), 0)
   const hasUnknownTimes = list.some((b) => b.time == null)
-  const wingCount = orderedWingIds.length
-  return { list, totalLi, totalTime, hasUnknownTimes, wingCount, reached }
+  const wingCount = byWing.size
+  const visits = runs.length
+  return { list, totalLi, totalTime, hasUnknownTimes, wingCount, visits, reached }
 }

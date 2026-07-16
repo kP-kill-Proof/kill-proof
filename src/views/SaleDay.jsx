@@ -205,7 +205,7 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
 }
 
 export default function SaleDay() {
-  const { wings, players, icons, update, notify } = useData()
+  const { wings, players, icons } = useData()
   const run0 = loadRun()
 
   const corePlayers = (players?.players || []).filter((p) => p.core).map((p) => p.id)
@@ -257,13 +257,6 @@ export default function SaleDay() {
     setCompleted([])
     setDiscarded([])
     setAssignOv({})
-  }
-  const saveAsDefault = () => {
-    update('players', {
-      ...players,
-      players: players.players.map((p) => ({ ...p, core: roster.includes(p.id) })),
-    })
-    notify('Default squad saved — publish players.json to share it')
   }
   const setOverride = (bossId) => (slotIdx, playerId) =>
     setAssignOv((o) => ({ ...o, [bossId]: { ...(o[bossId] || {}), [slotIdx]: playerId } }))
@@ -342,7 +335,6 @@ export default function SaleDay() {
       <div className="card p-4 anim-in anim-in-1">
         <div className="flex items-center justify-between flex-wrap gap-2 mb-2.5">
           <h2 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold">Who's in today?</h2>
-          <button className="btn btn-ghost !py-1 text-xs" onClick={saveAsDefault}>Save as default squad</button>
         </div>
         <div className="flex flex-wrap gap-2">
           {(players?.players || []).map((p) => (

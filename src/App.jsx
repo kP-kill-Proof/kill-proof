@@ -1,11 +1,10 @@
 import { useEffect, useState, createContext, useContext } from 'react'
-import { loadData, saveLocal, discardLocal, exportJson, saveToGithub, getGithubCfg } from './lib/store.js'
+import { loadData, purgeLegacyLocal } from './lib/store.js'
 import SaleDay from './views/SaleDay.jsx'
 import Bible from './views/Bible.jsx'
 import Roster from './views/Roster.jsx'
 import Events from './views/Events.jsx'
 import Guidelines from './views/Guidelines.jsx'
-import Settings from './views/Settings.jsx'
 
 export const DataCtx = createContext(null)
 export const useData = () => useContext(DataCtx)
@@ -16,7 +15,6 @@ const TABS = [
   { id: 'roster', label: 'Roster' },
   { id: 'events', label: 'Events' },
   { id: 'guidelines', label: 'Guidelines' },
-  { id: 'settings', label: 'Settings' },
 ]
 
 function Logo() {
@@ -40,13 +38,12 @@ function Logo() {
 
 export default function App() {
   const [tab, setTab] = useState('sale')
-  const [store, setStore] = useState({ wings: null, players: null, events: null, comps: null, icons: null })
-  const [dirty, setDirty] = useState({})
-  const [toast, setToast] = useState(null)
+  const [store, setStore] = useState(null)
 
   useEffect(() => {
+    purgeLegacyLocal()
     ;(async () => {
-      const [w, p, e, c, i, b] = await Promise.all([
+      const [wings, players, events, comps, icons, builds] = await Promise.all([
         loadData('wings'),
         loadData('players'),
         loadData('events'),
@@ -55,43 +52,18 @@ export default function App() {
         loadData('builds'),
       ])
       setStore({
-        wings: w.data ?? { wings: [] },
-        players: p.data ?? { players: [] },
-        events: e.data ?? { events: [] },
-        comps: c.data ?? { bosses: {} },
-        icons: i.data ?? {},
-        builds: b.data ?? { builds: [] },
+        wings: wings ?? { wings: [] },
+        players: players ?? { players: [] },
+        events: events ?? { events: [] },
+        comps: comps ?? { bosses: {} },
+        icons: icons ?? {},
+        builds: builds ?? { builds: [] },
       })
-      setDirty({ wings: w.dirty, players: p.dirty, events: e.dirty, comps: c.dirty })
     })()
   }, [])
 
-  const notify = (msg, kind = 'ok') => {
-    setToast({ msg, kind })
-    setTimeout(() => setToast(null), 3500)
-  }
-
-  const update = (name, data) => {
-    setStore((s) => ({ ...s, [name]: data }))
-    saveLocal(name, data)
-    setDirty((d) => ({ ...d, [name]: true }))
-  }
-
-  const publish = async (name) => {
-    try {
-      await saveToGithub(name, store[name])
-      discardLocal(name)
-      setDirty((d) => ({ ...d, [name]: false }))
-      notify(`${name}.json published — site updates in ~1 min`)
-    } catch (e) {
-      notify(e.message, 'err')
-    }
-  }
-
-  const ctx = { ...store, dirty, update, publish, exportJson, notify, ghConfigured: !!getGithubCfg().token }
-
   return (
-    <DataCtx.Provider value={ctx}>
+    <DataCtx.Provider value={store}>
       <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-24">
         <header className="pt-6 pb-4 flex flex-wrap items-center justify-between gap-4 anim-in">
           <Logo />
@@ -108,7 +80,7 @@ export default function App() {
           </nav>
         </header>
 
-        {!store.wings ? (
+        {!store ? (
           <div className="card p-10 text-center anim-in">Loading data…</div>
         ) : (
           <main key={tab} className="anim-in">
@@ -117,18 +89,7 @@ export default function App() {
             {tab === 'roster' && <Roster />}
             {tab === 'events' && <Events />}
             {tab === 'guidelines' && <Guidelines />}
-            {tab === 'settings' && <Settings />}
           </main>
-        )}
-
-        {toast && (
-          <div
-            className={`fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl font-semibold shadow-2xl anim-in z-50 ${
-              toast.kind === 'err' ? 'bg-danger text-cream' : 'bg-teal text-ink'
-            }`}
-          >
-            {toast.msg}
-          </div>
         )}
       </div>
     </DataCtx.Provider>

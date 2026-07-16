@@ -18,11 +18,11 @@
 
 ## How to update data
 
-Everything editable lives **inside the app** (Bible, Roster, Events): boss times, LI values, member profiles, events, comps.
+The app is **read-only** on shared data — that's what keeps everyone on the exact same version, always.
 
-- Changes are saved to your browser first.
-- To publish for **everyone**, press **Save to GitHub** (needs the token set up once in Settings). The site republishes itself in ~1 minute.
-- No token? Use **Export JSON** and upload the file to GitHub by hand (pencil button on the file inside `public/data/`).
+- To change anything (times, roster, comps, events): tell Herman/Claude, or edit the JSON directly on GitHub web (pencil button on the file inside `public/data/`).
+- Every change republishes the site automatically in ~1 minute for the whole squad.
+- Day state (checklist, who's in, discards, LI target) is the commander's own browser and resets daily.
 
 ## Which file controls what
 

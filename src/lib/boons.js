@@ -7,14 +7,20 @@ export function resolveBuildInfo(buildName, buildsData) {
   const n = norm(buildName)
   if (!n) return null
   let best = null
-  let bestLen = 0
+  let bestScore = 0
   for (const b of list) {
     for (const a of b.aliases || []) {
       const an = norm(a)
       if (!an || an.length < 3) continue
-      if ((n.includes(an) || an.includes(n)) && an.length > bestLen) {
+      // exact > input-contains-alias > alias-contains-input (weakest, avoids
+      // false hits like "cmecha" inside "alacmechanist")
+      let score = 0
+      if (an === n) score = 1000 + an.length
+      else if (n.includes(an)) score = 100 + an.length
+      else if (an.includes(n)) score = an.length
+      if (score > bestScore) {
         best = b
-        bestLen = an.length
+        bestScore = score
       }
     }
   }

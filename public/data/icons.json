@@ -1,0 +1,92 @@
+{
+  "updated": "2026-07-15",
+  "source": "GW2 official API / render service",
+  "professions": {
+    "Guardian": "https://render.guildwars2.com/file/28D46E95F70834CE45640375FCDB0DEAF198325B/716635.png",
+    "Warrior": "https://render.guildwars2.com/file/09903302A30373E52F49CBA948D4A268D30A5E39/716647.png",
+    "Revenant": "https://render.guildwars2.com/file/FF240FFCF7D86A0436450FB610AB21716D5B6AA7/965716.png",
+    "Necromancer": "https://render.guildwars2.com/file/08BD360F557115260FA4D71E6F76ACCCF59FF70F/716639.png",
+    "Mesmer": "https://render.guildwars2.com/file/B2D21D2FFDB5C95CDC72B91BB02F60080F0F463D/716638.png",
+    "Elementalist": "https://render.guildwars2.com/file/0303027C1F73E97F5F011ECFCE9C9A40767BB747/716633.png",
+    "Thief": "https://render.guildwars2.com/file/5C092FE9351A2DF820B1B5719B5F5097D20633EE/716644.png",
+    "Ranger": "https://render.guildwars2.com/file/9BFA11F4D5114FBF11AFBEF00F249C3934AD62AD/716643.png",
+    "Engineer": "https://render.guildwars2.com/file/1E90D49793D5BAFDE2DFDC95089FDF9A997401F1/716634.png"
+  },
+  "specializations": {
+    "Druid": { "profession": "Ranger", "icon": "https://render.guildwars2.com/file/BE10CB10D8446208729934F3F1BD3A54BEED9AD6/1012013.png" },
+    "Daredevil": { "profession": "Thief", "icon": "https://render.guildwars2.com/file/F1985D4E1CE043D7145E030C0AC4CFDABED73A59/1012025.png" },
+    "Berserker": { "profession": "Warrior", "icon": "https://render.guildwars2.com/file/B706475993F16D0BD7DFDF3BB30AA144051CDC94/1029935.png" },
+    "Dragonhunter": { "profession": "Guardian", "icon": "https://render.guildwars2.com/file/736DB02E6DA2ACFAD3B9B0F4655113AD214FFA40/1011994.png" },
+    "Reaper": { "profession": "Necromancer", "icon": "https://render.guildwars2.com/file/530A582BD864B73AF5CC6C44F9C61954322D9A15/1012009.png" },
+    "Chronomancer": { "profession": "Mesmer", "icon": "https://render.guildwars2.com/file/D9C960059A69F4DB6604DAD6AF06D0F940E76754/1012001.png" },
+    "Scrapper": { "profession": "Engineer", "icon": "https://render.guildwars2.com/file/FEB1B8C559DDB5A04F9C0579F741080259FEF841/1011991.png" },
+    "Tempest": { "profession": "Elementalist", "icon": "https://render.guildwars2.com/file/D1970ABC09D07B4275C7E47DDD0EDC0F4CFC050C/1029930.png" },
+    "Herald": { "profession": "Revenant", "icon": "https://render.guildwars2.com/file/78496E9E95C46527F8E0B974530A07A017DC9B79/1058520.png" },
+    "Soulbeast": { "profession": "Ranger", "icon": "https://render.guildwars2.com/file/0AA4A2C62C4F2D0E0D59DBEE9C63EB4AF472F0C5/1769893.png" },
+    "Weaver": { "profession": "Elementalist", "icon": "https://render.guildwars2.com/file/02FAA82BF2F5BF3E3AD89BCF05FF56B4C86139F4/1769888.png" },
+    "Holosmith": { "profession": "Engineer", "icon": "https://render.guildwars2.com/file/F41CDEE4603FC0741669A7F2A7E977D36123DF7C/1769889.png" },
+    "Deadeye": { "profession": "Thief", "icon": "https://render.guildwars2.com/file/F93EF1717238E9ACC1CA330D4416D324AE08585D/1769895.png" },
+    "Mirage": { "profession": "Mesmer", "icon": "https://render.guildwars2.com/file/6403ECA8E6C1683E2C9D075A39C154ED3A7C04A1/1769891.png" },
+    "Scourge": { "profession": "Necromancer", "icon": "https://render.guildwars2.com/file/1407ADE7787A6BF6E457F5FA6DFA1062A5FA93FD/1769892.png" },
+    "Spellbreaker": { "profession": "Warrior", "icon": "https://render.guildwars2.com/file/06DFB7E3F267ADD0BB43C7383251343858371D02/1769896.png" },
+    "Firebrand": { "profession": "Guardian", "icon": "https://render.guildwars2.com/file/6D18B2D3EE0BFA0E4BC851A7D3C39D4330250916/1769890.png" },
+    "Renegade": { "profession": "Revenant", "icon": "https://render.guildwars2.com/file/0152279F7DD0FCFA21F2D1CC17DE21B2BD58EFF3/1769894.png" },
+    "Harbinger": { "profession": "Necromancer", "icon": "https://render.guildwars2.com/file/75B05DF5ED51D0153838EC134CEFCFC80D97DA0E/2479304.png" },
+    "Willbender": { "profession": "Guardian", "icon": "https://render.guildwars2.com/file/117F4659C3AD0AF6625D51013F03D541BEF2E8A6/2479302.png" },
+    "Virtuoso": { "profession": "Mesmer", "icon": "https://render.guildwars2.com/file/7B0F5E48320F35C0C6A2013ACF63F4C17B1105A5/2479303.png" },
+    "Catalyst": { "profession": "Elementalist", "icon": "https://render.guildwars2.com/file/1DF8CD361899081107B504A02B01C9B3B3645970/2491507.png" },
+    "Bladesworn": { "profession": "Warrior", "icon": "https://render.guildwars2.com/file/9D0ADEDFDEACCCD2B27103A944B1E7F6C21DCBE2/2491509.png" },
+    "Vindicator": { "profession": "Revenant", "icon": "https://render.guildwars2.com/file/4FE40FD1ECD6C4EC45A32A2A740AC2E2A147E04F/2491508.png" },
+    "Mechanist": { "profession": "Engineer", "icon": "https://render.guildwars2.com/file/F86CDF34404C0B5A01CD0CBB9D7D0DC1D8CC48CF/2503608.png" },
+    "Specter": { "profession": "Thief", "icon": "https://render.guildwars2.com/file/E915E494C64037C93AB53FB6F2D414B468DBCA48/2503610.png" },
+    "Untamed": { "profession": "Ranger", "icon": "https://render.guildwars2.com/file/D219A813B5312BA9D1D10A74C10E9E5F3F54936B/2503609.png" },
+    "Troubadour": { "profession": "Mesmer", "icon": "https://render.guildwars2.com/file/0FDD99E8B7A7FB4B06186C0756E02C0515520F75/3679899.png" },
+    "Paragon": { "profession": "Warrior", "icon": "https://render.guildwars2.com/file/B915D599CB40733130F7121B5CDE0BE42ED9E06C/3679904.png" },
+    "Amalgam": { "profession": "Engineer", "icon": "https://render.guildwars2.com/file/67AA599996662C5BA8427FA7BA6FF8B4ED221B0D/3679897.png" },
+    "Ritualist": { "profession": "Necromancer", "icon": "https://render.guildwars2.com/file/9064C22D08E4A7686FFB0256DDF42B97055EB144/3679900.png" },
+    "Antiquary": { "profession": "Thief", "icon": "https://render.guildwars2.com/file/569D3C9A9E7121939844809F0D05E81480C8F6F8/3679903.png" },
+    "Galeshot": { "profession": "Ranger", "icon": "https://render.guildwars2.com/file/1E0DE9DF219380B3DD15AD35466461C935930515/3679901.png" },
+    "Conduit": { "profession": "Revenant", "icon": "https://render.guildwars2.com/file/63DD70A26845681B9B993A51987F60A2F7970C52/3679902.png" },
+    "Evoker": { "profession": "Elementalist", "icon": "https://render.guildwars2.com/file/A80E0721636B027711E408BF0ADFDCD3330920AA/3679896.png" },
+    "Luminary": { "profession": "Guardian", "icon": "https://render.guildwars2.com/file/034C203DBD60CFF19D3D5CE9E71B27CA0103F50D/3679898.png" }
+  },
+  "boons": {
+    "Aegis": "https://render.guildwars2.com/file/DFB4D1B50AE4D6A275B349E15B179261EE3EB0AF/102854.png",
+    "Alacrity": "https://render.guildwars2.com/file/4FDAC2113B500104121753EF7E026E45C141E94D/1938787.png",
+    "Fury": "https://render.guildwars2.com/file/96D90DF84CAFE008233DD1C2606A12C1A0E68048/102842.png",
+    "Might": "https://render.guildwars2.com/file/2FA9DF9D6BC17839BBEA14723F1C53D645DDB5E1/102852.png",
+    "Protection": "https://render.guildwars2.com/file/CD77D1FAB7B270223538A8F8ECDA1CFB044D65F4/102834.png",
+    "Quickness": "https://render.guildwars2.com/file/D4AB6401A6D6917C3D4F230764452BCCE1035B0D/1012835.png",
+    "Regeneration": "https://render.guildwars2.com/file/F69996772B9E18FD18AD0AABAB25D7E3FC42F261/102835.png",
+    "Resistance": "https://render.guildwars2.com/file/50BAC1B8E10CFAB9E749A5D910D4A9DCF29EBB7C/961398.png",
+    "Resolution": "https://render.guildwars2.com/file/D104A6B9344A2E2096424A3C300E46BC2926E4D7/2440718.png",
+    "Stability": "https://render.guildwars2.com/file/3D3A1C2D6D791C05179AB871902D28782C65C244/415959.png",
+    "Swiftness": "https://render.guildwars2.com/file/20CFC14967E67F7A3FD4A4B8722B4CF5B8565E11/102836.png",
+    "Vigor": "https://render.guildwars2.com/file/58E92EBAF0DB4DA7C4AC04D9B22BCA5ECF0100DE/102843.png"
+  },
+  "conditions": {
+    "Bleeding": "https://render.guildwars2.com/file/79FF0046A5F9ADA3B4C4EC19ADB4CB124D5F0021/102848.png",
+    "Burning": "https://render.guildwars2.com/file/B47BF5803FED2718D7474EAF9617629AD068EE10/102849.png",
+    "Poison": "https://render.guildwars2.com/file/559B0AF9FB5E1243D2649FAAE660CCB338AACC19/102840.png",
+    "Torment": "https://render.guildwars2.com/file/10BABF2708CA3575730AC662A2E72EC292565B08/598887.png",
+    "Vulnerability": "https://render.guildwars2.com/file/3A394C1A0A3257EB27A44842DDEEF0DF000E1241/102850.png",
+    "Weakness": "https://render.guildwars2.com/file/6CB0E64AF9AA292E332A38C1770CE577E2CDE0E8/102853.png",
+    "Blind": "https://render.guildwars2.com/file/09770136BB76FD0DBE1CC4267DEED54774CB20F6/102837.png",
+    "Chill": "https://render.guildwars2.com/file/28C4EC547A3516AF0242E826772DA43A5EAC3DF3/102839.png",
+    "Cripple": "https://render.guildwars2.com/file/070325E519C178D502A8160523766070D30C0C19/102838.png",
+    "Fear": "https://render.guildwars2.com/file/30307A6E766D74B6EB09EDA12A4A2DE50E4D76F4/102869.png",
+    "Immobilize": "https://render.guildwars2.com/file/397A613651BFCA2832B6469CE34735580A2C120E/102844.png",
+    "Slow": "https://render.guildwars2.com/file/F60D1EF5271D7B9319610855676D320CD25F01C6/961397.png"
+  },
+  "runes": {
+    "Rune (generic)": "https://render.guildwars2.com/file/0C6956A85FDB6F5FFF49D708E10549D1A8459003/517197.png"
+  },
+  "sigils": {
+    "Sigil (generic)": "https://render.guildwars2.com/file/0C6956A85FDB6F5FFF49D708E10549D1A8459003/517197.png"
+  },
+  "misc": {
+    "Agony Infusion": "https://render.guildwars2.com/file/F54BC4283FFAB7531073FF08F470A9730E47FB4D/683590.png",
+    "Raid": "https://render.guildwars2.com/file/5866630DA52DCB5C423FB81ECF69FD071611E36B/1128644.png",
+    "Fractal": "https://render.guildwars2.com/file/80F608A1E8112313595813033BDEAD3C05A43D01/514379.png"
+  }
+}

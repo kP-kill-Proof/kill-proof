@@ -1,0 +1,332 @@
+{
+  "updated": "2026-07-15",
+  "note": "Seeded from KP's old sheet + meta. Edit everything from the Bible. Slots are priority-ordered: with N players, the first N slots apply; extra players default to DPS.",
+  "bosses": {
+    "vale_guardian": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Tank (toughness)", "Green circles split", "CC on Seekers {Immobilize}", "Blue Guardian CC"],
+      "strategy": "Full power burst. Split greens between subgroups.",
+      "slots": [
+        { "role": "Heal", "builds": ["Druid"], "notes": "Tank" },
+        { "role": "Support", "builds": ["qFB"], "notes": "{Quickness} {Stability} on greens" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "CC" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "gorseval": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Big CC (breakbar) ", "Updrafts 2-4", "Spirits pull {Fear}"],
+      "strategy": "Burst gold phase, save CC for breakbar.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "Pulls, Big CC" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "{Quickness} Big CC" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "CC" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Updrafts 2-4" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "sabetha": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Cannons (kite duty)", "Flame wall", "Platform launch"],
+      "strategy": "Assign cannon duties before pull. Bloodlust sigils on trash before boss.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Catalyst"], "notes": "WITH BLOODLUST SIGIL — Far Cemetery cannon" },
+        { "role": "Support", "builds": ["qFB"], "notes": "{Quickness}" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Top Cemetery cannon" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "SIGIL REMINDER" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "SIGIL REMINDER" }
+      ]
+    },
+    "slothasor": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Mushroom eaters (1st/2nd/3rd)", "Throw oils", "Big CC at 40%", "Poison kite {Poison}"],
+      "strategy": "Assign mushroom order (Mushr 1/2/3). CC hard at breakbar.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "1st pull, Mushr 2" },
+        { "role": "Support", "builds": ["P Quick Chrono"], "notes": "2nd pull, Mushr 3" },
+        { "role": "DPS", "builds": ["qFB"], "notes": "Throw oils" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Mushr 1, CC" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "CC" }
+      ]
+    },
+    "trio": {
+      "profile": { "dmg": "condi", "style": "sustained" },
+      "mechanics": ["Cage defense", "Mortars", "Throw oils", "Big cleave adds"],
+      "strategy": "Cleave builds; split oil/mortar duties.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Scourge"], "notes": "" },
+        { "role": "Support", "builds": ["qFB"], "notes": "Throw oils" },
+        { "role": "DPS", "builds": ["P Reaper"], "notes": "Big Cleave, Throw oils" },
+        { "role": "DPS", "builds": ["P Reaper"], "notes": "Big Cleave, Mortars" },
+        { "role": "DPS", "builds": ["P Reaper"], "notes": "Big Cleave" }
+      ]
+    },
+    "matthias": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Big CC (breakbar)", "Sacrifice", "Poison/corruption spread {Poison}", "Reflect bubble"],
+      "strategy": "Burst him down through phases; hard CC instantly.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Scourge"], "notes": "" },
+        { "role": "Support", "builds": ["qFB"], "notes": "40% {Stability}" },
+        { "role": "DPS", "builds": ["C Mecha"], "notes": "BIG CC" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "CC, cWB/cDar/cHarb" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "CC" }
+      ]
+    },
+    "escort": {
+      "profile": { "dmg": "any", "style": "sustained" },
+      "mechanics": ["Tower duty (Chrono portal)", "Wargs {Blind}", "Glenna escort"],
+      "strategy": "One player on tower with portal; cleave wargs with blinds.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "" },
+        { "role": "Support", "builds": ["P Quick Herald"], "notes": "" },
+        { "role": "DPS", "builds": ["Chrono Tower"], "notes": "TOWER, portal/blind" },
+        { "role": "DPS", "builds": ["P Reaper"], "notes": "Big Cleave {Blind}" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "keep_construct": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Orb pushing", "Rifts", "Big burst on exposed"],
+      "strategy": "Stack burst for exposed windows.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "Tank" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "{Quickness}" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Orbs" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Orbs" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "twisted_castle": {
+      "profile": { "dmg": "any", "style": "sustained" },
+      "mechanics": ["Statues", "Madness stacks", "Buttons"],
+      "strategy": "Speed clear; no LI here.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "{Stability}" },
+        { "role": "Support", "builds": ["qFB"], "notes": "Aegis walls {Aegis}" },
+        { "role": "DPS", "builds": ["Any"], "notes": "" }
+      ]
+    },
+    "xera": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Tank", "Buttons/islands", "Shards {Vulnerability}"],
+      "strategy": "5 toughness infusions on the P Ritualist tank setup (from old sheet).",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "" },
+        { "role": "DPS", "builds": ["P Ritualist"], "notes": "5 toughness infu (tank)" },
+        { "role": "DPS", "builds": ["P Ritualist"], "notes": "" },
+        { "role": "DPS", "builds": ["Blsw/Scrp/Ele"], "notes": "" }
+      ]
+    },
+    "cairn": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Agony order 1-4 {Agony Infusion}", "Greens teleport", "Displacement"],
+      "strategy": "Assign agony order before pull.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "Agony 1-4, Dispel" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "Agony 2" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "Agony 3, cVirt/cHarb" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "" }
+      ]
+    },
+    "mursaat": {
+      "profile": { "dmg": "any", "style": "sustained" },
+      "mechanics": ["Claim / Dispel / Protect duties", "Jade soldiers"],
+      "strategy": "Fixed duty assignment: Claim, Dispel, Protect.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "Dispel" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "Claim" },
+        { "role": "DPS", "builds": ["Any"], "notes": "Protect, cMech/cHarb" },
+        { "role": "DPS", "builds": ["Any"], "notes": "" },
+        { "role": "DPS", "builds": ["Any"], "notes": "" }
+      ]
+    },
+    "samarog": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["BIG CC (double breakbar)", "Fixation tank", "Guldhem/Rigom pulls", "Directions N/S/W/E for spears"],
+      "strategy": "Everyone brings CC. Pull Rigom into boss.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "BIG CC" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "BIG CC, Pulls Rigom" },
+        { "role": "DPS", "builds": ["Virt/Vindi/Dar/Zerker"], "notes": "BIG CC, North" },
+        { "role": "DPS", "builds": ["Virt/Vindi/Dar/Zerker"], "notes": "BIG CC, South" },
+        { "role": "DPS", "builds": ["Virt/Vindi/Dar/Zerker"], "notes": "BIG CC, West" }
+      ]
+    },
+    "deimos": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Black kiter", "Hand kiter (Saul)", "Oils", "Tank (Cele Scourge)", "10% burst"],
+      "strategy": "Cele Scourge tanks, Heal Catalyst kites.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Catalyst"], "notes": "Kiter" },
+        { "role": "Support", "builds": ["Cele Scourge"], "notes": "Tank" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Oils" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "soulless_horror": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Tank swap (Necrosis)", "Scythes", "Walls", "Big Might {Might}"],
+      "strategy": "Two tanks swap on Necrosis stacks.",
+      "slots": [
+        { "role": "Heal", "builds": ["Druid"], "notes": "Big Might, Turtle" },
+        { "role": "Support", "builds": ["C Chrono"], "notes": "Tank, WoAction" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "Tank swap, cWB/cDar/cHarb" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "" }
+      ]
+    },
+    "river": {
+      "profile": { "dmg": "any", "style": "sustained" },
+      "mechanics": ["Desmina escort", "Bombs", "Wall of souls"],
+      "strategy": "Stack swiftness {Swiftness}, cleave adds around Desmina.",
+      "slots": [
+        { "role": "Heal", "builds": ["Druid"], "notes": "" },
+        { "role": "Support", "builds": ["Chrono Portal"], "notes": "Portal x2" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Power!!" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Power!!" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Power!!" }
+      ]
+    },
+    "eyes": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Light orbs {Blind}", "Fixations"],
+      "strategy": "Burst both eyes evenly.",
+      "slots": [
+        { "role": "Heal", "builds": ["Druid"], "notes": "" },
+        { "role": "Support", "builds": ["P Chrono"], "notes": "" },
+        { "role": "DPS", "builds": ["P Virtuoso"], "notes": "Transition River>Eyes" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Power!!" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "eater": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Orb throws (Enervators)", "Spirit adds"],
+      "strategy": "2nd to 3rd Enervator assignment (old sheet).",
+      "slots": [
+        { "role": "Heal", "builds": ["Druid"], "notes": "" },
+        { "role": "Support", "builds": ["Heal Scrapper"], "notes": "Orbs" },
+        { "role": "DPS", "builds": ["P Virtuoso"], "notes": "2nd to 3rd Enervator" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Power!!" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "broken_king": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Green circles (ice)", "Cone attacks"],
+      "strategy": "Soak greens; steady DPS.",
+      "slots": [
+        { "role": "Heal", "builds": ["Druid"], "notes": "" },
+        { "role": "Support", "builds": ["P Scrapper"], "notes": "" },
+        { "role": "DPS", "builds": ["P Virtuoso"], "notes": "" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Power!!" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "dhuum": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Green circles G1/G2/G3", "Tank (Deathmark)", "Messengers kite", "10% pre-event"],
+      "strategy": "Assign greens G1/G2/G3; kite messengers.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "G2" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "G3, Tank" },
+        { "role": "DPS", "builds": ["cMech/cHarb"], "notes": "1st G2" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "G1" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "1st, 2nd G3" }
+      ]
+    },
+    "ca": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Sword/Shield collection", "Pulls (arms)", "Big burst"],
+      "strategy": "Heal Chrono pulls; assign swords/shields.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "Pulls, Shields" },
+        { "role": "Support", "builds": ["P Quick Herald"], "notes": "Swords" },
+        { "role": "DPS", "builds": ["Blsw/Scrp/Ele"], "notes": "" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "largos": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Two platforms split", "Tidal pools", "Dashes"],
+      "strategy": "Split subgroups per largos; heal chrono each side ideally.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "" },
+        { "role": "Support", "builds": ["C Chrono"], "notes": "" },
+        { "role": "DPS", "builds": ["cMech/cHarb"], "notes": "" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "" }
+      ]
+    },
+    "qadim": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Lamp duty (kiter)", "Pyre kiting", "Wyverns/Patriarch", "Open Lamp boonstrip"],
+      "strategy": "Quickscrapper opens lamp (boonstrip); kiter on pyres.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "Tank Pulls" },
+        { "role": "Support", "builds": ["Quickscrapper"], "notes": "Open Lamp, boonstrip" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Kiter" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "Lamp" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "CC" }
+      ]
+    },
+    "sabir": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Kiter (Deadeye) — NO CC, melee after 40%", "Big CC", "Wind platforms 80%/60%"],
+      "strategy": "Kiter Deadeye handles tornado; rest burst + CC.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "2nd, Big CC" },
+        { "role": "Support", "builds": ["P Quick Chrono"], "notes": "1st" },
+        { "role": "DPS", "builds": ["Kiter Deadeye"], "notes": "NO CC, North; melee after 40%" },
+        { "role": "DPS", "builds": ["C Mecha"], "notes": "Big CC" },
+        { "role": "DPS", "builds": ["P DPS"], "notes": "CC" }
+      ]
+    },
+    "adina": {
+      "profile": { "dmg": "power", "style": "sustained" },
+      "mechanics": ["Pillars (blind spots)", "Hands {Blind}", "Radiance (look away)", "Tank"],
+      "strategy": "Druid tank; assign pillar directions.",
+      "slots": [
+        { "role": "Heal", "builds": ["Heal Chrono"], "notes": "Boonstrip" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "Tank" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "cWB/cDar" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "" }
+      ]
+    },
+    "qtp": {
+      "profile": { "dmg": "power", "style": "burst" },
+      "mechanics": ["Pylon duty ×3 (East/West/North)", "Solo CC pylon", "Lightning orbs 80%/60%"],
+      "strategy": "3 pylon DPS rotate; 'Any class' flex slot from old sheet.",
+      "slots": [
+        { "role": "Heal", "builds": ["Druid"], "notes": "Tank 80%" },
+        { "role": "Support", "builds": ["qCatalyst"], "notes": "80% / 60%" },
+        { "role": "DPS", "builds": ["Pylon DPS"], "notes": "West, Solo CC Pylon" },
+        { "role": "DPS", "builds": ["Pylon DPS"], "notes": "East, Solo CC Pylon" },
+        { "role": "DPS", "builds": ["C DPS"], "notes": "Any class, 80%/60%" }
+      ]
+    },
+    "greer": { "profile": { "dmg": "condi", "style": "sustained" }, "mechanics": ["Adds cleave", "Poison fields {Poison}"], "strategy": "Pending team practice.", "slots": [] },
+    "decima": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Lightning conduits", "Greens"], "strategy": "Pending team practice.", "slots": [] },
+    "ura": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Steam vents", "Bloodstone"], "strategy": "Pending team practice.", "slots": [] },
+    "icebrood_construct": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Big CC"], "strategy": "", "slots": [] },
+    "voice_claw": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Split kodans"], "strategy": "", "slots": [] },
+    "fraenir": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Ice CC {Chill}"], "strategy": "", "slots": [] },
+    "boneskinner": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Torch duty", "Grasps"], "strategy": "", "slots": [] },
+    "whisper": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Chains {Chill}", "Doom spread"], "strategy": "", "slots": [] },
+    "aetherblade": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Mai Trin echoes"], "strategy": "", "slots": [] },
+    "junkyard": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Ankka phases"], "strategy": "", "slots": [] },
+    "kaineng": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Minister Li split"], "strategy": "", "slots": [] },
+    "harvest_temple": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Void phases", "Greens"], "strategy": "", "slots": [] },
+    "olc": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Three watchknights"], "strategy": "", "slots": [] },
+    "cosmic_observatory": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Dagda purification"], "strategy": "", "slots": [] },
+    "temple_of_febe": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Cerus embodiments"], "strategy": "", "slots": [] },
+    "guardians_glade": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Pending team practice"], "strategy": "", "slots": [] }
+  }
+}

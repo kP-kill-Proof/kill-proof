@@ -5,8 +5,9 @@
       "id": "mati",
       "name": "Mati",
       "mainRole": "Healer",
+      "core": true,
       "classes": [
-        { "name": "Druid", "role": "Healer", "level": "S" }
+        { "name": "Druid", "role": "Heal", "level": "S" }
       ],
       "mechanics": [],
       "notes": "Starter example — edit or replace from the Roster section."

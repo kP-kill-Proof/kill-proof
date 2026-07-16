@@ -40,15 +40,27 @@ function Logo() {
 
 export default function App() {
   const [tab, setTab] = useState('sale')
-  const [store, setStore] = useState({ wings: null, players: null, events: null })
+  const [store, setStore] = useState({ wings: null, players: null, events: null, comps: null, icons: null })
   const [dirty, setDirty] = useState({})
   const [toast, setToast] = useState(null)
 
   useEffect(() => {
     ;(async () => {
-      const [w, p, e] = await Promise.all([loadData('wings'), loadData('players'), loadData('events')])
-      setStore({ wings: w.data ?? { wings: [] }, players: p.data ?? { players: [] }, events: e.data ?? { events: [] } })
-      setDirty({ wings: w.dirty, players: p.dirty, events: e.dirty })
+      const [w, p, e, c, i] = await Promise.all([
+        loadData('wings'),
+        loadData('players'),
+        loadData('events'),
+        loadData('comps'),
+        loadData('icons'),
+      ])
+      setStore({
+        wings: w.data ?? { wings: [] },
+        players: p.data ?? { players: [] },
+        events: e.data ?? { events: [] },
+        comps: c.data ?? { bosses: {} },
+        icons: i.data ?? {},
+      })
+      setDirty({ wings: w.dirty, players: p.dirty, events: e.dirty, comps: c.dirty })
     })()
   }, [])
 
@@ -114,7 +126,7 @@ export default function App() {
             }`}
           >
             {toast.msg}
-                    </div>
+          </div>
         )}
       </div>
     </DataCtx.Provider>

@@ -1,5 +1,5 @@
-// Carga de datos: JSON base del repo + overrides locales (localStorage).
-// Guardado global: GitHub Contents API (token del editor) o export manual.
+// Data loading: base JSON from the repo + local overrides (localStorage).
+// Publishing: GitHub Contents API (editor's token) or manual export.
 
 const LS_PREFIX = 'kp_data_'
 const GH_KEY = 'kp_github_cfg'
@@ -8,6 +8,8 @@ export const DATA_FILES = {
   wings: 'data/wings.json',
   players: 'data/players.json',
   events: 'data/events.json',
+  comps: 'data/comps.json',
+  icons: 'data/icons.json',
 }
 
 export async function loadData(name) {
@@ -19,7 +21,7 @@ export async function loadData(name) {
     try {
       return { data: JSON.parse(local), dirty: true, base }
     } catch {
-      /* corrupto → usar base */
+      /* corrupt -> use base */
     }
   }
   return { data: base, dirty: false, base }
@@ -61,20 +63,18 @@ function b64(str) {
 
 export async function saveToGithub(name, data) {
   const { owner, repo, branch = 'main', token } = getGithubCfg()
-  if (!owner || !repo || !token) throw new Error('Configura GitHub en Ajustes primero.')
-  // repo con package.json en la raíz → los datos viven en public/
+  if (!owner || !repo || !token) throw new Error('Set up GitHub in Settings first.')
   const path = `public/${DATA_FILES[name]}`
   const api = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`
   const headers = {
     Authorization: `Bearer ${token}`,
     Accept: 'application/vnd.github+json',
   }
-  // sha actual (si el archivo existe)
   let sha
   const cur = await fetch(`${api}?ref=${branch}`, { headers })
   if (cur.ok) sha = (await cur.json()).sha
   const body = {
-    message: `Actualizar ${name}.json desde la app`,
+    message: `Update ${name}.json from the app`,
     content: b64(JSON.stringify(data, null, 2)),
     branch,
     ...(sha ? { sha } : {}),
@@ -82,7 +82,7 @@ export async function saveToGithub(name, data) {
   const res = await fetch(api, { method: 'PUT', headers, body: JSON.stringify(body) })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || `Error ${res.status} guardando en GitHub`)
+    throw new Error(err.message || `Error ${res.status} saving to GitHub`)
   }
   return true
 }

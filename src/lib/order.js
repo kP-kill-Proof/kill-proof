@@ -6,7 +6,7 @@
 // 3) Final order is grouped by wing, and inside each wing bosses follow the
 //    wing's natural encounter order (e.g. Soulless Horror -> River of Souls).
 
-const SAME_WING_BONUS = 45 // seconds of "virtual discount" for staying in the same wing
+const SAME_WING_BONUS = 45
 
 export function flattenBosses(wings) {
   const out = []
@@ -52,7 +52,6 @@ export function buildSaleList({ wings, dailyIds, discarded, liTarget }) {
     acc += best.li ?? 1
   }
 
-  // ---- final ordering: group by wing, natural encounter order inside each wing ----
   const byWing = new Map()
   for (const b of selected) {
     if (!byWing.has(b.wing.id)) byWing.set(b.wing.id, [])

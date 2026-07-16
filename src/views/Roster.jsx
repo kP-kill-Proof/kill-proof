@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useData } from '../App.jsx'
 import { SaveBar } from './Bible.jsx'
+import { BuildChip } from '../lib/icons.jsx'
 
 const ROLES = ['Healer', 'Support DPS', 'DPS', 'Tank', 'Flex']
 const LEVELS = ['S', 'A', 'B', 'C']
@@ -48,7 +49,7 @@ function ClassRow({ row, onChange, onRemove }) {
 
 function PlayerForm({ initial, onSave, onCancel }) {
   const [p, setP] = useState(
-    initial || { id: '', name: '', mainRole: 'DPS', classes: [], mechanics: [], notes: '' }
+    initial || { id: '', name: '', mainRole: 'DPS', core: false, classes: [], mechanics: [], notes: '' }
   )
   const set = (k, v) => setP((x) => ({ ...x, [k]: v }))
   const csv = (v) => v.split(',').map((s) => s.trim()).filter(Boolean)
@@ -104,6 +105,10 @@ function PlayerForm({ initial, onSave, onCancel }) {
         <span className="text-silver/60 font-semibold">Notes</span>
         <input className="input w-full mt-1" placeholder="Availability, preferences…" value={p.notes || ''} onChange={(e) => set('notes', e.target.value)} />
       </label>
+      <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+        <input type="checkbox" className="w-4 h-4 accent-teal" checked={!!p.core} onChange={(e) => set('core', e.target.checked)} />
+        <span className="text-silver/70">Core member — preselected in the default squad every day</span>
+      </label>
 
       <div className="flex gap-2 justify-end">
         <button className="btn btn-ghost text-sm" onClick={onCancel}>Cancel</button>
@@ -126,8 +131,8 @@ function PlayerForm({ initial, onSave, onCancel }) {
 }
 
 export default function Roster() {
-  const { players, update } = useData()
-  const [editing, setEditing] = useState(null) // null | 'new' | player.id
+  const { players, update, icons } = useData()
+  const [editing, setEditing] = useState(null)
 
   const save = (p) => {
     const list = players.players.some((x) => x.id === p.id)
@@ -145,8 +150,8 @@ export default function Roster() {
         <div>
           <h1 className="font-display text-3xl text-cream mb-1">Roster</h1>
           <p className="text-sm text-silver/60">
-            Squad members: classes they play, roles and skill level. Comp generation will use this
-            to put everyone where they perform best.
+            Squad members: classes they play, roles and skill level. Comp generation uses this to
+            put everyone where they perform best.
           </p>
         </div>
         <button className="btn btn-primary text-sm" onClick={() => setEditing('new')}>
@@ -166,7 +171,9 @@ export default function Roster() {
             <div key={p.id} className="card p-5 anim-in" style={{ animationDelay: `${i * 0.05}s` }}>
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <div className="font-bold text-cream text-lg">{p.name}</div>
+                  <div className="font-bold text-cream text-lg">
+                    {p.name} {p.core && <span title="Core / default squad" className="text-cream/80">★</span>}
+                  </div>
                   <span className="chip bg-teal-deep/40 text-teal-light mt-1">{p.mainRole}</span>
                 </div>
                 <div className="flex gap-1.5">
@@ -184,7 +191,7 @@ export default function Roster() {
                   {p.classes.map((c, j) => (
                     <div key={j} className="flex items-center gap-2 text-sm">
                       <span className={`chip border ${LEVEL_STYLE[c.level] || LEVEL_STYLE.B}`}>{c.level}</span>
-                      <span className="text-cream font-semibold">{c.name}</span>
+                      <span className="text-cream font-semibold"><BuildChip name={c.name} icons={icons} /></span>
                       <span className="text-silver/50 text-xs">{c.role}</span>
                     </div>
                   ))}

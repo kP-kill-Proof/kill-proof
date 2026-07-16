@@ -10,6 +10,7 @@ export const DATA_FILES = {
   events: 'data/events.json',
   comps: 'data/comps.json',
   icons: 'data/icons.json',
+  builds: 'data/builds.json',
 }
 
 export async function loadData(name) {

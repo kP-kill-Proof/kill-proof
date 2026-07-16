@@ -337,7 +337,7 @@
             "Shiverpeaks Pass"
           ],
           "time": 96,
-          "li": 0
+          "li": 1
         },
         {
           "id": "voice_claw",
@@ -347,7 +347,7 @@
             "Kodans"
           ],
           "time": 66,
-          "li": 0
+          "li": 1
         },
         {
           "id": "fraenir",
@@ -356,14 +356,14 @@
             "Fraenir"
           ],
           "time": 109,
-          "li": 0
+          "li": 1
         },
         {
           "id": "boneskinner",
           "name": "Boneskinner",
           "aliases": [],
           "time": 121,
-          "li": 0
+          "li": 1
         },
         {
           "id": "cold_war",
@@ -372,7 +372,7 @@
             "Varinia Stormsounder"
           ],
           "time": null,
-          "li": 0
+          "li": 1
         },
         {
           "id": "whisper",
@@ -381,7 +381,7 @@
             "Whisper"
           ],
           "time": 203,
-          "li": 0
+          "li": 1
         }
       ]
     },

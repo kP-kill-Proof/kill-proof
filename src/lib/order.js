@@ -23,7 +23,8 @@ export function buildSaleList({ wings, dailyIds, discarded, liTarget }) {
   for (const b of all) {
     if (isDiscarded(b.id)) continue
     const isDaily = dailyIds.includes(b.id)
-    const effLi = isDaily ? 2 : b.wing.type === 'raid' ? (b.li ?? 1) : 0
+    // any boss with an explicit LI value is a valid option (raids and IBS strikes)
+    const effLi = isDaily ? 2 : (b.li ?? (b.wing.type === 'raid' ? 1 : 0))
     if (effLi <= 0) continue
     candidates.push({ ...b, isDaily, effLi, cost: b.time ?? UNKNOWN_TIME_COST })
   }

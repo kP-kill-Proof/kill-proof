@@ -5,7 +5,7 @@ const CATEGORY_DAILY_RAID_BOUNTIES = 475
 
 export async function fetchDailyBounties() {
   const cat = await fetch(
-    `https://api.guildwars2.com/v2/achievements/categories/${CATEGORY_DAILY_RAID_BOUNTIES}`
+    `https://api.guildwars2.com/v2/achievements/categories/${CATEGORY_DAILY_RAID_BOUNTIES}?lang=en`
   ).then((r) => {
     if (!r.ok) throw new Error('API GW2 no disponible')
     return r.json()
@@ -13,7 +13,7 @@ export async function fetchDailyBounties() {
   const ids = cat.achievements || []
   if (!ids.length) return []
   const achievements = await fetch(
-    `https://api.guildwars2.com/v2/achievements?ids=${ids.join(',')}`
+    `https://api.guildwars2.com/v2/achievements?ids=${ids.join(',')}&lang=en`
   ).then((r) => {
     if (!r.ok) throw new Error('API GW2 no disponible')
     return r.json()

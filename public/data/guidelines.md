@@ -1,36 +1,36 @@
 # Guidelines — KILL PROOF Sales Tool
 
-## Cómo usar la app el día del sale
+## How to run a sale day
 
-1. Abre la app. En **Sale del Día** verás los 4 Daily Raid Bounties de hoy (se consultan solos a la API de GW2).
-2. Ingresa el **LI objetivo** del sale. La app arma el orden: dailies primero (valen 2 LI), luego los bosses más rápidos hasta llegar a la meta.
-3. Selecciona **quiénes van hoy** en el panel de roster.
-4. Si un boss no conviene hoy, usa **Descartar** — entra automáticamente el siguiente mejor.
-5. El commander marca cada boss como **completado**; el siguiente se destaca solo. El progreso se guarda en su navegador aunque refresque la página.
+1. Open the app. **Today's Sale** shows the 4 Daily Raid Bounties (fetched live from the GW2 API).
+2. Set the **LI target** for the sale. The app builds the run: dailies first (2 LI each), then the most efficient bosses until the target is reached.
+3. Pick **who's in today** in the roster panel.
+4. If a boss doesn't suit today's squad, hit **Discard (✕)** — the next best boss takes its place automatically.
+5. The commander checks off each boss as **done**; the next one lights up. Progress survives a page refresh (stored in the commander's browser).
 
-## Cómo actualizar datos
+## How the order works
 
-Todo lo editable se edita **desde la misma app** (sección Biblia, Jugadores o Eventos): tiempos de bosses, LI, perfiles, notas, eventos.
+- Dailies always go in (golden rule) and are worth **2 LI**; every other boss gives **1 LI** (Twisted Castle gives none).
+- The run is **grouped by wing** to cut downtime: if Soulless Horror is in, River of Souls follows right after instead of jumping wings.
+- When picking filler bosses, the app slightly prefers bosses in wings you're already visiting, even over marginally faster kills elsewhere.
 
-- Los cambios se guardan primero en tu navegador.
-- Para que **todos** los vean, pulsa **Guardar en GitHub** (requiere el token configurado en Ajustes — se configura una sola vez). El sitio se republica solo en ~1 minuto.
-- Sin token: usa **Exportar JSON** y súbelo a GitHub a mano (botón lápiz sobre el archivo en `public/data/`).
+## How to update data
 
-## Qué archivo controla qué
+Everything editable lives **inside the app** (Bible, Roster, Events): boss times, LI values, member profiles, events.
 
-| Archivo | Contenido |
+- Changes are saved to your browser first.
+- To publish for **everyone**, press **Save to GitHub** (needs the token set up once in Settings). The site republishes itself in ~1 minute.
+- No token? Use **Export JSON** and upload the file to GitHub by hand (pencil button on the file inside `public/data/`).
+
+## Which file controls what
+
+| File | Contents |
 |---|---|
-| `public/data/wings.json` | Wings, bosses, tiempos, LI |
-| `public/data/players.json` | Perfiles del roster |
-| `public/data/events.json` | Ventas por evento |
-| `public/data/guidelines.md` | Esta guía |
+| `public/data/wings.json` | Wings, bosses, times, LI |
+| `public/data/players.json` | Squad roster |
+| `public/data/events.json` | Event sales |
+| `public/data/guidelines.md` | This guide |
 
-## Reglas del equipo
+## Team rules
 
-- Regla de oro: los dailies siempre se hacen (2 LI). Descartar es la excepción.
-- Todos los bosses dan 1 LI; el daily da 2. Twisted Castle no da LI.
-- Runs de LI = solo raids. Fractals y achievements se venden por evento.
-
-## Acceso
-
-El link de la app es público. Para editar y guardar a GitHub se necesita ser colaborador del repo — pídele acceso a Herman.
+- Golden rule: dailies are always done (2 

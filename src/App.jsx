@@ -1,27 +1,28 @@
 import { useEffect, useState, createContext, useContext } from 'react'
 import { loadData, saveLocal, discardLocal, exportJson, saveToGithub, getGithubCfg } from './lib/store.js'
 import SaleDay from './views/SaleDay.jsx'
-import Biblia from './views/Biblia.jsx'
-import Eventos from './views/Eventos.jsx'
+import Bible from './views/Bible.jsx'
+import Roster from './views/Roster.jsx'
+import Events from './views/Events.jsx'
 import Guidelines from './views/Guidelines.jsx'
-import Ajustes from './views/Ajustes.jsx'
+import Settings from './views/Settings.jsx'
 
 export const DataCtx = createContext(null)
 export const useData = () => useContext(DataCtx)
 
 const TABS = [
-  { id: 'sale', label: 'Sale del Día' },
-  { id: 'biblia', label: 'Biblia' },
-  { id: 'eventos', label: 'Eventos' },
+  { id: 'sale', label: "Today's Sale" },
+  { id: 'bible', label: 'Bible' },
+  { id: 'roster', label: 'Roster' },
+  { id: 'events', label: 'Events' },
   { id: 'guidelines', label: 'Guidelines' },
-  { id: 'ajustes', label: 'Ajustes' },
+  { id: 'settings', label: 'Settings' },
 ]
 
 function Logo() {
   return (
     <div className="flex items-center gap-3 select-none">
       <div className="relative w-11 h-11 shrink-0">
-        {/* hojas estilizadas del logo */}
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-teal-deep via-teal to-silver/60 opacity-80 blur-[1px]" />
         <div className="absolute inset-[3px] rounded-full bg-ink flex items-center justify-center">
           <span className="font-display text-cream text-sm leading-none">KP</span>
@@ -67,7 +68,7 @@ export default function App() {
       await saveToGithub(name, store[name])
       discardLocal(name)
       setDirty((d) => ({ ...d, [name]: false }))
-      notify(`${name}.json publicado — el sitio se actualiza en ~1 min`)
+      notify(`${name}.json published — site updates in ~1 min`)
     } catch (e) {
       notify(e.message, 'err')
     }
@@ -94,14 +95,15 @@ export default function App() {
         </header>
 
         {!store.wings ? (
-          <div className="card p-10 text-center anim-in">Cargando datos…</div>
+          <div className="card p-10 text-center anim-in">Loading data…</div>
         ) : (
           <main key={tab} className="anim-in">
             {tab === 'sale' && <SaleDay />}
-            {tab === 'biblia' && <Biblia />}
-            {tab === 'eventos' && <Eventos />}
+            {tab === 'bible' && <Bible />}
+            {tab === 'roster' && <Roster />}
+            {tab === 'events' && <Events />}
             {tab === 'guidelines' && <Guidelines />}
-            {tab === 'ajustes' && <Ajustes />}
+            {tab === 'settings' && <Settings />}
           </main>
         )}
 
@@ -112,7 +114,7 @@ export default function App() {
             }`}
           >
             {toast.msg}
-          </div>
+                    </div>
         )}
       </div>
     </DataCtx.Provider>

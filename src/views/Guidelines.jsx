@@ -7,7 +7,7 @@ export default function Guidelines() {
     fetch(`${import.meta.env.BASE_URL}data/guidelines.md`)
       .then((r) => r.text())
       .then((t) => setHtml(renderMd(t)))
-      .catch(() => setHtml('<p>No se pudo cargar la guía.</p>'))
+      .catch(() => setHtml('<p>Could not load the guide.</p>'))
   }, [])
   return (
     <div className="card p-6 md:p-8 anim-in">

@@ -5,10 +5,8 @@
       "id": "mati",
       "name": "Mati",
       "mainRole": "Healer",
-      "roles": ["Healer", "DPS"],
-      "bestClasses": [],
+      "classes": [
+        { "name": "Druid", "role": "Healer", "level": "S" }
+      ],
       "mechanics": [],
-      "notes": "Ejemplo inicial — editar desde la app. Perfiles completos pendientes."
-    }
-  ]
-}
+      "notes": "Starter example — edit or replace from the Roster sect

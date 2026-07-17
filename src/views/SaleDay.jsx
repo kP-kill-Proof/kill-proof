@@ -333,9 +333,12 @@ export default function SaleDay() {
   const mainToRole = (p) => (normRole(p?.mainRole) === 'heal' ? 'Heal' : normRole(p?.mainRole) === 'support' ? 'Support' : 'DPS')
   const SLOTS = 10
   const slotify = (r) => {
-    const arr = (r || []).map((x) =>
-      typeof x === 'string' ? { id: x, role: mainToRole((players?.players || []).find((p) => p.id === x)) } : x
-    )
+    const exists = (id) => (players?.players || []).some((p) => p.id === id)
+    const arr = (r || [])
+      .map((x) =>
+        typeof x === 'string' ? { id: x, role: mainToRole((players?.players || []).find((p) => p.id === x)) } : x
+      )
+      .map((x) => (x && exists(x.id) ? x : null))
     if (arr.length === SLOTS) return arr.map((x) => x || null)
     const out = new Array(SLOTS).fill(null)
     arr.filter(Boolean).forEach((x, i) => {

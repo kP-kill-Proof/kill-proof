@@ -256,19 +256,19 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onSwap, onMoveTo
         {!presentPlayers.length ? (
           <p className="text-sm text-silver/50">Select today's squad to see assignments.</p>
         ) : (
-          <div className="grid lg:grid-cols-2 gap-4 items-start">
+          <div className="grid lg:grid-cols-2 gap-4">
             {[1, 2].map((g) => {
               const groupRows = assigned.filter((a) => a.player?.subgroup === g)
               const cov = squadCoverage(groupRows, builds)
               return (
                 <div
                   key={g}
-                  className="space-y-2 rounded-2xl border border-teal-deep/25 bg-ink/30 p-3"
+                  className="space-y-2 rounded-2xl border border-teal-deep/25 bg-ink/30 p-3 h-full"
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => {
                     e.preventDefault()
                     const id = e.dataTransfer.getData('text/plain')
-                    if (id) onMoveToSubgroup(id, g)
+                    if (id) onMoveToSubgroup(id, g - 1)
                   }}
                 >
                   <div className="text-[10px] uppercase tracking-widest text-teal-light/70 font-bold">Subgroup {g}</div>
@@ -290,7 +290,7 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onSwap, onMoveTo
                         className="flex flex-wrap items-center gap-2.5 bg-ink/60 border border-teal-deep/30 rounded-xl px-3 py-2.5 cursor-grab active:cursor-grabbing hover:border-teal/50 transition-colors"
                       >
                         <span className="text-silver/40 select-none text-lg leading-none" title="Drag to move">⠿</span>
-                        <span className={`chip ${a.slot.role === 'Heal' ? 'bg-teal/25 text-teal-light' : a.slot.role === 'Support' ? 'bg-cream/15 text-cream' : 'bg-silver/10 text-silver'}`}>
+                        <span className={`chip w-[4.5rem] justify-center ${a.slot.role === 'Heal' ? 'bg-teal/25 text-teal-light' : a.slot.role === 'Support' ? 'bg-cream/15 text-cream' : 'bg-silver/10 text-silver'}`}>
                           {a.slot.role}
                         </span>
                         <span className="font-bold text-cream">{a.player?.name}</span>
@@ -440,6 +440,7 @@ export default function SaleDay() {
     dropOnSlot(idA, b)
   }
   const moveToSubgroup = (id, g) => {
+    if (g !== 0 && g !== 1) return
     const from = slotIndexOf(id)
     if (from === -1) return
     if (from >= g * 5 && from < g * 5 + 5) return

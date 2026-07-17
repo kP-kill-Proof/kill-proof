@@ -53,7 +53,7 @@ const ROLE_CHIP = {
   DPS: 'bg-silver/10 text-silver border-silver/30',
 }
 
-function SquadPanel({ players, roster, setRoster }) {
+function SquadPanel({ players, roster, setRoster, onDropSlot }) {
   const { icons } = useData()
   const [openSlot, setOpenSlot] = useState(null)
   const used = roster.filter(Boolean).map((r) => r.id)
@@ -76,6 +76,12 @@ function SquadPanel({ players, roster, setRoster }) {
               : 'border-teal-deep/40 hover:border-teal/70 cursor-pointer flex items-center justify-center'
           }`}
           onClick={() => !isOpen && setOpenSlot(i)}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault()
+            const id = e.dataTransfer.getData('text/plain')
+            if (id) onDropSlot(id, i)
+          }}
         >
           {isOpen ? (
             <div>
@@ -122,9 +128,20 @@ function SquadPanel({ players, roster, setRoster }) {
         </div>
       )
     return (
-      <div key={i} className="card p-3 border-teal-light/50 min-h-36 flex flex-col">
+      <div
+        key={i}
+        draggable
+        onDragStart={(e) => e.dataTransfer.setData('text/plain', p.id)}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => {
+          e.preventDefault()
+          const id = e.dataTransfer.getData('text/plain')
+          if (id && id !== p.id) onDropSlot(id, i)
+        }}
+        className="card p-3 border-teal-light/50 min-h-36 flex flex-col cursor-grab active:cursor-grabbing"
+      >
         <div className="flex items-start justify-between gap-1">
-          <div className="font-bold text-cream truncate">
+          <div className="font-bold text-cream truncate" title={p.name}>
             {p.name}
           </div>
           <button
@@ -182,7 +199,7 @@ function SquadPanel({ players, roster, setRoster }) {
   )
 }
 
-function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overrides, setOverride }) {
+function BossDetail({ boss, presentPlayers, done, onToggleDone, onSwap, onMoveToSubgroup }) {
   const { comps, icons, builds } = useData()
   const comp = comps.bosses?.[boss.id]
   const k = comp || {}
@@ -191,13 +208,7 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
     () => suggestAssignments({ comp, players: presentPlayers }),
     [comp, presentPlayers]
   )
-  const ov = overrides || {}
-  const assigned = suggestions.map((a, i) => {
-    const forcedId = ov[i]
-    if (!forcedId) return a
-    const p = presentPlayers.find((x) => x.id === forcedId)
-    return p ? { ...a, player: p, build: bestBuildFor(p, a.slot) } : a
-  })
+  const assigned = suggestions
 
   const coverage = useMemo(() => squadCoverage(assigned, builds), [assigned, builds])
 
@@ -250,25 +261,39 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
               const groupRows = assigned.filter((a) => a.player?.subgroup === g)
               const cov = squadCoverage(groupRows, builds)
               return (
-                <div key={g} className="space-y-2 rounded-2xl border border-teal-deep/25 bg-ink/30 p-3">
+                <div
+                  key={g}
+                  className="space-y-2 rounded-2xl border border-teal-deep/25 bg-ink/30 p-3"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    e.preventDefault()
+                    const id = e.dataTransfer.getData('text/plain')
+                    if (id) onMoveToSubgroup(id, g)
+                  }}
+                >
                   <div className="text-[10px] uppercase tracking-widest text-teal-light/70 font-bold">Subgroup {g}</div>
                   {groupRows.map((a) => {
                     const i = assigned.indexOf(a)
                     const info = resolveBuildInfo(a.build, builds)
                     return (
-                      <div key={i} className="flex flex-wrap items-center gap-2.5 bg-ink/60 border border-teal-deep/30 rounded-xl px-3 py-2.5">
+                      <div
+                        key={i}
+                        draggable
+                        onDragStart={(e) => e.dataTransfer.setData('text/plain', a.player?.id || '')}
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          const id = e.dataTransfer.getData('text/plain')
+                          if (id && a.player && id !== a.player.id) onSwap(id, a.player.id)
+                        }}
+                        className="flex flex-wrap items-center gap-2.5 bg-ink/60 border border-teal-deep/30 rounded-xl px-3 py-2.5 cursor-grab active:cursor-grabbing hover:border-teal/50 transition-colors"
+                      >
+                        <span className="text-silver/40 select-none text-lg leading-none" title="Drag to move">⠿</span>
                         <span className={`chip ${a.slot.role === 'Heal' ? 'bg-teal/25 text-teal-light' : a.slot.role === 'Support' ? 'bg-cream/15 text-cream' : 'bg-silver/10 text-silver'}`}>
                           {a.slot.role}
                         </span>
-                        <select
-                          className="input !py-1 w-28 text-sm font-semibold"
-                          value={a.player?.id || ''}
-                          onChange={(e) => setOverride(i, e.target.value)}
-                        >
-                          {presentPlayers.map((p) => (
-                            <option key={p.id} value={p.id}>{p.name}</option>
-                          ))}
-                        </select>
+                        <span className="font-bold text-cream">{a.player?.name}</span>
                         <span className="font-bold text-cream [&_img]:w-6 [&_img]:h-6">
                           <BuildChip name={a.build} icons={icons} />
                         </span>
@@ -350,7 +375,6 @@ export default function SaleDay() {
   const [discarded, setDiscarded] = useState(run0.discarded ?? [])
   const [completed, setCompleted] = useState(run0.completed ?? [])
   const [roster, setRoster] = useState(() => slotify(run0.roster))
-  const [assignOv, setAssignOv] = useState(run0.assignOv ?? {})
   const [selected, setSelected] = useState(null)
   const [dailies, setDailies] = useState(null)
   const [apiError, setApiError] = useState(null)
@@ -370,8 +394,8 @@ export default function SaleDay() {
   }, [wings])
 
   useEffect(() => {
-    localStorage.setItem(dayKey(), JSON.stringify({ liTargetStr, discarded, completed, roster, assignOv }))
-  }, [liTargetStr, discarded, completed, roster, assignOv])
+    localStorage.setItem(dayKey(), JSON.stringify({ liTargetStr, discarded, completed, roster }))
+  }, [liTargetStr, discarded, completed, roster])
 
   const dailyIds = (dailies || []).map((d) => d.bossId).filter(Boolean)
 
@@ -399,10 +423,34 @@ export default function SaleDay() {
   const resetDay = () => {
     setCompleted([])
     setDiscarded([])
-    setAssignOv({})
   }
-  const setOverride = (bossId) => (slotIdx, playerId) =>
-    setAssignOv((o) => ({ ...o, [bossId]: { ...(o[bossId] || {}), [slotIdx]: playerId } }))
+  const slotIndexOf = (id) => roster.findIndex((r) => r && r.id === id)
+  const dropOnSlot = (id, i) => {
+    const from = slotIndexOf(id)
+    if (from === -1 || from === i) return
+    const next = [...roster]
+    const t = next[i]
+    next[i] = next[from]
+    next[from] = t ?? null
+    setRoster(next)
+  }
+  const swapPlayers = (idA, idB) => {
+    const b = slotIndexOf(idB)
+    if (b === -1) return
+    dropOnSlot(idA, b)
+  }
+  const moveToSubgroup = (id, g) => {
+    const from = slotIndexOf(id)
+    if (from === -1) return
+    if (from >= g * 5 && from < g * 5 + 5) return
+    const base = g * 5
+    for (let k = 0; k < 5; k++) {
+      if (!roster[base + k]) {
+        dropOnSlot(id, base + k)
+        return
+      }
+    }
+  }
 
   const unmatched = (dailies || []).filter((d) => !d.bossId)
 
@@ -474,7 +522,7 @@ export default function SaleDay() {
         <p className="text-xs text-danger/80">Can't reach {liTarget} LI with the available bosses.</p>
       )}
 
-      <SquadPanel players={players?.players || []} roster={roster} setRoster={setRoster} />
+      <SquadPanel players={players?.players || []} roster={roster} setRoster={setRoster} onDropSlot={dropOnSlot} />
 
       <div className="grid lg:grid-cols-[340px_minmax(0,1fr)] gap-5 items-start anim-in anim-in-2">
         <div className="space-y-1.5">
@@ -582,9 +630,8 @@ export default function SaleDay() {
             presentPlayers={presentPlayers}
             done={completed.includes(selectedBoss.id)}
             onToggleDone={() => toggleDone(selectedBoss.id)}
-            onDiscard={() => discard(selectedBoss.id)}
-            overrides={assignOv[selectedBoss.id]}
-            setOverride={setOverride(selectedBoss.id)}
+            onSwap={swapPlayers}
+            onMoveToSubgroup={moveToSubgroup}
           />
         ) : (
           <div className="card p-10 text-center text-silver/50">No bosses in today's run yet.</div>

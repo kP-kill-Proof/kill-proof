@@ -20,8 +20,7 @@
 
 The app is **read-only** on shared data — that's what keeps everyone on the exact same version, always.
 
-- To change anything (times, roster, comps, events): tell Herman/Claude, or edit the JSON directly on GitHub web (pencil button on the file inside `public/data/`).
-- Every change republishes the site automatically in ~1 minute for the whole squad.
+- Shared data updates are managed centrally and republish automatically (~1 minute) for the whole squad.
 - Day state (checklist, who's in, discards, LI target) is the commander's own browser and resets daily.
 
 ## Which file controls what

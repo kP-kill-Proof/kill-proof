@@ -74,7 +74,7 @@ function BossPage({ wing, boss, onBack }) {
             </div>
           ))}
           {(k.slots || []).length === 0 && (
-            <p className="text-sm text-silver/50">No comp defined yet — ask Herman/Claude to add it, or edit comps.json on GitHub.</p>
+            <p className="text-sm text-silver/50">No comp defined yet.</p>
           )}
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function Bible() {
         <h1 className="font-display text-3xl text-cream mb-1">The Bible</h1>
         <p className="text-sm text-silver/60">
           The team's knowledge base: times, damage profiles, mechanics and ideal comps per boss.
-          Today's Sale follows these recommendations. Updates go through Claude or GitHub.
+          Today's Sale follows these recommendations.
         </p>
       </div>
 

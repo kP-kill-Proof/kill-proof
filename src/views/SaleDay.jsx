@@ -54,82 +54,77 @@ const ROLE_CHIP = {
 }
 
 function SquadPanel({ players, roster, setRoster }) {
-  const [open, setOpen] = useState(null)
-
+  const { icons } = useData()
   const entryOf = (id) => roster.find((r) => r.id === id)
-  const setPlayerRole = (id, role) => {
+  const setPlayerRole = (id, role) =>
     setRoster(entryOf(id) ? roster.map((r) => (r.id === id ? { ...r, role } : r)) : [...roster, { id, role }])
-    setOpen(null)
-  }
-  const remove = (id) => {
-    setRoster(roster.filter((r) => r.id !== id))
-    setOpen(null)
-  }
+  const setOut = (id) => setRoster(roster.filter((r) => r.id !== id))
 
   return (
-    <div className="card p-4 anim-in anim-in-1">
+    <div className="anim-in anim-in-1">
       <h2 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-2.5">
         Who's in today?{' '}
-        <span className="text-silver/50 normal-case">
-          ({roster.length} in — click a player, pick the role they play this sale)
-        </span>
+        <span className="text-silver/50 normal-case">({roster.length} in — one click sets the role they play this sale)</span>
       </h2>
-      <div className="flex flex-wrap gap-2.5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {players.map((p) => {
           const entry = entryOf(p.id)
-          const isOpen = open === p.id
           return (
-            <div key={p.id} className="relative">
-              <div
-                className={`flex items-center gap-2 rounded-xl pl-3 pr-2 py-2 border transition-all duration-200 ${
-                  entry
-                    ? 'bg-ink/60 border-teal-deep/60'
-                    : 'bg-ink/30 border-transparent opacity-50 hover:opacity-100 hover:border-teal-deep/40'
-                }`}
-              >
-                <button className="font-bold text-cream cursor-pointer" onClick={() => setOpen(isOpen ? null : p.id)}>
-                  {p.name}
-                </button>
+            <div
+              key={p.id}
+              className={`card p-4 transition-all duration-200 ${entry ? 'border-teal-light/60' : 'opacity-60 hover:opacity-100'}`}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="font-bold text-cream text-lg">
+                  {p.name} {p.core && <span className="text-cream/70" title="Core member">★</span>}
+                </div>
                 {entry ? (
-                  <>
-                    <button
-                      className={`chip border cursor-pointer ${ROLE_CHIP[entry.role] || ROLE_CHIP.DPS}`}
-                      onClick={() => setOpen(isOpen ? null : p.id)}
-                      title="Click to change role"
-                    >
-                      {entry.role}
-                    </button>
-                    <button
-                      className="text-danger/60 hover:text-danger font-black px-1 cursor-pointer"
-                      onClick={() => remove(p.id)}
-                      title="Remove from today"
-                    >
-                      ✕
-                    </button>
-                  </>
+                  <span className={`chip border ${ROLE_CHIP[entry.role] || ROLE_CHIP.DPS}`}>{entry.role}</span>
                 ) : (
-                  <span className="text-xs text-silver/40">out</span>
+                  <span className="chip bg-silver/5 text-silver/40 border border-silver/20">out</span>
                 )}
               </div>
-              {isOpen && (
-                <div className="absolute left-0 top-full mt-1.5 z-20 flex gap-1.5 bg-panel border border-teal/50 rounded-xl p-2 shadow-2xl shadow-ink/80 anim-in">
-                  {DAY_ROLES.map((role) => (
-                    <button
-                      key={role}
-                      className={`chip border cursor-pointer ${ROLE_CHIP[role]} ${entry?.role === role ? 'ring-2 ring-teal-light' : ''}`}
-                      onClick={() => setPlayerRole(p.id, role)}
-                    >
-                      {role}
-                    </button>
-                  ))}
-                </div>
-              )}
+
+              <div className="mt-2.5 space-y-1 min-h-12">
+                {(p.classes || []).slice(0, 3).map((c, j) => (
+                  <div key={j} className="flex items-center gap-2 text-sm text-silver/80">
+                    <BuildChip name={c.name} icons={icons} />
+                    <span className="text-[10px] text-silver/40 font-bold">{c.level}</span>
+                    <span className="text-[10px] text-silver/40">{c.role}</span>
+                  </div>
+                ))}
+                {(p.classes || []).length === 0 && <p className="text-xs text-silver/40">No classes listed</p>}
+              </div>
+
+              <div className="mt-3 grid grid-cols-4 gap-1.5">
+                {DAY_ROLES.map((role) => (
+                  <button
+                    key={role}
+                    className={`text-xs font-bold rounded-lg py-2 border transition-all cursor-pointer ${
+                      entry?.role === role
+                        ? (ROLE_CHIP[role] || '') + ' ring-1 ring-teal-light'
+                        : 'border-teal-deep/40 text-silver/60 hover:text-cream hover:border-teal'
+                    }`}
+                    onClick={() => setPlayerRole(p.id, role)}
+                  >
+                    {role}
+                  </button>
+                ))}
+                <button
+                  className={`text-xs font-bold rounded-lg py-2 border transition-all cursor-pointer ${
+                    !entry
+                      ? 'border-silver/40 text-silver bg-silver/10'
+                      : 'border-teal-deep/40 text-silver/60 hover:text-danger hover:border-danger/60'
+                  }`}
+                  onClick={() => setOut(p.id)}
+                >
+                  Out
+                </button>
+              </div>
             </div>
           )
         })}
-        {players.length === 0 && (
-          <p className="text-sm text-silver/60">No players in the roster yet — ask Herman/Claude to add the squad.</p>
-        )}
+        {players.length === 0 && <p className="text-sm text-silver/60">No players in the roster yet.</p>}
       </div>
     </div>
   )
@@ -176,15 +171,7 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
             )}
           </div>
         </div>
-        <div className="flex gap-2">
-          <button
-            onClick={onToggleDone}
-            className={`btn text-sm ${done ? 'btn-primary' : 'btn-ghost'}`}
-          >
-            {done ? '✓ Done' : 'Mark done'}
-          </button>
-          <button onClick={onDiscard} className="btn btn-danger text-sm">✕ Discard</button>
-        </div>
+        <button onClick={onToggleDone} className="btn btn-primary text-sm">✓ Complete</button>
       </div>
 
       {(k.mechanics || []).length > 0 && (
@@ -242,7 +229,7 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
             })}
             {!comp?.slots?.length && (
               <p className="text-xs text-silver/50">
-                No comp defined in the Bible yet — slots built from today's roles. Ask Herman/Claude to add the ideal comp.
+                No ideal comp in the Bible yet — slots built from today's roles.
               </p>
             )}
           </div>
@@ -342,7 +329,8 @@ export default function SaleDay() {
   const liDone = sale.list.filter((b) => completed.includes(b.id)).reduce((s, b) => s + b.effLi, 0)
   const nextId = sale.list.find((b) => !completed.includes(b.id))?.id
   const pct = Math.min(100, Math.round((liDone / Math.max(1, sale.totalLi)) * 100))
-  const selectedBoss = sale.list.find((b) => b.id === selected) || sale.list.find((b) => b.id === nextId) || sale.list[0]
+  const visibleList = sale.list.filter((b) => !completed.includes(b.id))
+  const selectedBoss = visibleList.find((b) => b.id === selected) || visibleList[0]
 
   const toggleDone = (id) => setCompleted((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
   const discard = (id) => setDiscarded((d) => [...d, id])
@@ -432,11 +420,10 @@ export default function SaleDay() {
           {liTarget === 0 && (
             <p className="text-sm text-silver/50 mb-2">Set an LI target to build the full run — showing dailies only.</p>
           )}
-          {sale.list.map((b, i) => {
-            const done = completed.includes(b.id)
+          {visibleList.map((b, i) => {
             const isNext = b.id === nextId
             const isSel = selectedBoss?.id === b.id
-            const wingChanged = i === 0 || sale.list[i - 1].wing.id !== b.wing.id
+            const wingChanged = i === 0 || visibleList[i - 1].wing.id !== b.wing.id
             return (
               <div key={b.id}>
                 {wingChanged && (
@@ -449,15 +436,14 @@ export default function SaleDay() {
                 )}
                 <div
                   onClick={() => setSelected(b.id)}
-                  className={`card px-3 py-2.5 flex items-center gap-3 cursor-pointer transition-all ${done ? 'row-done' : ''} ${
+                  className={`card px-3 py-2.5 flex items-center gap-3 cursor-pointer transition-all ${
                     isSel ? 'border-teal-light/80 bg-teal-deep/25' : ''
                   } ${isNext && !isSel ? 'glow-next' : ''}`}
                 >
                   <button
                     onClick={(e) => { e.stopPropagation(); toggleDone(b.id) }}
-                    className={`w-6 h-6 rounded-md border-2 shrink-0 flex items-center justify-center text-xs font-black transition-all cursor-pointer ${
-                      done ? 'bg-teal border-teal text-ink' : 'border-teal-deep/70 text-transparent hover:border-teal-light'
-                    }`}
+                    title="Mark completed"
+                    className="w-6 h-6 rounded-md border-2 shrink-0 flex items-center justify-center text-xs font-black transition-all cursor-pointer border-teal-deep/70 text-transparent hover:text-teal-light hover:border-teal-light"
                   >
                     ✓
                   </button>
@@ -466,7 +452,7 @@ export default function SaleDay() {
                     <span className="strike-name font-bold text-cream text-sm truncate block">
                       {b.name} {b.isDaily && <span className="text-cream/90">★</span>}
                       {b.preEvent && <span className="text-danger/70 text-xs font-normal ml-1" title="Mandatory pre-event included">+pre</span>}
-                      {isNext && !done && <span className="text-teal-light text-xs font-normal ml-1">next</span>}
+                      {isNext && <span className="text-teal-light text-xs font-normal ml-1">next</span>}
                     </span>
                   </div>
                   <div className="text-right shrink-0 leading-tight">
@@ -484,6 +470,27 @@ export default function SaleDay() {
               </div>
             )
           })}
+
+          {completed.length > 0 && (
+            <div className="pt-3">
+              <h3 className="text-[10px] uppercase tracking-widest text-teal-light/60 font-bold mb-1.5">Completed ({completed.length})</h3>
+              <div className="flex flex-wrap gap-1.5">
+                {completed.map((id) => {
+                  const b = wings.wings.flatMap((w) => w.bosses).find((x) => x.id === id)
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => toggleDone(id)}
+                      className="chip border border-teal/40 text-teal-light/80 hover:text-cream hover:border-teal-light cursor-pointer"
+                      title="Click to move back to the run"
+                    >
+                      ✓ {b?.name || id}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
 
           {discarded.length > 0 && (
             <div className="pt-3">

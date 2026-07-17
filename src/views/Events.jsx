@@ -8,8 +8,7 @@ export default function Events() {
       <div>
         <h1 className="font-display text-3xl text-cream mb-1">Event Sales</h1>
         <p className="text-sm text-silver/60">
-          Fractals, achievements and special orders — outside the LI runs. To add or update events,
-          ask Herman/Claude or edit events.json on GitHub.
+          Fractals, achievements and special orders — outside the LI runs.
         </p>
       </div>
 

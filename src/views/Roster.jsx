@@ -16,9 +16,7 @@ export default function Roster() {
       <div>
         <h1 className="font-display text-3xl text-cream mb-1">Roster</h1>
         <p className="text-sm text-silver/60">
-          Squad members: classes they play, roles and skill level. Comp generation uses this to put
-          everyone where they perform best. To add or update members, ask Herman/Claude or edit
-          players.json on GitHub.
+          Squad members: classes they play, roles and skill level. Comp generation uses this to put everyone where they perform best.
         </p>
       </div>
 
@@ -55,7 +53,7 @@ export default function Roster() {
           </div>
         ))}
         {players.players.length === 0 && (
-          <p className="text-sm text-silver/60">No players yet — ask Herman/Claude to add the squad.</p>
+          <p className="text-sm text-silver/60">No players yet.</p>
         )}
       </div>
     </div>

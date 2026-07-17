@@ -132,12 +132,6 @@ function SquadPanel({ players, roster, setRoster, onDropSlot }) {
         key={i}
         draggable
         onDragStart={(e) => e.dataTransfer.setData('text/plain', p.id)}
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => {
-          e.preventDefault()
-          const id = e.dataTransfer.getData('text/plain')
-          if (id && id !== p.id) onDropSlot(id, i)
-        }}
         className="card p-3 border-teal-light/50 min-h-36 flex flex-col cursor-grab active:cursor-grabbing"
       >
         <div className="flex items-start justify-between gap-1">
@@ -199,7 +193,7 @@ function SquadPanel({ players, roster, setRoster, onDropSlot }) {
   )
 }
 
-function BossDetail({ boss, presentPlayers, done, onToggleDone, onSwap, onMoveToSubgroup }) {
+function BossDetail({ boss, presentPlayers, done, onToggleDone, onMoveToSubgroup }) {
   const { comps, icons, builds } = useData()
   const comp = comps.bosses?.[boss.id]
   const k = comp || {}
@@ -280,13 +274,6 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onSwap, onMoveTo
                         key={i}
                         draggable
                         onDragStart={(e) => e.dataTransfer.setData('text/plain', a.player?.id || '')}
-                        onDragOver={(e) => e.preventDefault()}
-                        onDrop={(e) => {
-                          e.preventDefault()
-                          e.stopPropagation()
-                          const id = e.dataTransfer.getData('text/plain')
-                          if (id && a.player && id !== a.player.id) onSwap(id, a.player.id)
-                        }}
                         className="flex flex-wrap items-center gap-2.5 bg-ink/60 border border-teal-deep/30 rounded-xl px-3 py-2.5 cursor-grab active:cursor-grabbing hover:border-teal/50 transition-colors"
                       >
                         <span className="text-silver/40 select-none text-lg leading-none" title="Drag to move">⠿</span>
@@ -428,16 +415,11 @@ export default function SaleDay() {
   const dropOnSlot = (id, i) => {
     const from = slotIndexOf(id)
     if (from === -1 || from === i) return
+    if (roster[i]) return // only empty slots accept drops — no swapping
     const next = [...roster]
-    const t = next[i]
     next[i] = next[from]
-    next[from] = t ?? null
+    next[from] = null
     setRoster(next)
-  }
-  const swapPlayers = (idA, idB) => {
-    const b = slotIndexOf(idB)
-    if (b === -1) return
-    dropOnSlot(idA, b)
   }
   const moveToSubgroup = (id, g) => {
     if (g !== 0 && g !== 1) return
@@ -631,7 +613,6 @@ export default function SaleDay() {
             presentPlayers={presentPlayers}
             done={completed.includes(selectedBoss.id)}
             onToggleDone={() => toggleDone(selectedBoss.id)}
-            onSwap={swapPlayers}
             onMoveToSubgroup={moveToSubgroup}
           />
         ) : (

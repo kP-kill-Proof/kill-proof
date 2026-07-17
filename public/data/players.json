@@ -1,16 +1,47 @@
 {
-  "updated": "2026-07-15",
+  "updated": "2026-07-17",
   "players": [
     {
-      "id": "mati",
-      "name": "Mati",
+      "id": "vegzio",
+      "name": "Vegzio",
       "mainRole": "Healer",
       "core": true,
       "classes": [
-        { "name": "Druid", "role": "Heal", "level": "S" }
+        {
+          "name": "Druid",
+          "role": "Heal",
+          "level": "S"
+        }
       ],
       "mechanics": [],
-      "notes": "Starter example — edit or replace from the Roster section."
+      "notes": "Matías"
+    },
+    {
+      "id": "lolwar",
+      "name": "Lolwar",
+      "mainRole": "DPS",
+      "core": true,
+      "classes": [],
+      "mechanics": [],
+      "notes": "Jaider"
+    },
+    {
+      "id": "strickzito",
+      "name": "Strickzito",
+      "mainRole": "DPS",
+      "core": true,
+      "classes": [],
+      "mechanics": [],
+      "notes": "José"
+    },
+    {
+      "id": "exandreus",
+      "name": "Exandreus",
+      "mainRole": "DPS",
+      "core": true,
+      "classes": [],
+      "mechanics": [],
+      "notes": "André"
     }
   ]
 }

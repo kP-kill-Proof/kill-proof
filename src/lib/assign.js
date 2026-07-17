@@ -1,9 +1,18 @@
-// Auto-assignment: match today's players to a boss comp following the Bible.
-// Slots are priority-ordered; with N players, first N slots apply (extras become DPS).
+// Auto-assignment: match today's players to a boss comp.
+// Players are NOT role-locked: each one picks the role they play TODAY
+// (dayRole: Heal / Support / DPS) when added to the squad. That choice drives
+// the assignment; their class list refines which build they run.
 
 const LEVEL_SCORE = { S: 3, A: 2, B: 1, C: 0 }
 
 const norm = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '')
+
+export function normRole(r) {
+  const n = norm(r)
+  if (n.includes('heal')) return 'heal'
+  if (n.includes('support')) return 'support'
+  return 'dps'
+}
 
 function buildMatches(slotBuilds, className) {
   const cn = norm(className)
@@ -19,31 +28,36 @@ function sharesSpec(a, b) {
   return SPECS.some((s) => a.includes(s) && b.includes(s))
 }
 
-function roleCompatible(slotRole, classRole) {
-  if (!classRole) return false
-  const r = norm(classRole)
-  const s = norm(slotRole)
-  if (s === 'heal') return r.includes('heal')
-  if (s === 'support') return r.includes('support') || r.includes('heal') || r.includes('tank')
-  if (s === 'dps') return r.includes('dps') || r.includes('flex')
-  return r.includes(s)
+export function bestBuildFor(player, slot) {
+  const classes = player.classes || []
+  // 1) class that matches the comp's suggested builds
+  const byBuild = classes.find((c) => buildMatches(slot.builds, c.name))
+  if (byBuild) return byBuild.name
+  // 2) class whose role matches the role they play today
+  const target = normRole(player.dayRole || slot.role)
+  const byRole = classes
+    .filter((c) => normRole(c.role) === target)
+    .sort((a, z) => (LEVEL_SCORE[z.level] ?? 1) - (LEVEL_SCORE[a.level] ?? 1))[0]
+  if (byRole) return byRole.name
+  // 3) comp suggestion, then any class
+  return (slot.builds || [])[0] || classes[0]?.name || 'DPS'
 }
 
-function scorePlayerForSlot(player, slot, profile) {
-  let best = { score: -1, build: null }
-  const classes = player.classes || []
-  for (const c of classes) {
-    let score = 0
-    if (roleCompatible(slot.role, c.role)) score += 4
-    if (buildMatches(slot.builds, c.name)) score += 5
-    score += LEVEL_SCORE[c.level] ?? 1
-    if (score > best.score) best = { score, build: c.name }
+function scorePlayerForSlot(player, slot) {
+  let score = 0
+  // the role they chose for today dominates
+  if (player.dayRole) {
+    score += normRole(player.dayRole) === normRole(slot.role) ? 60 : -30
   }
-  // main role affinity even without listed classes
-  let base = roleCompatible(slot.role, player.mainRole) ? 2 : 0
-  if (classes.length === 0) best = { score: base, build: null }
-  else best.score += base
-  return best
+  let bestClass = 0
+  for (const c of player.classes || []) {
+    let cs = 0
+    if (normRole(c.role) === normRole(slot.role)) cs += 4
+    if (buildMatches(slot.builds, c.name)) cs += 5
+    cs += LEVEL_SCORE[c.level] ?? 1
+    if (cs > bestClass) bestClass = cs
+  }
+  return score + bestClass
 }
 
 export function defaultSlot(profile) {
@@ -52,12 +66,21 @@ export function defaultSlot(profile) {
   return { role: 'DPS', builds: [build], notes: '' }
 }
 
+const ROLE_ORDER = { heal: 0, support: 1, dps: 2 }
+const pretty = (r) => (normRole(r) === 'heal' ? 'Heal' : normRole(r) === 'support' ? 'Support' : 'DPS')
+
 export function suggestAssignments({ comp, players }) {
   const profile = comp?.profile
-  const slots = [...(comp?.slots || [])]
-  // no comp defined: still lead with a healer slot
-  if (!slots.length && players.length) slots.push({ role: 'Heal', builds: [], notes: '' })
-  while (slots.length < players.length) slots.push(defaultSlot(profile))
+  let slots
+  if (comp?.slots?.length) {
+    slots = [...comp.slots]
+    while (slots.length < players.length) slots.push(defaultSlot(profile))
+  } else {
+    // no comp in the Bible: build slots from the roles people play today
+    slots = [...players]
+      .sort((a, z) => (ROLE_ORDER[normRole(a.dayRole)] ?? 2) - (ROLE_ORDER[normRole(z.dayRole)] ?? 2))
+      .map((p) => ({ role: pretty(p.dayRole || 'DPS'), builds: [], notes: '' }))
+  }
   const useSlots = slots.slice(0, Math.max(players.length, 0))
 
   const remaining = [...players]
@@ -66,17 +89,15 @@ export function suggestAssignments({ comp, players }) {
     if (!remaining.length) break
     let bestP = null
     let bestScore = -Infinity
-    let bestBuild = null
     for (const p of remaining) {
-      const { score, build } = scorePlayerForSlot(p, slot, profile)
-      if (score > bestScore) {
-        bestScore = score
+      const s = scorePlayerForSlot(p, slot)
+      if (s > bestScore) {
+        bestScore = s
         bestP = p
-        bestBuild = build
       }
     }
     remaining.splice(remaining.indexOf(bestP), 1)
-    result.push({ slot, player: bestP, build: bestBuild || (slot.builds || [])[0] || 'DPS' })
+    result.push({ slot, player: bestP, build: bestBuildFor(bestP, slot) })
   }
   return result
 }

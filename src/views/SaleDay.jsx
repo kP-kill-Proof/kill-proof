@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useData } from '../App.jsx'
 import { fetchDailyBounties, matchBossId, msToReset, fmtCountdown, fmtTime } from '../lib/gw2.js'
 import { buildSaleList } from '../lib/order.js'
-import { suggestAssignments } from '../lib/assign.js'
+import { suggestAssignments, bestBuildFor, normRole } from '../lib/assign.js'
 import { squadCoverage, KEY_BOONS } from '../lib/boons.js'
 import { resolveBuildInfo } from '../lib/boons.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
@@ -46,6 +46,96 @@ function Stat({ label, value, sub }) {
   )
 }
 
+const DAY_ROLES = ['Heal', 'Support', 'DPS']
+const ROLE_CHIP = {
+  Heal: 'bg-teal/25 text-teal-light border-teal/50',
+  Support: 'bg-cream/15 text-cream border-cream/40',
+  DPS: 'bg-silver/10 text-silver border-silver/30',
+}
+
+function SquadPanel({ players, roster, setRoster }) {
+  const [pickingPlayer, setPickingPlayer] = useState(false)
+  const [pendingId, setPendingId] = useState(null)
+  const available = players.filter((p) => !roster.some((r) => r.id === p.id))
+
+  const add = (id, role) => {
+    setRoster([...roster, { id, role }])
+    setPendingId(null)
+    setPickingPlayer(false)
+  }
+  const remove = (id) => setRoster(roster.filter((r) => r.id !== id))
+  const setRole = (id, role) => setRoster(roster.map((r) => (r.id === id ? { ...r, role } : r)))
+
+  return (
+    <div className="card p-4 anim-in anim-in-1">
+      <h2 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-2.5">
+        Who's in today? <span className="text-silver/50 normal-case">({roster.length} in — pick each player's role for this sale)</span>
+      </h2>
+      <div className="flex flex-wrap gap-2.5">
+        {roster.map((r) => {
+          const p = players.find((x) => x.id === r.id)
+          if (!p) return null
+          return (
+            <div key={r.id} className="flex items-center gap-2 bg-ink/60 border border-teal-deep/40 rounded-xl pl-3 pr-2 py-2">
+              <span className="font-bold text-cream">{p.name}</span>
+              <select
+                className={`chip border cursor-pointer !py-1 appearance-none text-center ${ROLE_CHIP[r.role] || ROLE_CHIP.DPS}`}
+                value={r.role}
+                onChange={(e) => setRole(r.id, e.target.value)}
+                title="Role for this sale"
+              >
+                {DAY_ROLES.map((x) => (
+                  <option key={x} className="bg-ink text-silver">{x}</option>
+                ))}
+              </select>
+              <button className="text-danger/60 hover:text-danger font-black px-1 cursor-pointer" onClick={() => remove(r.id)} title="Remove">
+                ✕
+              </button>
+            </div>
+          )
+        })}
+
+        {pendingId ? (
+          <div className="flex items-center gap-2 bg-ink/60 border border-teal-light/60 rounded-xl px-3 py-2">
+            <span className="font-bold text-cream">{players.find((p) => p.id === pendingId)?.name}</span>
+            <span className="text-xs text-silver/60">plays as</span>
+            {DAY_ROLES.map((role) => (
+              <button key={role} className={`chip border cursor-pointer ${ROLE_CHIP[role]}`} onClick={() => add(pendingId, role)}>
+                {role}
+              </button>
+            ))}
+            <button className="text-silver/50 hover:text-cream px-1 cursor-pointer" onClick={() => setPendingId(null)}>✕</button>
+          </div>
+        ) : pickingPlayer ? (
+          <select
+            autoFocus
+            className="input !py-2"
+            defaultValue=""
+            onChange={(e) => e.target.value && setPendingId(e.target.value)}
+            onBlur={() => !pendingId && setPickingPlayer(false)}
+          >
+            <option value="" disabled>Select player…</option>
+            {available.map((p) => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
+        ) : (
+          <button
+            className="border-2 border-dashed border-teal-deep/60 hover:border-teal-light text-silver/60 hover:text-cream rounded-xl px-4 py-2 font-semibold transition-all cursor-pointer"
+            onClick={() => setPickingPlayer(true)}
+            disabled={!available.length}
+          >
+            + Add player
+          </button>
+        )}
+        {roster.length === 0 && !pickingPlayer && (
+          <p className="text-sm text-silver/60 self-center">Empty squad — add who's coming and the role each one plays today.</p>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overrides, setOverride }) {
   const { comps, icons, builds } = useData()
   const comp = comps.bosses?.[boss.id]
@@ -56,14 +146,6 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
     [comp, presentPlayers]
   )
   const ov = overrides || {}
-  const bestBuildFor = (p, slot) => {
-    const c = (p.classes || []).find((x) =>
-      (slot.builds || []).some(
-        (b) => b.toLowerCase().includes((x.name || '').toLowerCase()) || (x.name || '').toLowerCase().includes(b.toLowerCase())
-      )
-    )
-    return c?.name || (slot.builds || [])[0] || 'DPS'
-  }
   const assigned = suggestions.map((a, i) => {
     const forcedId = ov[i]
     if (!forcedId) return a
@@ -161,7 +243,7 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
             })}
             {!comp?.slots?.length && (
               <p className="text-xs text-silver/50">
-                No comp defined in the Bible yet — default assignment shown. Define it in Bible → {boss.name} → Edit.
+                No comp defined in the Bible yet — slots built from today's roles. Ask Herman/Claude to add the ideal comp.
               </p>
             )}
           </div>
@@ -208,11 +290,20 @@ export default function SaleDay() {
   const { wings, players, icons } = useData()
   const run0 = loadRun()
 
-  const corePlayers = (players?.players || []).filter((p) => p.core).map((p) => p.id)
+  const mainToRole = (p) => (normRole(p?.mainRole) === 'heal' ? 'Heal' : normRole(p?.mainRole) === 'support' ? 'Support' : 'DPS')
+  const coreDefaults = (players?.players || [])
+    .filter((p) => p.core)
+    .map((p) => ({ id: p.id, role: mainToRole(p) }))
+  const normalizeRoster = (r) =>
+    (r || []).map((x) =>
+      typeof x === 'string'
+        ? { id: x, role: mainToRole((players?.players || []).find((p) => p.id === x)) }
+        : x
+    )
   const [liTargetStr, setLiTargetStr] = useState(run0.liTargetStr ?? '10')
   const [discarded, setDiscarded] = useState(run0.discarded ?? [])
   const [completed, setCompleted] = useState(run0.completed ?? [])
-  const [roster, setRoster] = useState(run0.roster ?? corePlayers)
+  const [roster, setRoster] = useState(() => (run0.roster ? normalizeRoster(run0.roster) : coreDefaults))
   const [assignOv, setAssignOv] = useState(run0.assignOv ?? {})
   const [selected, setSelected] = useState(null)
   const [dailies, setDailies] = useState(null)
@@ -243,7 +334,12 @@ export default function SaleDay() {
     [wings, dailies, discarded, liTarget]
   )
 
-  const presentPlayers = (players?.players || []).filter((p) => roster.includes(p.id))
+  const presentPlayers = roster
+    .map((r) => {
+      const p = (players?.players || []).find((x) => x.id === r.id)
+      return p ? { ...p, dayRole: r.role } : null
+    })
+    .filter(Boolean)
   const liDone = sale.list.filter((b) => completed.includes(b.id)).reduce((s, b) => s + b.effLi, 0)
   const nextId = sale.list.find((b) => !completed.includes(b.id))?.id
   const pct = Math.min(100, Math.round((liDone / Math.max(1, sale.totalLi)) * 100))
@@ -252,7 +348,6 @@ export default function SaleDay() {
   const toggleDone = (id) => setCompleted((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
   const discard = (id) => setDiscarded((d) => [...d, id])
   const restore = (id) => setDiscarded((d) => d.filter((x) => x !== id))
-  const togglePlayer = (id) => setRoster((r) => (r.includes(id) ? r.filter((x) => x !== id) : [...r, id]))
   const resetDay = () => {
     setCompleted([])
     setDiscarded([])
@@ -305,7 +400,7 @@ export default function SaleDay() {
         <p className="text-xs text-danger/80">{unmatched.length} bounty(ies) with no match in the Bible.</p>
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 anim-in anim-in-1">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 anim-in anim-in-1">
         <div className="card px-4 py-3">
           <div className="text-[11px] uppercase tracking-wider text-silver/50">LI progress</div>
           <div className="text-xl font-bold text-cream mt-0.5">
@@ -326,37 +421,12 @@ export default function SaleDay() {
           value={sale.wingCount}
           sub={`${sale.visits ?? sale.wingCount} instance visit${(sale.visits ?? 1) === 1 ? '' : 's'}`}
         />
-        <Stat label="Squad" value={`${roster.length} in`} sub={presentPlayers.map((p) => p.name).join(', ') || '—'} />
       </div>
       {liTarget > 0 && !sale.reached && (
         <p className="text-xs text-danger/80">Can't reach {liTarget} LI with the available bosses.</p>
       )}
 
-      <div className="card p-4 anim-in anim-in-1">
-        <div className="flex items-center justify-between flex-wrap gap-2 mb-2.5">
-          <h2 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold">Who's in today?</h2>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {(players?.players || []).map((p) => (
-            <button
-              key={p.id}
-              onClick={() => togglePlayer(p.id)}
-              className={`chip border transition-all duration-200 cursor-pointer ${
-                roster.includes(p.id)
-                  ? 'bg-teal text-ink border-teal-light shadow-md shadow-teal/20'
-                  : 'bg-transparent border-teal-deep/50 text-silver/70 hover:border-teal'
-              }`}
-            >
-              {p.name}
-              <span className="opacity-60 font-normal">· {p.mainRole}</span>
-              {p.core && <span title="Default squad">★</span>}
-            </button>
-          ))}
-          {(players?.players || []).length === 0 && (
-            <p className="text-sm text-silver/60">No players yet — add them in the Roster section.</p>
-          )}
-        </div>
-      </div>
+      <SquadPanel players={players?.players || []} roster={roster} setRoster={setRoster} />
 
       <div className="grid lg:grid-cols-[340px_minmax(0,1fr)] gap-5 items-start anim-in anim-in-2">
         <div className="space-y-1.5">

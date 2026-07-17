@@ -125,7 +125,7 @@ function SquadPanel({ players, roster, setRoster }) {
       <div key={i} className="card p-3 border-teal-light/50 min-h-36 flex flex-col">
         <div className="flex items-start justify-between gap-1">
           <div className="font-bold text-cream truncate">
-            {p.name} {p.core && <span className="text-cream/70">★</span>}
+            {p.name}
           </div>
           <button
             className="text-danger/60 hover:text-danger font-black px-1 cursor-pointer"
@@ -343,13 +343,10 @@ export default function SaleDay() {
     })
     return out
   }
-  const coreDefaults = slotify(
-    (players?.players || []).filter((p) => p.core).map((p) => ({ id: p.id, role: mainToRole(p) }))
-  )
   const [liTargetStr, setLiTargetStr] = useState(run0.liTargetStr ?? '10')
   const [discarded, setDiscarded] = useState(run0.discarded ?? [])
   const [completed, setCompleted] = useState(run0.completed ?? [])
-  const [roster, setRoster] = useState(() => (run0.roster ? slotify(run0.roster) : coreDefaults))
+  const [roster, setRoster] = useState(() => slotify(run0.roster))
   const [assignOv, setAssignOv] = useState(run0.assignOv ?? {})
   const [selected, setSelected] = useState(null)
   const [dailies, setDailies] = useState(null)

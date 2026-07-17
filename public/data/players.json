@@ -5,7 +5,6 @@
       "id": "vegzio",
       "name": "Vegzio | Matías",
       "mainRole": "Healer",
-      "core": true,
       "classes": [
         {
           "name": "Druid",
@@ -20,7 +19,6 @@
       "id": "lolwar",
       "name": "Lolwar | Jaider",
       "mainRole": "DPS",
-      "core": true,
       "classes": [],
       "mechanics": [],
       "notes": ""
@@ -29,7 +27,6 @@
       "id": "strickzito",
       "name": "Strickzito | José",
       "mainRole": "DPS",
-      "core": true,
       "classes": [],
       "mechanics": [],
       "notes": ""
@@ -38,7 +35,6 @@
       "id": "exandreus",
       "name": "Exandreus | André",
       "mainRole": "DPS",
-      "core": true,
       "classes": [],
       "mechanics": [],
       "notes": ""
@@ -47,7 +43,6 @@
       "id": "hermangz",
       "name": "HermanGz | Herman",
       "mainRole": "DPS",
-      "core": true,
       "classes": [],
       "mechanics": [],
       "notes": ""

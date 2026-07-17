@@ -26,7 +26,7 @@ export default function Roster() {
             <div className="flex items-start justify-between gap-2">
               <div>
                 <div className="font-bold text-cream text-lg">
-                  {p.name} {p.core && <span title="Core / default squad" className="text-cream/80">★</span>}
+                  {p.name}
                 </div>
                 <span className="chip bg-teal-deep/40 text-teal-light mt-1">{p.mainRole}</span>
               </div>

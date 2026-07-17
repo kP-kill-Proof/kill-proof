@@ -245,78 +245,80 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onDiscard, overr
         {!presentPlayers.length ? (
           <p className="text-sm text-silver/50">Select today's squad to see assignments.</p>
         ) : (
-          <div className="space-y-2">
-            {assigned.map((a, i) => {
-              const info = resolveBuildInfo(a.build, builds)
+          <div className="grid lg:grid-cols-2 gap-4 items-start">
+            {[1, 2].map((g) => {
+              const groupRows = assigned.filter((a) => a.player?.subgroup === g)
+              const cov = squadCoverage(groupRows, builds)
               return (
-                <div key={i} className="flex flex-wrap items-center gap-3 bg-ink/60 border border-teal-deep/30 rounded-xl px-4 py-2.5">
-                  <span className={`chip !text-sm !px-3 !py-1 ${a.slot.role === 'Heal' ? 'bg-teal/25 text-teal-light' : a.slot.role === 'Support' ? 'bg-cream/15 text-cream' : 'bg-silver/10 text-silver'}`}>
-                    {a.slot.role}
-                  </span>
-                  <select
-                    className="input !py-1 w-32 text-base font-semibold"
-                    value={a.player?.id || ''}
-                    onChange={(e) => setOverride(i, e.target.value)}
-                  >
-                    {presentPlayers.map((p) => (
-                      <option key={p.id} value={p.id}>{p.name}</option>
-                    ))}
-                  </select>
-                  <span className="font-bold text-cream text-base [&_img]:w-7 [&_img]:h-7">
-                    <BuildChip name={a.build} icons={icons} />
-                  </span>
-                  <span className="flex gap-1 items-center">
-                    {(info?.boons || []).slice(0, 3).map((b) => (
-                      <BoonIcon key={b} name={b} icons={icons} size="w-5 h-5" />
-                    ))}
-                  </span>
-                  {a.slot.notes && (
-                    <span className="w-full sm:w-auto sm:ml-auto text-sm text-cream/90 bg-teal-deep/20 border border-teal-deep/40 rounded-lg px-3 py-1.5">
-                      <span className="text-teal-light font-black uppercase text-[10px] tracking-wider mr-2">Duty</span>
-                      <NotesText text={a.slot.notes} icons={icons} />
-                    </span>
+                <div key={g} className="space-y-2 rounded-2xl border border-teal-deep/25 bg-ink/30 p-3">
+                  <div className="text-[10px] uppercase tracking-widest text-teal-light/70 font-bold">Subgroup {g}</div>
+                  {groupRows.map((a) => {
+                    const i = assigned.indexOf(a)
+                    const info = resolveBuildInfo(a.build, builds)
+                    return (
+                      <div key={i} className="flex flex-wrap items-center gap-2.5 bg-ink/60 border border-teal-deep/30 rounded-xl px-3 py-2.5">
+                        <span className={`chip ${a.slot.role === 'Heal' ? 'bg-teal/25 text-teal-light' : a.slot.role === 'Support' ? 'bg-cream/15 text-cream' : 'bg-silver/10 text-silver'}`}>
+                          {a.slot.role}
+                        </span>
+                        <select
+                          className="input !py-1 w-28 text-sm font-semibold"
+                          value={a.player?.id || ''}
+                          onChange={(e) => setOverride(i, e.target.value)}
+                        >
+                          {presentPlayers.map((p) => (
+                            <option key={p.id} value={p.id}>{p.name}</option>
+                          ))}
+                        </select>
+                        <span className="font-bold text-cream [&_img]:w-6 [&_img]:h-6">
+                          <BuildChip name={a.build} icons={icons} />
+                        </span>
+                        <span className="flex gap-1 items-center">
+                          {(info?.boons || []).slice(0, 3).map((b) => (
+                            <BoonIcon key={b} name={b} icons={icons} size="w-4 h-4" />
+                          ))}
+                        </span>
+                        {a.slot.notes && (
+                          <span className="w-full text-sm text-cream/90 bg-teal-deep/20 border border-teal-deep/40 rounded-lg px-3 py-1.5">
+                            <span className="text-teal-light font-black uppercase text-[10px] tracking-wider mr-2">Duty</span>
+                            <NotesText text={a.slot.notes} icons={icons} />
+                          </span>
+                        )}
+                      </div>
+                    )
+                  })}
+                  {!groupRows.length && (
+                    <p className="text-xs text-silver/40">Empty — place players in this row of the squad panel above.</p>
+                  )}
+                  {groupRows.length > 0 && (
+                    <div className="flex items-center gap-1.5 pt-1.5 border-t border-teal-deep/20">
+                      <span className="text-[10px] uppercase tracking-wider text-silver/40 font-bold mr-1">Boons</span>
+                      {KEY_BOONS.map((b) => (
+                        <BoonIcon key={b} name={b} icons={icons} size="w-5 h-5" missing={cov.missing.includes(b)} />
+                      ))}
+                      {cov.boons.filter((b) => !KEY_BOONS.includes(b)).map((b) => (
+                        <BoonIcon key={b} name={b} icons={icons} size="w-5 h-5" />
+                      ))}
+                    </div>
                   )}
                 </div>
               )
             })}
-            {!comp?.slots?.length && (
-              <p className="text-xs text-silver/50">
-                No ideal comp in the Bible yet — slots built from today's roles.
-              </p>
-            )}
           </div>
+        )}
+        {presentPlayers.length > 0 && !comp?.slots?.length && (
+          <p className="text-xs text-silver/50 mt-2">No ideal comp in the Bible yet — slots built from today's roles.</p>
         )}
       </div>
 
       {presentPlayers.length > 0 && (
-        <div className="pt-4 border-t border-teal-deep/30 flex flex-wrap gap-8">
-          <div>
-            <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-2">Squad boons</h3>
-            <div className="flex gap-1.5 items-center">
-              {KEY_BOONS.map((b) =>
-                coverage.missing.includes(b) ? (
-                  <BoonIcon key={b} name={b} icons={icons} missing />
-                ) : (
-                  <BoonIcon key={b} name={b} icons={icons} />
-                )
-              )}
-              {coverage.boons.filter((b) => !KEY_BOONS.includes(b)).map((b) => (
-                <BoonIcon key={b} name={b} icons={icons} />
-              ))}
-            </div>
-            {coverage.missing.length > 0 && (
-              <p className="text-xs text-danger/80 mt-1.5">Missing: {coverage.missing.join(', ')}</p>
+        <div className="pt-4 border-t border-teal-deep/30">
+          <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-2">Condis on boss</h3>
+          <div className="flex gap-1.5 items-center">
+            {coverage.condis.length ? (
+              coverage.condis.map((c) => <BoonIcon key={c} name={c} icons={icons} />)
+            ) : (
+              <span className="text-xs text-silver/50">—</span>
             )}
-          </div>
-          <div>
-            <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-2">Condis on boss</h3>
-            <div className="flex gap-1.5 items-center">
-              {coverage.condis.length ? (
-                coverage.condis.map((c) => <BoonIcon key={c} name={c} icons={icons} />)
-              ) : (
-                <span className="text-xs text-silver/50">—</span>
-              )}
-            </div>
           </div>
         </div>
       )}

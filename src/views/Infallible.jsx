@@ -374,7 +374,7 @@ function StrategyImage({ seg, editing, onChange }) {
   const [dashed, setDashed] = useState(false)
   const [temp, setTemp] = useState(null)
   const [armClear, setArmClear] = useState(false)
-  const [editText, setEditText] = useState(null)
+  const [textDraft, setTextDraft] = useState(null) // { i: existing index | null, x, y, value }
   const [drag, setDrag] = useState(null)
   const [mapIcon, setMapIcon] = useState(MAP_ICONS[0])
   const pins = seg.pins || []
@@ -402,8 +402,7 @@ function StrategyImage({ seg, editing, onChange }) {
       return
     }
     if (tool === 'text') {
-      onChange({ ...seg, draw: [...draw, { t: 'text', x, y, text: '', c: color }] })
-      setEditText(draw.length)
+      setTextDraft({ i: null, x, y, value: '' })
       return
     }
     if (tool === 'sicon') {
@@ -482,7 +481,22 @@ function StrategyImage({ seg, editing, onChange }) {
     const file = e.target.files?.[0]
     if (!file) return
     const reader = new FileReader()
-    reader.onload = () => onChange({ ...seg, image: reader.result, pins: [], draw: [] })
+    reader.onload = () => {
+      const img = new Image()
+      img.onload = () => {
+        const MAX = 1600
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height))
+        const cv = document.createElement('canvas')
+        cv.width = Math.round(img.width * scale)
+        cv.height = Math.round(img.height * scale)
+        const ctx = cv.getContext('2d')
+        ctx.fillStyle = '#101418'
+        ctx.fillRect(0, 0, cv.width, cv.height)
+        ctx.drawImage(img, 0, 0, cv.width, cv.height)
+        onChange({ ...seg, image: cv.toDataURL('image/jpeg', 0.85), pins: [], draw: [] })
+      }
+      img.src = reader.result
+    }
     reader.readAsDataURL(file)
     e.target.value = ''
   }
@@ -549,9 +563,9 @@ function StrategyImage({ seg, editing, onChange }) {
             <button
               onClick={() => setDashed(!dashed)}
               className={`px-2 py-1 rounded-lg text-xs border ${dashed ? 'bg-teal/20 border-teal text-cream' : 'border-teal-deep/40 text-silver hover:text-cream'}`}
-              title="Dashed stroke (movement paths)"
+              title="Dashed stroke — pen/line/arrow draw dotted (great for movement paths)"
             >
-              - - -
+              - - - Dashed
             </button>
             {tool === 'sicon' && (
               <>
@@ -635,28 +649,7 @@ function StrategyImage({ seg, editing, onChange }) {
                 />
               )
             }
-            if (editing && editText === i) {
-              return (
-                <input
-                  key={`t${i}`}
-                  autoFocus
-                  defaultValue={sh.text}
-                  placeholder="type…"
-                  className="absolute -translate-x-1/2 -translate-y-1/2 bg-ink/90 border border-teal rounded-md px-1.5 py-0.5 text-sm font-semibold outline-none min-w-[90px] w-40"
-                  style={{ left: `${sh.x}%`, top: `${sh.y}%`, color: sh.c }}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  onBlur={(e) => {
-                    const v = e.target.value.trim()
-                    setEditText(null)
-                    onChange({ ...seg, draw: v ? draw.map((d, j) => (j === i ? { ...d, text: v } : d)) : draw.filter((_, j) => j !== i) })
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') e.target.blur()
-                    if (e.key === 'Escape') e.target.blur()
-                  }}
-                />
-              )
-            }
+            if (editing && textDraft && textDraft.i === i) return null
             const dpos = drag && drag.kind === 'text' && drag.i === i ? drag : sh
             return (
               <span
@@ -667,7 +660,7 @@ function StrategyImage({ seg, editing, onChange }) {
                   if (!editing) return
                   e.stopPropagation()
                   if (tool === 'erase') eraseShape(i)
-                  else if (tool === 'text') setEditText(i)
+                  else if (tool === 'text') setTextDraft({ i, x: sh.x, y: sh.y, value: sh.text })
                   else if (tool === 'move') setDrag({ kind: 'text', i, x: sh.x, y: sh.y })
                 }}
               >
@@ -675,6 +668,30 @@ function StrategyImage({ seg, editing, onChange }) {
               </span>
             )
           })}
+          {editing && textDraft && (
+            <input
+              autoFocus
+              value={textDraft.value}
+              placeholder="type…"
+              className="absolute -translate-x-1/2 -translate-y-1/2 bg-ink/95 border border-teal rounded-md px-1.5 py-0.5 text-sm font-semibold outline-none min-w-[110px] w-44 z-20"
+              style={{ left: `${textDraft.x}%`, top: `${textDraft.y}%`, color }}
+              onPointerDown={(e) => e.stopPropagation()}
+              onChange={(e) => setTextDraft({ ...textDraft, value: e.target.value })}
+              onBlur={() => {
+                const v = textDraft.value.trim()
+                const i = textDraft.i
+                setTextDraft(null)
+                if (i == null) {
+                  if (v) onChange({ ...seg, draw: [...draw, { t: 'text', x: textDraft.x, y: textDraft.y, text: v, c: color }] })
+                } else {
+                  onChange({ ...seg, draw: v ? draw.map((d, j) => (j === i ? { ...d, text: v } : d)) : draw.filter((_, j) => j !== i) })
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === 'Escape') e.target.blur()
+              }}
+            />
+          )}
           {pins.map((p, i) => {
             const interactive = !editing || tool === 'erase' || tool === 'pin' || tool === 'move'
             const dpos = drag && drag.kind === 'pin' && drag.i === i ? drag : p

@@ -311,6 +311,7 @@ const TOOLS = [
   { id: 'arrow', icon: '➔', label: 'Arrow' },
   { id: 'ellipse', icon: '◯', label: 'Circle' },
   { id: 'text', icon: '🄰', label: 'Text' },
+  { id: 'move', icon: '✋', label: 'Move' },
   { id: 'erase', icon: '🧽', label: 'Erase' },
 ]
 
@@ -367,6 +368,7 @@ function StrategyImage({ seg, editing, onChange }) {
   const [temp, setTemp] = useState(null)
   const [armClear, setArmClear] = useState(false)
   const [editText, setEditText] = useState(null)
+  const [drag, setDrag] = useState(null)
   const pins = seg.pins || []
   const draw = seg.draw || []
   const src = seg.image
@@ -385,7 +387,7 @@ function StrategyImage({ seg, editing, onChange }) {
   }
 
   const down = (e) => {
-    if (!editing || tool === 'erase') return
+    if (!editing || tool === 'erase' || tool === 'move') return
     const { x, y, rect } = norm(e)
     if (tool === 'pin') {
       onChange({ ...seg, pins: [...pins, { x, y, text: '' }] })
@@ -402,6 +404,11 @@ function StrategyImage({ seg, editing, onChange }) {
     if (tool === 'ellipse') setTemp({ t: 'ellipse', x0: x, y0: y, cx: x, cy: y, rx: 0, ry: 0, c: color, d: dashed })
   }
   const move = (e) => {
+    if (drag) {
+      const { x, y } = norm(e)
+      setDrag((d) => ({ ...d, x, y }))
+      return
+    }
     if (!temp) return
     const { x, y } = norm(e)
     if (temp.t === 'pen') {
@@ -419,6 +426,12 @@ function StrategyImage({ seg, editing, onChange }) {
       })
   }
   const up = () => {
+    if (drag) {
+      if (drag.kind === 'pin') onChange({ ...seg, pins: pins.map((p, j) => (j === drag.i ? { ...p, x: drag.x, y: drag.y } : p)) })
+      else onChange({ ...seg, draw: draw.map((d, j) => (j === drag.i ? { ...d, x: drag.x, y: drag.y } : d)) })
+      setDrag(null)
+      return
+    }
     if (!temp) return
     let shapes = []
     if (temp.t === 'pen' && temp.pts.length > 1) shapes = [{ t: 'pen', pts: temp.pts, c: temp.c, d: temp.d }]
@@ -590,16 +603,18 @@ function StrategyImage({ seg, editing, onChange }) {
                 />
               )
             }
+            const dpos = drag && drag.kind === 'text' && drag.i === i ? drag : sh
             return (
               <span
                 key={`t${i}`}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 px-1 rounded bg-ink/60 text-sm font-semibold whitespace-pre select-none ${drawing ? 'pointer-events-none' : ''} ${editing && (tool === 'erase' || tool === 'text') ? 'cursor-pointer' : ''} ${editing && tool === 'erase' ? 'ring-1 ring-danger' : ''}`}
-                style={{ left: `${sh.x}%`, top: `${sh.y}%`, color: sh.c, textShadow: '0 1px 3px rgba(0,0,0,0.9)' }}
+                className={`absolute -translate-x-1/2 -translate-y-1/2 px-1 rounded bg-ink/60 text-sm font-semibold whitespace-pre select-none ${drawing ? 'pointer-events-none' : ''} ${editing && (tool === 'erase' || tool === 'text') ? 'cursor-pointer' : ''} ${editing && tool === 'move' ? 'cursor-move' : ''} ${editing && tool === 'erase' ? 'ring-1 ring-danger' : ''}`}
+                style={{ left: `${dpos.x}%`, top: `${dpos.y}%`, color: sh.c, textShadow: '0 1px 3px rgba(0,0,0,0.9)' }}
                 onPointerDown={(e) => {
                   if (!editing) return
                   e.stopPropagation()
                   if (tool === 'erase') eraseShape(i)
                   else if (tool === 'text') setEditText(i)
+                  else if (tool === 'move') setDrag({ kind: 'text', i, x: sh.x, y: sh.y })
                 }}
               >
                 {sh.text}
@@ -607,22 +622,21 @@ function StrategyImage({ seg, editing, onChange }) {
             )
           })}
           {pins.map((p, i) => {
-            const interactive = !editing || tool === 'erase' || tool === 'pin'
+            const interactive = !editing || tool === 'erase' || tool === 'pin' || tool === 'move'
+            const dpos = drag && drag.kind === 'pin' && drag.i === i ? drag : p
             return (
               <span
                 key={i}
                 className={`absolute -ml-4 -mt-4 group ${interactive ? '' : 'pointer-events-none'}`}
-                style={{ left: `${p.x}%`, top: `${p.y}%` }}
-                onPointerDown={
-                  editing && tool === 'erase'
-                    ? (e) => {
-                        e.stopPropagation()
-                        delPin(i)
-                      }
-                    : (e) => e.stopPropagation()
-                }
+                style={{ left: `${dpos.x}%`, top: `${dpos.y}%` }}
+                onPointerDown={(e) => {
+                  e.stopPropagation()
+                  if (!editing) return
+                  if (tool === 'erase') delPin(i)
+                  else if (tool === 'move') setDrag({ kind: 'pin', i, x: p.x, y: p.y })
+                }}
               >
-                <span className={`w-8 h-8 rounded-full bg-teal text-ink font-bold text-base flex items-center justify-center border-2 border-cream shadow-lg select-none ${editing && tool === 'erase' ? 'cursor-pointer ring-2 ring-danger' : ''}`}>
+                <span className={`w-8 h-8 rounded-full bg-teal text-ink font-bold text-base flex items-center justify-center border-2 border-cream shadow-lg select-none ${editing && tool === 'erase' ? 'cursor-pointer ring-2 ring-danger' : ''} ${editing && tool === 'move' ? 'cursor-move ring-2 ring-teal-light' : ''}`}>
                   {i + 1}
                 </span>
                 {p.text && (

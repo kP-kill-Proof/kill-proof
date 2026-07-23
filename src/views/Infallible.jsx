@@ -402,6 +402,7 @@ function StrategyImage({ seg, editing, onChange }) {
       return
     }
     if (tool === 'text') {
+      e.preventDefault() // stop the browser from stealing focus from the text box we are about to open
       setTextDraft({ i: null, x, y, value: '' })
       return
     }
@@ -660,7 +661,7 @@ function StrategyImage({ seg, editing, onChange }) {
                   if (!editing) return
                   e.stopPropagation()
                   if (tool === 'erase') eraseShape(i)
-                  else if (tool === 'text') setTextDraft({ i, x: sh.x, y: sh.y, value: sh.text })
+                  else if (tool === 'text') { e.preventDefault(); setTextDraft({ i, x: sh.x, y: sh.y, value: sh.text }) }
                   else if (tool === 'move') setDrag({ kind: 'text', i, x: sh.x, y: sh.y })
                 }}
               >

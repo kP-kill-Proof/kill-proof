@@ -308,6 +308,14 @@ const MAP_ICONS = [
   { id: 'mesmer_portal', name: 'Mesmer Portal (Portal Entre)', url: 'https://render.guildwars2.com/file/BB7D7902B947C52DF3FC340AA66697F0CE669E31/103558.png' },
   { id: 'shadow_portal', name: 'Thief Portal (Prepare Shadow Portal)', url: 'https://render.guildwars2.com/file/D62F215C68C77A2F069238A39FD8A6A135B438C1/2175068.png' },
   { id: 'mass_invis', name: 'Mass Invisibility', url: 'https://render.guildwars2.com/file/E1EB3BC23A10BA9150EF992B03A813F4A26217A8/103755.png' },
+  { id: 'mk_arrow', name: 'Marker 1 — Arrow', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/Arrow_marker.png' },
+  { id: 'mk_circle', name: 'Marker 2 — Circle', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/Circle_marker.png' },
+  { id: 'mk_heart', name: 'Marker 3 — Heart', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/Heart_marker.png' },
+  { id: 'mk_square', name: 'Marker 4 — Square', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/Square_marker.png' },
+  { id: 'mk_star', name: 'Marker 5 — Star', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/Star_marker.png' },
+  { id: 'mk_spiral', name: 'Marker 6 — Spiral', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/Spiral_marker.png' },
+  { id: 'mk_triangle', name: 'Marker 7 — Triangle', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/Triangle_marker.png' },
+  { id: 'mk_x', name: 'Marker 8 — X', url: 'https://wiki.guildwars2.com/wiki/Special:FilePath/X_marker.png' },
 ]
 
 const TOOLS = [

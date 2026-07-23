@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useData } from '../App.jsx'
-import { BuildChip, NotesText } from '../lib/icons.jsx'
+import { BuildChip, NotesText, resolveBuildIcon } from '../lib/icons.jsx'
 
 const LS_KEY = 'kp_infallible_plan_v1'
 const ROLES = ['Heal', 'Support', 'DPS']
@@ -223,6 +223,9 @@ function CompEditorRow({ slot, editing, builds, players, icons, onChange }) {
           <option key={p.id} value={p.name.split('|')[0].trim()} />
         ))}
       </datalist>
+      {slot.build && resolveBuildIcon(slot.build, icons) && (
+        <img src={resolveBuildIcon(slot.build, icons)} alt="" className="w-6 h-6 rounded-sm shrink-0" />
+      )}
       <select className={selCls} value={slot.build || ''} onChange={(e) => onChange({ ...slot, build: e.target.value })}>
         <option value="">— class/build —</option>
         {builds.map((b) => (
@@ -297,6 +300,7 @@ function StrategyImage({ seg, editing, onChange }) {
   const [color, setColor] = useState(DRAW_COLORS[0])
   const [dashed, setDashed] = useState(false)
   const [temp, setTemp] = useState(null)
+  const [armClear, setArmClear] = useState(false)
   const pins = seg.pins || []
   const draw = seg.draw || []
   const src = seg.image
@@ -367,10 +371,12 @@ function StrategyImage({ seg, editing, onChange }) {
     onChange({ ...seg, draw: draw.filter((_, j) => !drop.includes(j)) })
   }
   const undo = () => {
-    if (!draw.length) return
-    let n = 1
-    if (draw[draw.length - 1].t === 'head') n = 2
-    onChange({ ...seg, draw: draw.slice(0, -n) })
+    if (draw.length) {
+      const n = draw[draw.length - 1].t === 'head' ? 2 : 1
+      onChange({ ...seg, draw: draw.slice(0, -n) })
+    } else if (pins.length) {
+      onChange({ ...seg, pins: pins.slice(0, -1) })
+    }
   }
 
   const setPin = (i, text) => onChange({ ...seg, pins: pins.map((p, j) => (j === i ? { ...p, text } : p)) })
@@ -421,14 +427,31 @@ function StrategyImage({ seg, editing, onChange }) {
           >
             - - -
           </button>
-          <button onClick={undo} disabled={!draw.length} className="px-2 py-1 rounded-lg text-xs text-silver hover:text-cream disabled:opacity-30" title="Undo last shape">
+          <button
+            type="button"
+            onClick={undo}
+            disabled={!draw.length && !pins.length}
+            className="px-2 py-1 rounded-lg text-xs text-silver hover:text-cream disabled:opacity-30"
+            title="Undo last shape or marker"
+          >
             ↶ Undo
           </button>
           <button
-            onClick={() => (draw.length || pins.length) && confirm('Clear ALL drawings and markers on this map?') && onChange({ ...seg, draw: [], pins: [] })}
-            className="px-2 py-1 rounded-lg text-xs text-danger/80 hover:text-danger"
+            type="button"
+            onClick={() => {
+              if (!draw.length && !pins.length) return
+              if (!armClear) {
+                setArmClear(true)
+                setTimeout(() => setArmClear(false), 3000)
+                return
+              }
+              setArmClear(false)
+              onChange({ ...seg, draw: [], pins: [] })
+            }}
+            disabled={!draw.length && !pins.length}
+            className={`px-2 py-1 rounded-lg text-xs border transition-colors disabled:opacity-30 ${armClear ? 'bg-danger/20 border-danger text-danger font-semibold' : 'border-transparent text-danger/80 hover:text-danger'}`}
           >
-            Clear
+            {armClear ? 'Sure? Click again' : 'Clear'}
           </button>
           <span className="w-px h-5 bg-teal-deep/40" />
           <span className="text-[10px] uppercase tracking-wider text-silver/70">Size</span>
@@ -469,16 +492,33 @@ function StrategyImage({ seg, editing, onChange }) {
               <Shape sh={{ t: 'head', pts: arrowHead(temp.x1, temp.y1, temp.x2, temp.y2, temp.rect), c: temp.c }} erasable={false} />
             )}
           </svg>
-          {pins.map((p, i) => (
-            <span
-              key={i}
-              className="absolute w-6 h-6 -ml-3 -mt-3 rounded-full bg-teal text-ink font-bold text-xs flex items-center justify-center border-2 border-cream shadow-lg select-none pointer-events-none"
-              style={{ left: `${p.x}%`, top: `${p.y}%` }}
-              title={p.text}
-            >
-              {i + 1}
-            </span>
-          ))}
+          {pins.map((p, i) => {
+            const interactive = !editing || tool === 'erase' || tool === 'pin'
+            return (
+              <span
+                key={i}
+                className={`absolute -ml-4 -mt-4 group ${interactive ? '' : 'pointer-events-none'}`}
+                style={{ left: `${p.x}%`, top: `${p.y}%` }}
+                onPointerDown={
+                  editing && tool === 'erase'
+                    ? (e) => {
+                        e.stopPropagation()
+                        delPin(i)
+                      }
+                    : (e) => e.stopPropagation()
+                }
+              >
+                <span className={`w-8 h-8 rounded-full bg-teal text-ink font-bold text-base flex items-center justify-center border-2 border-cream shadow-lg select-none ${editing && tool === 'erase' ? 'cursor-pointer ring-2 ring-danger' : ''}`}>
+                  {i + 1}
+                </span>
+                {p.text && (
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 w-max max-w-[240px] px-2.5 py-1.5 rounded-lg bg-ink border border-teal/50 text-cream text-xs leading-snug shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
+                    {p.text}
+                  </span>
+                )}
+              </span>
+            )
+          })}
         </div>
         </div>
       ) : (

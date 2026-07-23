@@ -1,47 +1,997 @@
 {
-  "updated": "2026-07-15",
+  "updated": "2026-07-23",
   "note": "Build catalog: what each build provides. Seeded with meta defaults — edit freely. 'aliases' are matched against roster classes and comp builds (case/spacing insensitive).",
   "builds": [
-    { "id": "druid", "name": "Druid", "aliases": ["druid", "heal druid"], "type": "heal", "boons": ["Alacrity", "Might"], "condis": [] },
-    { "id": "heal_chrono", "name": "Heal Chrono", "aliases": ["heal chrono", "hchrono", "heal chronomancer"], "type": "heal", "boons": ["Alacrity"], "condis": [] },
-    { "id": "heal_quick_chrono", "name": "Heal Quick Chrono", "aliases": ["heal quick chrono", "hq chrono"], "type": "heal", "boons": ["Quickness"], "condis": [] },
-    { "id": "heal_firebrand", "name": "Heal Firebrand", "aliases": ["hfb", "heal fb", "heal firebrand"], "type": "heal", "boons": ["Quickness", "Aegis", "Stability"], "condis": [] },
-    { "id": "heal_catalyst", "name": "Heal Catalyst", "aliases": ["heal catalyst", "hcat"], "type": "heal", "boons": ["Quickness"], "condis": [] },
-    { "id": "heal_scrapper", "name": "Heal Scrapper", "aliases": ["heal scrapper", "hscrapper"], "type": "heal", "boons": ["Quickness"], "condis": [] },
-    { "id": "heal_tempest", "name": "Heal Tempest", "aliases": ["heal tempest", "htempest"], "type": "heal", "boons": ["Alacrity", "Might"], "condis": [] },
-    { "id": "heal_mech", "name": "Heal Mechanist", "aliases": ["heal mech", "hmech", "heal mechanist"], "type": "heal", "boons": ["Alacrity"], "condis": [] },
-    { "id": "heal_scourge", "name": "Heal Scourge", "aliases": ["heal scourge", "hscourge"], "type": "heal", "boons": [], "condis": [] },
-    { "id": "qfb", "name": "Quick Firebrand", "aliases": ["qfb", "quick firebrand", "quick fb"], "type": "support", "boons": ["Quickness", "Fury", "Aegis", "Stability"], "condis": [] },
-    { "id": "qcatalyst", "name": "Quick Catalyst", "aliases": ["qcatalyst", "qcata", "quick catalyst"], "type": "support", "boons": ["Quickness", "Might", "Fury"], "condis": [] },
-    { "id": "quick_scrapper", "name": "Quick Scrapper", "aliases": ["quickscrapper", "qscrapper", "quick scrapper"], "type": "support", "boons": ["Quickness"], "condis": [] },
-    { "id": "quick_herald", "name": "Quick Herald", "aliases": ["quick herald", "qherald", "p quick herald"], "type": "support", "boons": ["Quickness", "Fury", "Might", "Protection"], "condis": [] },
-    { "id": "quick_chrono", "name": "Quick Chrono", "aliases": ["p quick chrono", "qchrono", "quick chrono"], "type": "support", "boons": ["Quickness"], "condis": [] },
-    { "id": "qharb", "name": "Quick Harbinger", "aliases": ["qharb", "quick harbinger"], "type": "support", "boons": ["Quickness", "Might"], "condis": [] },
-    { "id": "alac_renegade", "name": "Alac Renegade", "aliases": ["renegade", "alac renegade", "aren"], "type": "support", "boons": ["Alacrity", "Might", "Fury"], "condis": [] },
-    { "id": "alac_specter", "name": "Alac Specter", "aliases": ["alac specter", "aspecter"], "type": "support", "boons": ["Alacrity"], "condis": [] },
-    { "id": "alac_mech", "name": "Alac Mechanist", "aliases": ["alac mech", "amech", "alac mechanist"], "type": "support", "boons": ["Alacrity", "Might", "Fury"], "condis": [] },
-    { "id": "c_chrono", "name": "Condi Chrono", "aliases": ["c chrono", "cchrono", "condi chrono"], "type": "dps", "boons": [], "condis": ["Confusion", "Torment", "Vulnerability"] },
-    { "id": "c_scourge", "name": "Condi Scourge", "aliases": ["c scourge", "cscourge", "condi scourge", "cele scourge"], "type": "dps", "boons": [], "condis": ["Torment", "Bleeding", "Vulnerability"] },
-    { "id": "c_harb", "name": "Condi Harbinger", "aliases": ["charb", "c harb", "condi harbinger", "charbinger"], "type": "dps", "boons": [], "condis": ["Torment", "Bleeding", "Vulnerability"] },
-    { "id": "c_wb", "name": "Condi Willbender", "aliases": ["cwb", "c wb", "condi willbender"], "type": "dps", "boons": [], "condis": ["Burning", "Bleeding", "Vulnerability"] },
-    { "id": "c_dar", "name": "Condi Daredevil", "aliases": ["cdar", "c dar", "condi daredevil"], "type": "dps", "boons": [], "condis": ["Poison", "Bleeding", "Vulnerability"] },
-    { "id": "c_virt", "name": "Condi Virtuoso", "aliases": ["cvirt", "c virtuoso", "condi virtuoso"], "type": "dps", "boons": [], "condis": ["Bleeding", "Vulnerability"] },
-    { "id": "c_mech", "name": "Condi Mechanist", "aliases": ["cmech", "c mecha", "c mech", "condi mechanist"], "type": "dps", "boons": [], "condis": ["Burning", "Bleeding", "Vulnerability"] },
-    { "id": "c_spect", "name": "Condi Specter", "aliases": ["cspect", "c specter", "condi specter", "celestial specter"], "type": "dps", "boons": [], "condis": ["Torment", "Poison", "Vulnerability"] },
-    { "id": "p_virtuoso", "name": "Power Virtuoso", "aliases": ["p virtuoso", "pvirt", "power virtuoso"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_reaper", "name": "Power Reaper", "aliases": ["p reaper", "preaper", "power reaper"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_bladesworn", "name": "Power Bladesworn", "aliases": ["blsw", "bladesworn", "p bladesworn"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_holo", "name": "Power Holosmith", "aliases": ["holo", "holosmith", "p holo"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_scrapper", "name": "Power Scrapper", "aliases": ["p scrapper", "pscrapper", "power scrapper", "scrp"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_weaver", "name": "Power Weaver", "aliases": ["weaver", "p weaver", "ele"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_soulbeast", "name": "Power Soulbeast", "aliases": ["slb", "soulbeast", "p slb"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_dragonhunter", "name": "Power Dragonhunter", "aliases": ["dh", "dragonhunter", "p dh"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_daredevil", "name": "Power Daredevil", "aliases": ["daredevil", "p daredevil", "dar", "staff daredevil"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_vindicator", "name": "Power Vindicator", "aliases": ["vindi", "vindicator", "p vindicator"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_berserker", "name": "Power Berserker", "aliases": ["zerker", "berserker", "p berserker"], "type": "dps", "boons": ["Might"], "condis": ["Vulnerability"] },
-    { "id": "p_mech", "name": "Power Mechanist", "aliases": ["p mech", "pmech", "power mechanist"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "kiter_deadeye", "name": "Kiter Deadeye", "aliases": ["deadeye", "kiter deadeye"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "p_dps", "name": "P DPS (generic)", "aliases": ["p dps", "pdps", "power dps"], "type": "dps", "boons": [], "condis": ["Vulnerability"] },
-    { "id": "c_dps", "name": "C DPS (generic)", "aliases": ["c dps", "cdps", "condi dps"], "type": "dps", "boons": [], "condis": ["Vulnerability"] }
+    {
+      "id": "druid",
+      "name": "Druid",
+      "aliases": [
+        "druid",
+        "heal druid"
+      ],
+      "type": "heal",
+      "boons": [
+        "Alacrity",
+        "Might"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_chrono",
+      "name": "Heal Chrono",
+      "aliases": [
+        "heal chrono",
+        "hchrono",
+        "heal chronomancer"
+      ],
+      "type": "heal",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_quick_chrono",
+      "name": "Heal Quick Chrono",
+      "aliases": [
+        "heal quick chrono",
+        "hq chrono"
+      ],
+      "type": "heal",
+      "boons": [
+        "Quickness"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_firebrand",
+      "name": "Heal Firebrand",
+      "aliases": [
+        "hfb",
+        "heal fb",
+        "heal firebrand"
+      ],
+      "type": "heal",
+      "boons": [
+        "Quickness",
+        "Aegis",
+        "Stability"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_catalyst",
+      "name": "Heal Catalyst",
+      "aliases": [
+        "heal catalyst",
+        "hcat"
+      ],
+      "type": "heal",
+      "boons": [
+        "Quickness"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_scrapper",
+      "name": "Heal Scrapper",
+      "aliases": [
+        "heal scrapper",
+        "hscrapper"
+      ],
+      "type": "heal",
+      "boons": [
+        "Quickness"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_tempest",
+      "name": "Heal Tempest",
+      "aliases": [
+        "heal tempest",
+        "htempest"
+      ],
+      "type": "heal",
+      "boons": [
+        "Alacrity",
+        "Might"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_mech",
+      "name": "Heal Mechanist",
+      "aliases": [
+        "heal mech",
+        "hmech",
+        "heal mechanist"
+      ],
+      "type": "heal",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_scourge",
+      "name": "Heal Scourge",
+      "aliases": [
+        "heal scourge",
+        "hscourge"
+      ],
+      "type": "heal",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "qfb",
+      "name": "Quick Firebrand",
+      "aliases": [
+        "qfb",
+        "quick firebrand",
+        "quick fb"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness",
+        "Fury",
+        "Aegis",
+        "Stability"
+      ],
+      "condis": []
+    },
+    {
+      "id": "qcatalyst",
+      "name": "Quick Catalyst",
+      "aliases": [
+        "qcatalyst",
+        "qcata",
+        "quick catalyst"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness",
+        "Might",
+        "Fury"
+      ],
+      "condis": []
+    },
+    {
+      "id": "quick_scrapper",
+      "name": "Quick Scrapper",
+      "aliases": [
+        "quickscrapper",
+        "qscrapper",
+        "quick scrapper"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness"
+      ],
+      "condis": []
+    },
+    {
+      "id": "quick_herald",
+      "name": "Quick Herald",
+      "aliases": [
+        "quick herald",
+        "qherald",
+        "p quick herald"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness",
+        "Fury",
+        "Might",
+        "Protection"
+      ],
+      "condis": []
+    },
+    {
+      "id": "quick_chrono",
+      "name": "Quick Chrono",
+      "aliases": [
+        "p quick chrono",
+        "qchrono",
+        "quick chrono"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness"
+      ],
+      "condis": []
+    },
+    {
+      "id": "qharb",
+      "name": "Quick Harbinger",
+      "aliases": [
+        "qharb",
+        "quick harbinger"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness",
+        "Might"
+      ],
+      "condis": []
+    },
+    {
+      "id": "alac_renegade",
+      "name": "Alac Renegade",
+      "aliases": [
+        "renegade",
+        "alac renegade",
+        "aren"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity",
+        "Might",
+        "Fury"
+      ],
+      "condis": []
+    },
+    {
+      "id": "alac_specter",
+      "name": "Alac Specter",
+      "aliases": [
+        "alac specter",
+        "aspecter"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": []
+    },
+    {
+      "id": "alac_mech",
+      "name": "Alac Mechanist",
+      "aliases": [
+        "alac mech",
+        "amech",
+        "alac mechanist"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity",
+        "Might",
+        "Fury"
+      ],
+      "condis": []
+    },
+    {
+      "id": "c_chrono",
+      "name": "Condi Chrono",
+      "aliases": [
+        "c chrono",
+        "cchrono",
+        "condi chrono"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Confusion",
+        "Torment",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_scourge",
+      "name": "Condi Scourge",
+      "aliases": [
+        "c scourge",
+        "cscourge",
+        "condi scourge",
+        "cele scourge"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Torment",
+        "Bleeding",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_harb",
+      "name": "Condi Harbinger",
+      "aliases": [
+        "charb",
+        "c harb",
+        "condi harbinger",
+        "charbinger"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Torment",
+        "Bleeding",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_wb",
+      "name": "Condi Willbender",
+      "aliases": [
+        "cwb",
+        "c wb",
+        "condi willbender"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Burning",
+        "Bleeding",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_dar",
+      "name": "Condi Daredevil",
+      "aliases": [
+        "cdar",
+        "c dar",
+        "condi daredevil"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Poison",
+        "Bleeding",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_virt",
+      "name": "Condi Virtuoso",
+      "aliases": [
+        "cvirt",
+        "c virtuoso",
+        "condi virtuoso"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Bleeding",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_mech",
+      "name": "Condi Mechanist",
+      "aliases": [
+        "cmech",
+        "c mecha",
+        "c mech",
+        "condi mechanist"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Burning",
+        "Bleeding",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_spect",
+      "name": "Condi Specter",
+      "aliases": [
+        "cspect",
+        "c specter",
+        "condi specter",
+        "celestial specter"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Torment",
+        "Poison",
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_virtuoso",
+      "name": "Power Virtuoso",
+      "aliases": [
+        "p virtuoso",
+        "pvirt",
+        "power virtuoso"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_reaper",
+      "name": "Power Reaper",
+      "aliases": [
+        "p reaper",
+        "preaper",
+        "power reaper"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_bladesworn",
+      "name": "Power Bladesworn",
+      "aliases": [
+        "blsw",
+        "bladesworn",
+        "p bladesworn"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_holo",
+      "name": "Power Holosmith",
+      "aliases": [
+        "holo",
+        "holosmith",
+        "p holo"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_scrapper",
+      "name": "Power Scrapper",
+      "aliases": [
+        "p scrapper",
+        "pscrapper",
+        "power scrapper",
+        "scrp"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_weaver",
+      "name": "Power Weaver",
+      "aliases": [
+        "weaver",
+        "p weaver",
+        "ele"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_soulbeast",
+      "name": "Power Soulbeast",
+      "aliases": [
+        "slb",
+        "soulbeast",
+        "p slb"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_dragonhunter",
+      "name": "Power Dragonhunter",
+      "aliases": [
+        "dh",
+        "dragonhunter",
+        "p dh"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_daredevil",
+      "name": "Power Daredevil",
+      "aliases": [
+        "daredevil",
+        "p daredevil",
+        "dar",
+        "staff daredevil"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_vindicator",
+      "name": "Power Vindicator",
+      "aliases": [
+        "vindi",
+        "vindicator",
+        "p vindicator"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_berserker",
+      "name": "Power Berserker",
+      "aliases": [
+        "zerker",
+        "berserker",
+        "p berserker"
+      ],
+      "type": "dps",
+      "boons": [
+        "Might"
+      ],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_mech",
+      "name": "Power Mechanist",
+      "aliases": [
+        "p mech",
+        "pmech",
+        "power mechanist"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "kiter_deadeye",
+      "name": "Kiter Deadeye",
+      "aliases": [
+        "deadeye",
+        "kiter deadeye"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "p_dps",
+      "name": "P DPS (generic)",
+      "aliases": [
+        "p dps",
+        "pdps",
+        "power dps"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "c_dps",
+      "name": "C DPS (generic)",
+      "aliases": [
+        "c dps",
+        "cdps",
+        "condi dps"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [
+        "Vulnerability"
+      ]
+    },
+    {
+      "id": "heal_specter",
+      "name": "Heal Specter",
+      "aliases": [
+        "heal specter",
+        "hspecter",
+        "hspec"
+      ],
+      "type": "heal",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_vindicator",
+      "name": "Heal Vindicator",
+      "aliases": [
+        "heal vindicator",
+        "hvindi"
+      ],
+      "type": "heal",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_herald",
+      "name": "Heal Herald",
+      "aliases": [
+        "heal herald",
+        "hherald"
+      ],
+      "type": "heal",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "alac_tempest",
+      "name": "Alac Tempest",
+      "aliases": [
+        "alac tempest",
+        "atempest"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_troubadour",
+      "name": "Heal Troubadour",
+      "aliases": [
+        "heal troubadour",
+        "heal troub",
+        "htroub"
+      ],
+      "type": "heal",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "alac_luminary",
+      "name": "Alac Luminary",
+      "aliases": [
+        "alac luminary",
+        "alumi"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": []
+    },
+    {
+      "id": "quick_ritualist",
+      "name": "Quick Ritualist",
+      "aliases": [
+        "quick ritualist",
+        "qrit"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness"
+      ],
+      "condis": []
+    },
+    {
+      "id": "heal_paragon",
+      "name": "Heal Paragon",
+      "aliases": [
+        "heal paragon",
+        "hpara"
+      ],
+      "type": "heal",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_chrono",
+      "name": "Power Chrono",
+      "aliases": [
+        "power chrono",
+        "chrono dps",
+        "pchrono"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_willbender",
+      "name": "Power Willbender",
+      "aliases": [
+        "power willbender",
+        "pwb"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_firebrand",
+      "name": "Condi Firebrand",
+      "aliases": [
+        "condi firebrand",
+        "cfb"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_catalyst",
+      "name": "Power Catalyst",
+      "aliases": [
+        "power catalyst",
+        "pcata"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_weaver",
+      "name": "Condi Weaver",
+      "aliases": [
+        "condi weaver",
+        "cweaver"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_soulbeast",
+      "name": "Condi Soulbeast",
+      "aliases": [
+        "condi soulbeast",
+        "cslb"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_untamed",
+      "name": "Power Untamed",
+      "aliases": [
+        "power untamed",
+        "puntamed"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_herald",
+      "name": "Power Herald",
+      "aliases": [
+        "power herald",
+        "pherald"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_renegade",
+      "name": "Power Renegade",
+      "aliases": [
+        "power renegade",
+        "prene"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_renegade",
+      "name": "Condi Renegade",
+      "aliases": [
+        "condi renegade",
+        "crene"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_spellbreaker",
+      "name": "Power Spellbreaker",
+      "aliases": [
+        "power spellbreaker",
+        "spb"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_berserker",
+      "name": "Condi Berserker",
+      "aliases": [
+        "condi berserker",
+        "cberserker"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_reaper",
+      "name": "Condi Reaper",
+      "aliases": [
+        "condi reaper",
+        "creaper"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_ritualist",
+      "name": "Power Ritualist",
+      "aliases": [
+        "power ritualist",
+        "prit"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_ritualist",
+      "name": "Condi Ritualist",
+      "aliases": [
+        "condi ritualist",
+        "crit build"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_amalgam",
+      "name": "Power Amalgam",
+      "aliases": [
+        "power amalgam",
+        "pmalg",
+        "pamalg"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_amalgam",
+      "name": "Condi Amalgam",
+      "aliases": [
+        "condi amalgam",
+        "camalg"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_galeshot",
+      "name": "Power Galeshot",
+      "aliases": [
+        "power galeshot",
+        "pgale"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_galeshot",
+      "name": "Condi Galeshot",
+      "aliases": [
+        "condi galeshot",
+        "cgale"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_conduit",
+      "name": "Power Conduit",
+      "aliases": [
+        "power conduit",
+        "pconduit"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_conduit",
+      "name": "Condi Conduit",
+      "aliases": [
+        "condi conduit",
+        "cconduit"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_evoker",
+      "name": "Power Evoker",
+      "aliases": [
+        "power evoker",
+        "pevoker"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_evoker",
+      "name": "Condi Evoker",
+      "aliases": [
+        "condi evoker",
+        "cevoker"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_antiquary",
+      "name": "Power Antiquary",
+      "aliases": [
+        "power antiquary",
+        "pantiq"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "condi_antiquary",
+      "name": "Condi Antiquary",
+      "aliases": [
+        "condi antiquary",
+        "cantiq"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    },
+    {
+      "id": "power_paragon",
+      "name": "Power Paragon",
+      "aliases": [
+        "power paragon",
+        "ppara"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": []
+    }
   ]
 }

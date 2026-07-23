@@ -200,11 +200,11 @@ function BuildCombo({ value, builds, icons, onCommit }) {
   }
 
   return (
-    <span className="relative">
+    <span className="relative flex-1 min-w-0 block">
       <input
         value={query}
         placeholder="class/build"
-        className={`${selCls} w-40`}
+        className={`${selCls} w-full`}
         onFocus={() => setOpen(true)}
         onChange={(e) => {
           setQuery(e.target.value)
@@ -244,15 +244,17 @@ function CompEditorRow({ slot, editing, builds, players, icons, onChange }) {
   if (!editing) {
     const isEmpty = !slot.build && !slot.player
     return (
-      <div className="flex items-center gap-2 text-sm min-h-[30px]">
-        <RoleChip role={slot.role} />
-        {slot.player && <span className="font-semibold text-cream shrink-0">{slot.player.split('|')[0].trim()}</span>}
-        {slot.build ? (
-          <BuildChip name={slot.build} icons={icons} className="text-cream/90" />
-        ) : (
-          isEmpty && <span className="text-silver/50 italic">open slot</span>
-        )}
-        {slot.note && <span className="text-xs text-silver truncate">· {slot.note}</span>}
+      <div className="text-sm py-1">
+        <div className="flex items-center gap-2 min-h-[30px]">
+          <RoleChip role={slot.role} />
+          {slot.player && <span className="font-semibold text-cream shrink-0">{slot.player.split('|')[0].trim()}</span>}
+          {slot.build ? (
+            <BuildChip name={slot.build} icons={icons} className="text-cream/90" />
+          ) : (
+            isEmpty && <span className="text-silver/50 italic">open slot</span>
+          )}
+        </div>
+        {slot.note && <div className="mt-0.5 ml-[5rem] text-xs text-silver leading-snug">{slot.note}</div>}
       </div>
     )
   }
@@ -261,27 +263,34 @@ function CompEditorRow({ slot, editing, builds, players, icons, onChange }) {
     onChange({ ...slot, role: next })
   }
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      <RoleChip role={slot.role} onClick={cycleRole} />
-      <input
-        key={slot.player || ''}
-        defaultValue={slot.player || ''}
-        placeholder="player"
-        list="kp-roster-names"
-        className={`${selCls} w-28`}
-        onBlur={(e) => e.target.value !== (slot.player || '') && onChange({ ...slot, player: e.target.value })}
-        onKeyDown={(e) => e.key === 'Enter' && e.target.blur()}
+    <div className="rounded-xl border border-teal-deep/20 bg-ink/30 p-2 space-y-1.5">
+      <div className="flex items-center gap-1.5">
+        <RoleChip role={slot.role} onClick={cycleRole} />
+        <input
+          key={slot.player || ''}
+          defaultValue={slot.player || ''}
+          placeholder="player"
+          list="kp-roster-names"
+          className={`${selCls} w-32 shrink-0`}
+          onBlur={(e) => e.target.value !== (slot.player || '') && onChange({ ...slot, player: e.target.value })}
+          onKeyDown={(e) => e.key === 'Enter' && e.target.blur()}
+        />
+        <datalist id="kp-roster-names">
+          {players.map((p) => (
+            <option key={p.id} value={p.name.split('|')[0].trim()} />
+          ))}
+        </datalist>
+        {slot.build && resolveBuildIcon(slot.build, icons) && (
+          <img src={resolveBuildIcon(slot.build, icons)} alt="" className="w-9 h-9 rounded-md shrink-0" />
+        )}
+        <BuildCombo key={slot.build || ''} value={slot.build} builds={builds} icons={icons} onCommit={(v) => onChange({ ...slot, build: v })} />
+      </div>
+      <Field
+        value={slot.note}
+        placeholder="note — duty, gear, sigils, mechanics…"
+        className="w-full"
+        onCommit={(v) => onChange({ ...slot, note: v })}
       />
-      <datalist id="kp-roster-names">
-        {players.map((p) => (
-          <option key={p.id} value={p.name.split('|')[0].trim()} />
-        ))}
-      </datalist>
-      {slot.build && resolveBuildIcon(slot.build, icons) && (
-        <img src={resolveBuildIcon(slot.build, icons)} alt="" className="w-9 h-9 rounded-md shrink-0" />
-      )}
-      <BuildCombo key={slot.build || ''} value={slot.build} builds={builds} icons={icons} onCommit={(v) => onChange({ ...slot, build: v })} />
-      <Field value={slot.note} placeholder="note" className="flex-1 min-w-[80px]" onCommit={(v) => onChange({ ...slot, note: v })} />
     </div>
   )
 }
@@ -887,7 +896,7 @@ function WingDetail({ pub, override, icons, builds, players, onBack, onSaveOverr
             {[1, 2].map((g) => (
               <div key={g} className="bg-ink/40 border border-teal-deep/25 rounded-xl p-3">
                 <div className="text-[11px] uppercase tracking-wider text-teal-light/80 mb-2">Subgroup {g}</div>
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   {comp.map((c, i) =>
                     c.sub === g ? (
                       <CompEditorRow

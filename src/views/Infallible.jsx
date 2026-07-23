@@ -236,21 +236,136 @@ function CompEditorRow({ slot, editing, builds, players, icons, onChange }) {
   )
 }
 
+const DRAW_COLORS = ['#4fb3d4', '#e05252', '#f5b942', '#39c07a', '#f2ead9']
+const TOOLS = [
+  { id: 'pin', icon: '📍', label: 'Marker' },
+  { id: 'pen', icon: '✏️', label: 'Pen' },
+  { id: 'line', icon: '╱', label: 'Line' },
+  { id: 'arrow', icon: '➔', label: 'Arrow' },
+  { id: 'ellipse', icon: '◯', label: 'Circle' },
+  { id: 'erase', icon: '🧽', label: 'Erase' },
+]
+
+function Shape({ sh, erasable, onErase }) {
+  const common = {
+    stroke: sh.c,
+    strokeWidth: 3,
+    fill: 'none',
+    vectorEffect: 'non-scaling-stroke',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    strokeDasharray: sh.d ? '8 6' : undefined,
+    style: erasable ? { pointerEvents: 'stroke', cursor: 'pointer' } : { pointerEvents: 'none' },
+    onPointerDown: erasable
+      ? (e) => {
+          e.stopPropagation()
+          onErase()
+        }
+      : undefined,
+  }
+  if (sh.t === 'pen' || sh.t === 'line' || sh.t === 'arrow') {
+    const pts = sh.t === 'pen' ? sh.pts : [[sh.x1, sh.y1], [sh.x2, sh.y2]]
+    return <polyline points={pts.map((p) => p.join(',')).join(' ')} {...common} />
+  }
+  if (sh.t === 'head') return <polyline points={sh.pts.map((p) => p.join(',')).join(' ')} {...common} strokeDasharray={undefined} />
+  if (sh.t === 'ellipse') return <ellipse cx={sh.cx} cy={sh.cy} rx={sh.rx} ry={sh.ry} {...common} />
+  return null
+}
+
+// Arrowhead computed in pixel space at draw time, stored normalized → stays correct because the image keeps its aspect ratio.
+function arrowHead(x1, y1, x2, y2, rect) {
+  const px = (v) => (v / 100) * rect.width
+  const py = (v) => (v / 100) * rect.height
+  const nx = (v) => (v / rect.width) * 100
+  const ny = (v) => (v / rect.height) * 100
+  const ax = px(x1), ay = py(y1), bx = px(x2), by = py(y2)
+  const ang = Math.atan2(by - ay, bx - ax)
+  const L = 14
+  const mk = (da) => [nx(bx - L * Math.cos(ang + da)), ny(by - L * Math.sin(ang + da))]
+  return [mk(0.45), [x2, y2], mk(-0.45)]
+}
+
 function StrategyImage({ seg, editing, onChange }) {
+  const [tool, setTool] = useState('pin')
+  const [color, setColor] = useState(DRAW_COLORS[0])
+  const [dashed, setDashed] = useState(false)
+  const [temp, setTemp] = useState(null)
   const pins = seg.pins || []
+  const draw = seg.draw || []
   const src = seg.image
     ? seg.image.startsWith('data:')
       ? seg.image
       : `${import.meta.env.BASE_URL}${seg.image}`
     : null
 
-  const addPin = (e) => {
-    if (!editing) return
+  const norm = (e) => {
     const rect = e.currentTarget.getBoundingClientRect()
-    const x = Math.round(((e.clientX - rect.left) / rect.width) * 1000) / 10
-    const y = Math.round(((e.clientY - rect.top) / rect.height) * 1000) / 10
-    onChange({ ...seg, pins: [...pins, { x, y, text: '' }] })
+    return {
+      rect,
+      x: Math.min(100, Math.max(0, Math.round(((e.clientX - rect.left) / rect.width) * 1000) / 10)),
+      y: Math.min(100, Math.max(0, Math.round(((e.clientY - rect.top) / rect.height) * 1000) / 10)),
+    }
   }
+
+  const down = (e) => {
+    if (!editing || tool === 'erase') return
+    const { x, y, rect } = norm(e)
+    if (tool === 'pin') {
+      onChange({ ...seg, pins: [...pins, { x, y, text: '' }] })
+      return
+    }
+    e.currentTarget.setPointerCapture?.(e.pointerId)
+    if (tool === 'pen') setTemp({ t: 'pen', pts: [[x, y]], c: color, d: dashed })
+    if (tool === 'line' || tool === 'arrow') setTemp({ t: tool, x1: x, y1: y, x2: x, y2: y, c: color, d: dashed, rect })
+    if (tool === 'ellipse') setTemp({ t: 'ellipse', x0: x, y0: y, cx: x, cy: y, rx: 0, ry: 0, c: color, d: dashed })
+  }
+  const move = (e) => {
+    if (!temp) return
+    const { x, y } = norm(e)
+    if (temp.t === 'pen') {
+      const last = temp.pts[temp.pts.length - 1]
+      if (Math.abs(last[0] - x) + Math.abs(last[1] - y) < 0.4) return
+      setTemp({ ...temp, pts: [...temp.pts, [x, y]] })
+    } else if (temp.t === 'line' || temp.t === 'arrow') setTemp({ ...temp, x2: x, y2: y })
+    else if (temp.t === 'ellipse')
+      setTemp({
+        ...temp,
+        cx: (temp.x0 + x) / 2,
+        cy: (temp.y0 + y) / 2,
+        rx: Math.abs(x - temp.x0) / 2,
+        ry: Math.abs(y - temp.y0) / 2,
+      })
+  }
+  const up = () => {
+    if (!temp) return
+    let shapes = []
+    if (temp.t === 'pen' && temp.pts.length > 1) shapes = [{ t: 'pen', pts: temp.pts, c: temp.c, d: temp.d }]
+    if ((temp.t === 'line' || temp.t === 'arrow') && (temp.x1 !== temp.x2 || temp.y1 !== temp.y2)) {
+      shapes = [{ t: temp.t === 'arrow' ? 'arrow' : 'line', x1: temp.x1, y1: temp.y1, x2: temp.x2, y2: temp.y2, c: temp.c, d: temp.d }]
+      if (temp.t === 'arrow')
+        shapes.push({ t: 'head', pts: arrowHead(temp.x1, temp.y1, temp.x2, temp.y2, temp.rect), c: temp.c })
+    }
+    if (temp.t === 'ellipse' && temp.rx > 0.5 && temp.ry > 0.5)
+      shapes = [{ t: 'ellipse', cx: temp.cx, cy: temp.cy, rx: temp.rx, ry: temp.ry, c: temp.c, d: temp.d }]
+    setTemp(null)
+    if (shapes.length) onChange({ ...seg, draw: [...draw, ...shapes] })
+  }
+
+  const eraseShape = (i) => {
+    // arrows are stored as [arrow, head] pairs — remove both
+    const sh = draw[i]
+    let drop = [i]
+    if (sh.t === 'arrow' && draw[i + 1]?.t === 'head') drop.push(i + 1)
+    if (sh.t === 'head' && draw[i - 1]?.t === 'arrow') drop.push(i - 1)
+    onChange({ ...seg, draw: draw.filter((_, j) => !drop.includes(j)) })
+  }
+  const undo = () => {
+    if (!draw.length) return
+    let n = 1
+    if (draw[draw.length - 1].t === 'head') n = 2
+    onChange({ ...seg, draw: draw.slice(0, -n) })
+  }
+
   const setPin = (i, text) => onChange({ ...seg, pins: pins.map((p, j) => (j === i ? { ...p, text } : p)) })
   const delPin = (i) => onChange({ ...seg, pins: pins.filter((_, j) => j !== i) })
 
@@ -258,26 +373,86 @@ function StrategyImage({ seg, editing, onChange }) {
     const file = e.target.files?.[0]
     if (!file) return
     const reader = new FileReader()
-    reader.onload = () => onChange({ ...seg, image: reader.result, pins: [] })
+    reader.onload = () => onChange({ ...seg, image: reader.result, pins: [], draw: [] })
     reader.readAsDataURL(file)
     e.target.value = ''
   }
 
+  const cursor = !editing ? '' : tool === 'erase' ? 'cursor-pointer' : 'cursor-crosshair'
+
   return (
     <div className="space-y-2">
+      {editing && src && (
+        <div className="flex items-center gap-2 flex-wrap bg-ink/60 border border-teal-deep/30 rounded-xl px-2 py-1.5">
+          {TOOLS.map((t) => (
+            <button
+              key={t.id}
+              title={t.label}
+              onClick={() => setTool(t.id)}
+              className={`px-2 py-1 rounded-lg text-sm border transition-colors ${
+                tool === t.id ? 'bg-teal/20 border-teal text-cream' : 'border-transparent text-silver hover:text-cream'
+              }`}
+            >
+              {t.icon} <span className="text-xs">{t.label}</span>
+            </button>
+          ))}
+          <span className="w-px h-5 bg-teal-deep/40" />
+          {DRAW_COLORS.map((c) => (
+            <button
+              key={c}
+              onClick={() => setColor(c)}
+              className={`w-5 h-5 rounded-full border-2 ${color === c ? 'border-cream scale-110' : 'border-transparent'}`}
+              style={{ background: c }}
+              title="Color"
+            />
+          ))}
+          <span className="w-px h-5 bg-teal-deep/40" />
+          <button
+            onClick={() => setDashed(!dashed)}
+            className={`px-2 py-1 rounded-lg text-xs border ${dashed ? 'bg-teal/20 border-teal text-cream' : 'border-teal-deep/40 text-silver'}`}
+            title="Dashed stroke (movement paths)"
+          >
+            - - -
+          </button>
+          <button onClick={undo} disabled={!draw.length} className="px-2 py-1 rounded-lg text-xs text-silver hover:text-cream disabled:opacity-30" title="Undo last shape">
+            ↶ Undo
+          </button>
+          <button
+            onClick={() => (draw.length || pins.length) && confirm('Clear ALL drawings and markers on this map?') && onChange({ ...seg, draw: [], pins: [] })}
+            className="px-2 py-1 rounded-lg text-xs text-danger/80 hover:text-danger"
+          >
+            Clear
+          </button>
+        </div>
+      )}
       {src ? (
-        <div className="relative inline-block max-w-full">
+        <div
+          className={`relative inline-block max-w-full select-none ${editing ? 'touch-none' : ''}`}
+          onPointerDown={down}
+          onPointerMove={move}
+          onPointerUp={up}
+          onPointerLeave={up}
+        >
           <img
             src={src}
             alt={`${seg.name} strategy map`}
-            className={`rounded-xl border border-teal-deep/30 max-h-[440px] w-auto ${editing ? 'cursor-crosshair' : ''}`}
-            onClick={addPin}
+            className={`rounded-xl border border-teal-deep/30 max-h-[440px] w-auto ${cursor}`}
+            draggable={false}
             loading="lazy"
           />
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            {draw.map((sh, i) => (
+              <Shape key={i} sh={sh} erasable={editing && tool === 'erase'} onErase={() => eraseShape(i)} />
+            ))}
+            {temp && <Shape sh={temp.t === 'ellipse' ? temp : temp} erasable={false} />}
+            {temp?.t === 'arrow' && temp.rect && (
+              <Shape sh={{ t: 'head', pts: arrowHead(temp.x1, temp.y1, temp.x2, temp.y2, temp.rect), c: temp.c }} erasable={false} />
+            )}
+          </svg>
           {pins.map((p, i) => (
             <span
               key={i}
-              className="absolute w-6 h-6 -ml-3 -mt-3 rounded-full bg-teal text-ink font-bold text-xs flex items-center justify-center border-2 border-cream shadow-lg select-none"
+              className="absolute w-6 h-6 -ml-3 -mt-3 rounded-full bg-teal text-ink font-bold text-xs flex items-center justify-center border-2 border-cream shadow-lg select-none pointer-events-none"
               style={{ left: `${p.x}%`, top: `${p.y}%` }}
               title={p.text}
             >
@@ -296,8 +471,10 @@ function StrategyImage({ seg, editing, onChange }) {
           </label>
           {src && (
             <>
-              <span className="text-xs text-silver/70">Click on the map to drop a numbered marker.</span>
-              <button className="btn btn-ghost text-xs" onClick={() => onChange({ ...seg, image: null, pins: [] })}>
+              <span className="text-xs text-silver/70">
+                Pick a tool above — Marker drops numbered notes, the rest draw on the map.
+              </span>
+              <button className="btn btn-ghost text-xs" onClick={() => onChange({ ...seg, image: null, pins: [], draw: [] })}>
                 Remove image
               </button>
             </>

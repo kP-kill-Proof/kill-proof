@@ -492,90 +492,96 @@ function StrategyImage({ seg, editing, onChange }) {
   return (
     <div className="space-y-2">
       {editing && src && (
-        <div className="flex items-center gap-2 flex-wrap bg-ink/60 border border-teal-deep/30 rounded-xl px-2 py-1.5">
-          {TOOLS.map((t) => (
+        <div className="bg-ink/60 border border-teal-deep/30 rounded-xl px-3 py-2 space-y-2">
+          <div className="flex items-center gap-1 flex-wrap">
+            {TOOLS.map((t) => (
+              <button
+                key={t.id}
+                title={t.label}
+                onClick={() => setTool(t.id)}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm border transition-colors ${
+                  tool === t.id ? 'bg-teal/20 border-teal text-cream' : 'border-transparent text-silver hover:text-cream hover:bg-ink/60'
+                }`}
+              >
+                <span>{t.icon}</span>
+                <span className="text-xs hidden sm:inline">{t.label}</span>
+              </button>
+            ))}
+            <span className="flex-1" />
             <button
-              key={t.id}
-              title={t.label}
-              onClick={() => setTool(t.id)}
-              className={`px-2 py-1 rounded-lg text-sm border transition-colors ${
-                tool === t.id ? 'bg-teal/20 border-teal text-cream' : 'border-transparent text-silver hover:text-cream'
-              }`}
+              type="button"
+              onClick={undo}
+              disabled={!draw.length && !pins.length}
+              className="px-2.5 py-1.5 rounded-lg text-xs text-silver hover:text-cream disabled:opacity-30"
+              title="Undo last shape or marker"
             >
-              {t.icon} <span className="text-xs">{t.label}</span>
+              ↶ Undo
             </button>
-          ))}
-          {tool === 'sicon' && (
-            <>
-              <span className="w-px h-5 bg-teal-deep/40" />
-              {MAP_ICONS.map((ic) => (
-                <button
-                  key={ic.id}
-                  type="button"
-                  title={ic.name}
-                  onClick={() => setMapIcon(ic)}
-                  className={`p-0.5 rounded-lg border ${mapIcon.id === ic.id ? 'border-teal bg-teal/15' : 'border-transparent hover:border-teal-deep/50'}`}
-                >
-                  <img src={ic.url} alt={ic.name} className="w-7 h-7 rounded" />
-                </button>
-              ))}
-            </>
-          )}
-          <span className="w-px h-5 bg-teal-deep/40" />
-          {DRAW_COLORS.map((c) => (
             <button
-              key={c}
-              onClick={() => setColor(c)}
-              className={`w-5 h-5 rounded-full border-2 ${color === c ? 'border-cream scale-110' : 'border-transparent'}`}
-              style={{ background: c }}
-              title="Color"
-            />
-          ))}
-          <span className="w-px h-5 bg-teal-deep/40" />
-          <button
-            onClick={() => setDashed(!dashed)}
-            className={`px-2 py-1 rounded-lg text-xs border ${dashed ? 'bg-teal/20 border-teal text-cream' : 'border-teal-deep/40 text-silver'}`}
-            title="Dashed stroke (movement paths)"
-          >
-            - - -
-          </button>
-          <button
-            type="button"
-            onClick={undo}
-            disabled={!draw.length && !pins.length}
-            className="px-2 py-1 rounded-lg text-xs text-silver hover:text-cream disabled:opacity-30"
-            title="Undo last shape or marker"
-          >
-            ↶ Undo
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              if (!draw.length && !pins.length) return
-              if (!armClear) {
-                setArmClear(true)
-                setTimeout(() => setArmClear(false), 3000)
-                return
-              }
-              setArmClear(false)
-              onChange({ ...seg, draw: [], pins: [] })
-            }}
-            disabled={!draw.length && !pins.length}
-            className={`px-2 py-1 rounded-lg text-xs border transition-colors disabled:opacity-30 ${armClear ? 'bg-danger/20 border-danger text-danger font-semibold' : 'border-transparent text-danger/80 hover:text-danger'}`}
-          >
-            {armClear ? 'Sure? Click again' : 'Clear'}
-          </button>
-          <span className="w-px h-5 bg-teal-deep/40" />
-          <span className="text-[10px] uppercase tracking-wider text-silver/70">Size</span>
-          {IMG_SIZES.map((sz) => (
-            <button
-              key={sz.id}
-              onClick={() => onChange({ ...seg, imgSize: sz.id })}
-              className={`px-2 py-1 rounded-lg text-xs border ${(seg.imgSize || 'md') === sz.id ? 'bg-teal/20 border-teal text-cream' : 'border-teal-deep/40 text-silver hover:text-cream'}`}
+              type="button"
+              onClick={() => {
+                if (!draw.length && !pins.length) return
+                if (!armClear) {
+                  setArmClear(true)
+                  setTimeout(() => setArmClear(false), 3000)
+                  return
+                }
+                setArmClear(false)
+                onChange({ ...seg, draw: [], pins: [] })
+              }}
+              disabled={!draw.length && !pins.length}
+              className={`px-2.5 py-1.5 rounded-lg text-xs border transition-colors disabled:opacity-30 ${armClear ? 'bg-danger/20 border-danger text-danger font-semibold' : 'border-transparent text-danger/80 hover:text-danger'}`}
             >
-              {sz.label}
+              {armClear ? 'Sure? Click again' : 'Clear'}
             </button>
-          ))}
+          </div>
+          <div className="flex items-center gap-2 flex-wrap border-t border-teal-deep/20 pt-2">
+            <span className="text-[10px] uppercase tracking-wider text-silver/70">Style</span>
+            {DRAW_COLORS.map((c) => (
+              <button
+                key={c}
+                onClick={() => setColor(c)}
+                className={`w-5 h-5 rounded-full border-2 transition-transform ${color === c ? 'border-cream scale-110' : 'border-transparent hover:scale-105'}`}
+                style={{ background: c }}
+                title="Color"
+              />
+            ))}
+            <button
+              onClick={() => setDashed(!dashed)}
+              className={`px-2 py-1 rounded-lg text-xs border ${dashed ? 'bg-teal/20 border-teal text-cream' : 'border-teal-deep/40 text-silver hover:text-cream'}`}
+              title="Dashed stroke (movement paths)"
+            >
+              - - -
+            </button>
+            {tool === 'sicon' && (
+              <>
+                <span className="w-px h-5 bg-teal-deep/40" />
+                <span className="text-[10px] uppercase tracking-wider text-silver/70">Icon</span>
+                {MAP_ICONS.map((ic) => (
+                  <button
+                    key={ic.id}
+                    type="button"
+                    title={ic.name}
+                    onClick={() => setMapIcon(ic)}
+                    className={`p-0.5 rounded-lg border ${mapIcon.id === ic.id ? 'border-teal bg-teal/15' : 'border-transparent hover:border-teal-deep/50'}`}
+                  >
+                    <img src={ic.url} alt={ic.name} className="w-7 h-7 rounded" />
+                  </button>
+                ))}
+              </>
+            )}
+            <span className="flex-1" />
+            <span className="text-[10px] uppercase tracking-wider text-silver/70">Size</span>
+            {IMG_SIZES.map((sz) => (
+              <button
+                key={sz.id}
+                onClick={() => onChange({ ...seg, imgSize: sz.id })}
+                className={`px-2 py-1 rounded-lg text-xs border ${(seg.imgSize || 'md') === sz.id ? 'bg-teal/20 border-teal text-cream' : 'border-teal-deep/40 text-silver hover:text-cream'}`}
+              >
+                {sz.label}
+              </button>
+            ))}
+          </div>
         </div>
       )}
       {src ? (

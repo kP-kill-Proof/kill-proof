@@ -1,6 +1,7 @@
 // Daily sale logic v4:
 // Always match the LI target with the FASTEST possible set of bosses.
-// - Daily bounties are worth 2 LI (any encounter), raid bosses + IBS strikes 1 LI.
+// - Daily bounties are worth 2 LI (any encounter), every other raid boss or
+//   strike encounter is worth 1 LI.
 // - Exact optimization (0/1 knapsack over kill times, minimize total time
 //   subject to totalLI >= target). Bosses without a known time are only
 //   picked when the target is otherwise unreachable.
@@ -26,7 +27,7 @@ export function buildSaleList({ wings, dailyIds, discarded, liTarget }) {
   for (const b of all) {
     if (isDiscarded(b.id)) continue
     const isDaily = dailyIds.includes(b.id)
-    const effLi = isDaily ? 2 : (b.li ?? (b.wing.type === 'raid' ? 1 : 0))
+    const effLi = isDaily ? 2 : (b.li ?? 1)
     if (effLi <= 0) continue
     candidates.push({ ...b, isDaily, effLi, cost: b.time ?? UNKNOWN_TIME_COST })
   }

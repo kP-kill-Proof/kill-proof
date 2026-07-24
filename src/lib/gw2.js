@@ -33,6 +33,18 @@ const norm = (s) =>
     .replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9]/g, '')
 
+// Filler words that differ between the bounty name and the encounter name
+// ("Voice and Claw of the Fallen" vs "Voice/Claw of the Fallen").
+const STOP = new Set(['and', 'of', 'the', 'at', 'in', 'to', 'a', 'de', 'y'])
+const normCore = (s) =>
+  s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .split(/[^a-z0-9]+/)
+    .filter((t) => t && !STOP.has(t))
+    .join('')
+
 // Cruza el nombre del bounty con wings.json (nombre o alias)
 export function matchBossId(bountyName, wings) {
   const target = norm(bountyName)
@@ -52,6 +64,27 @@ export function matchBossId(bountyName, wings) {
         return nn.includes(target) || target.includes(nn)
       })
       if (hit) return b.id
+    }
+  }
+  // third pass: ignore filler words on both sides
+  const core = normCore(bountyName)
+  if (core.length >= 4) {
+    for (const w of wings) {
+      for (const b of w.bosses) {
+        const names = [b.name, ...(b.aliases || [])]
+        if (names.some((n) => normCore(n) === core)) return b.id
+      }
+    }
+    for (const w of wings) {
+      for (const b of w.bosses) {
+        const names = [b.name, ...(b.aliases || [])]
+        const hit = names.some((n) => {
+          const nn = normCore(n)
+          if (nn.length < 4) return false
+          return nn.includes(core) || core.includes(nn)
+        })
+        if (hit) return b.id
+      }
     }
   }
   return null

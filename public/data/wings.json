@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15",
+  "updated": "2026-07-23",
   "wings": [
     {
       "id": "w1",
@@ -350,7 +350,9 @@
           "name": "Voice/Claw of the Fallen",
           "aliases": [
             "Voice of the Fallen and Claw of the Fallen",
-            "Kodans"
+            "Kodans",
+            "Voice and Claw of the Fallen",
+            "Voice and Claw"
           ],
           "time": 66,
           "li": 1
@@ -405,7 +407,7 @@
             "Mai Trin"
           ],
           "time": 270,
-          "li": 0
+          "li": 1
         },
         {
           "id": "junkyard",
@@ -415,7 +417,7 @@
             "Ankka"
           ],
           "time": 240,
-          "li": 0
+          "li": 1
         },
         {
           "id": "kaineng",
@@ -425,17 +427,18 @@
             "Minister Li"
           ],
           "time": 540,
-          "li": 0
+          "li": 1
         },
         {
           "id": "harvest_temple",
           "name": "Harvest Temple",
           "aliases": [
             "HT",
-            "Dragonvoid"
+            "Dragonvoid",
+            "The Dragonvoid"
           ],
           "time": 420,
-          "li": 0
+          "li": 1
         },
         {
           "id": "olc",
@@ -444,7 +447,7 @@
             "OLC"
           ],
           "time": 480,
-          "li": 0
+          "li": 1
         }
       ]
     },
@@ -462,7 +465,7 @@
             "Dagda"
           ],
           "time": 360,
-          "li": 0
+          "li": 1
         },
         {
           "id": "temple_of_febe",
@@ -472,7 +475,7 @@
             "Cerus"
           ],
           "time": 390,
-          "li": 0
+          "li": 1
         }
       ]
     },
@@ -487,7 +490,7 @@
           "name": "Guardian's Glade",
           "aliases": [],
           "time": null,
-          "li": 0
+          "li": 1
         }
       ]
     }

@@ -1780,8 +1780,9 @@
     },
     {
       "id": "p_dps",
-      "name": "P DPS (generic)",
+      "name": "Any Power DPS",
       "aliases": [
+        "any power dps",
         "p dps",
         "pdps",
         "power dps"
@@ -1793,8 +1794,9 @@
     },
     {
       "id": "c_dps",
-      "name": "C DPS (generic)",
+      "name": "Any Condi DPS",
       "aliases": [
+        "any condi dps",
         "c dps",
         "cdps",
         "condi dps"

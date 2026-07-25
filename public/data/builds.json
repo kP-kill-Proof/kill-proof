@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-23",
+  "updated": "2026-07-25",
   "note": "Build catalog aligned to Snow Crows raid builds (Jul 2026) + legacy extras. 'tank' marks builds SC lists as tank-capable. Custom free-text builds are allowed in comps.",
   "source": "https://snowcrows.com/builds/raids",
   "builds": [
@@ -1476,6 +1476,109 @@
       "boons": [],
       "condis": [],
       "profession": "Any"
+    },
+    {
+      "id": "condi_alac_evoker",
+      "name": "Condi Alac Evoker",
+      "aliases": [
+        "condi alac evoker",
+        "alac evoker",
+        "condition alacrity evoker"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity",
+        "Might",
+        "Fury",
+        "Protection",
+        "Regeneration",
+        "Boon Extension"
+      ],
+      "condis": [],
+      "profession": "Elementalist"
+    },
+    {
+      "id": "condi_quick_evoker",
+      "name": "Condi Quick Evoker",
+      "aliases": [
+        "condi quick evoker",
+        "quick evoker",
+        "condition quickness evoker"
+      ],
+      "type": "support",
+      "boons": [
+        "Quickness",
+        "Might"
+      ],
+      "condis": [],
+      "profession": "Elementalist"
+    },
+    {
+      "id": "power_alac_evoker",
+      "name": "Power Alac Evoker",
+      "aliases": [
+        "power alac evoker"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity",
+        "Might",
+        "Fury"
+      ],
+      "condis": [],
+      "profession": "Elementalist"
+    },
+    {
+      "id": "condi_alac_amalgam",
+      "name": "Condi Alac Amalgam",
+      "aliases": [
+        "condi alac amalgam",
+        "alac amalgam",
+        "condition alacrity amalgam"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": [],
+      "profession": "Engineer"
+    },
+    {
+      "id": "power_alac_amalgam",
+      "name": "Power Alac Amalgam",
+      "aliases": [
+        "power alac amalgam"
+      ],
+      "type": "support",
+      "boons": [
+        "Alacrity"
+      ],
+      "condis": [],
+      "profession": "Engineer"
+    },
+    {
+      "id": "condi_amalgam",
+      "name": "Condi Amalgam",
+      "aliases": [
+        "condi amalgam",
+        "camalgam"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Engineer"
+    },
+    {
+      "id": "power_amalgam",
+      "name": "Power Amalgam",
+      "aliases": [
+        "power amalgam",
+        "pamalgam"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Engineer"
     }
   ]
 }

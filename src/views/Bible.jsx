@@ -1,15 +1,89 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useData } from '../App.jsx'
 import { fmtTime } from '../lib/gw2.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
+import PlanView, { PLAN_STATUS, planCoverage, planIsEmpty } from '../lib/plan.jsx'
+
+const PLANS_KEY = 'kp_plans_v1'
+const loadPlanOv = () => {
+  try { return JSON.parse(localStorage.getItem(PLANS_KEY)) || {} } catch { return {} }
+}
+const savePlanOv = (ov) => {
+  try { localStorage.setItem(PLANS_KEY, JSON.stringify(ov)); return true } catch { return false }
+}
+
+const EMPTY_PLAN = { status: 'draft', comp: [], mechanics: [], steps: [], maps: [], requires: ['Vulnerability'], decisions: [], rejected: [], gaps: [] }
 
 function BossPage({ wing, boss, onBack }) {
-  const { comps, icons } = useData()
+  const { comps, icons, builds, players, plans } = useData()
   const k = comps.bosses?.[boss.id] || {}
+  const [editing, setEditing] = useState(false)
+  const [ovv, setOvv] = useState(0)
+  const [msg, setMsg] = useState(null)
+  const overrides = useMemo(() => loadPlanOv(), [ovv])
+  const published = plans?.bosses?.[boss.id] || null
+  const override = overrides[boss.id] || null
+  const plan = override || published || EMPTY_PLAN
+
+  const writePlan = (next) => {
+    const all = loadPlanOv()
+    all[boss.id] = next
+    if (!savePlanOv(all)) { setMsg({ ok: false, text: 'No se pudo guardar: el almacenamiento del navegador está lleno (usa imágenes más chicas).' }); return }
+    setOvv((v) => v + 1)
+  }
+  const resetPlan = () => {
+    const all = loadPlanOv(); delete all[boss.id]; savePlanOv(all); setOvv((v) => v + 1); setEditing(false)
+  }
+  const exportPlan = () => {
+    const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), bosses: { [boss.id]: plan } }, null, 2)], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob); a.download = `kp-plan-${boss.id}.json`; a.click(); URL.revokeObjectURL(a.href)
+  }
+  const importPlan = (e) => {
+    const file = e.target.files?.[0]; e.target.value = ''
+    if (!file) return
+    const r = new FileReader()
+    r.onload = () => {
+      try {
+        const data = JSON.parse(r.result)
+        const incoming = data.bosses?.[boss.id] || (data.comp ? data : null)
+        if (!incoming) throw new Error('shape')
+        writePlan(incoming)
+        setMsg({ ok: true, text: 'Plan importado en este dispositivo.' })
+      } catch { setMsg({ ok: false, text: 'Ese archivo no parece un plan de KP.' }) }
+      setTimeout(() => setMsg(null), 6000)
+    }
+    r.readAsText(file)
+  }
 
   return (
     <div className="space-y-5">
-      <button className="btn btn-ghost text-sm" onClick={onBack}>← {wing.short} · {wing.name}</button>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <button className="btn btn-ghost text-sm" onClick={onBack}>← {wing.short} · {wing.name}</button>
+        <div className="flex items-center gap-2">
+          <label className="btn btn-ghost text-xs cursor-pointer" title="Cargar un plan exportado por un compañero">
+            ⬆ Import
+            <input type="file" accept=".json,application/json" className="hidden" onChange={importPlan} />
+          </label>
+          {override && (
+            <>
+              <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Descargar tu plan local para publicarlo">⬇ Export</button>
+              <button className="btn btn-ghost text-xs" onClick={resetPlan}>Reset al publicado</button>
+            </>
+          )}
+          <button className={`btn text-sm ${editing ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setEditing(!editing)}>
+            {editing ? '✓ Listo' : '✎ Editar plan'}
+          </button>
+        </div>
+      </div>
+      {msg && (
+        <div className={`text-xs px-3 py-2 rounded-xl border ${msg.ok ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300' : 'border-danger/40 bg-danger/10 text-danger'}`}>{msg.text}</div>
+      )}
+      {override && (
+        <div className="text-xs px-3 py-2 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-200">
+          Este plan tiene ediciones locales guardadas <b>solo en este dispositivo</b>. Usá <b>Export</b> para publicarlo al squad.
+        </div>
+      )}
 
       <div className="card p-5 flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -79,12 +153,34 @@ function BossPage({ wing, boss, onBack }) {
         </div>
       </div>
 
+      <div className="pt-2">
+        <h2 className="font-display text-2xl text-cream mb-1">Nuestro plan</h2>
+        <p className="text-xs text-silver/60 mb-3">
+          Comp, dueño de cada mecánica, ruta y decisiones del equipo. Today's Sale muestra esto mismo al abrir la pelea.
+        </p>
+      </div>
+      <datalist id="kp-roster-names">
+        {(players?.players || []).map((p) => (<option key={p.id} value={p.name.split('|')[0].trim()} />))}
+      </datalist>
+      <datalist id="kp-build-names">
+        {[...(builds?.builds || [])].sort((a, b) => a.name.localeCompare(b.name)).map((b) => (<option key={b.id} value={b.name} />))}
+      </datalist>
+      <PlanView
+        plan={plan}
+        icons={icons}
+        builds={builds}
+        players={players?.players || []}
+        editing={editing}
+        onChange={writePlan}
+      />
+
     </div>
   )
 }
 
 export default function Bible() {
-  const { wings, comps } = useData()
+  const { wings, comps, plans, builds } = useData()
+  const planOverrides = loadPlanOv()
   const [nav, setNav] = useState({ section: 'raid', wingId: null, bossId: null })
 
   const sections = [
@@ -163,9 +259,23 @@ export default function Bible() {
                     {b.name}
                     {b.preEvent && <span className="text-danger/70 text-xs font-normal ml-2" title="Mandatory pre-event included">+pre</span>}
                   </div>
-                  <div className="text-xs text-silver/50 mt-0.5 flex gap-2">
+                  <div className="text-xs text-silver/50 mt-0.5 flex flex-wrap gap-2 items-center">
                     {k?.profile && <span className="uppercase text-teal-light/80">{k.profile.dmg} · {k.profile.style}</span>}
-                    {(k?.slots || []).length > 0 && <span>{k.slots.length} comp slots</span>}
+                    {(() => {
+                      const pl = planOverrides[b.id] || plans?.bosses?.[b.id]
+                      if (!pl || planIsEmpty(pl)) return <span className="text-silver/40">sin plan</span>
+                      const st = PLAN_STATUS[pl.status] || PLAN_STATUS.draft
+                      const c = planCoverage(pl, builds)
+                      const warns = c.missingReq.length + c.unassigned.length + c.flagged.length
+                      return (
+                        <>
+                          <span className={`px-1.5 py-0.5 rounded border text-[10px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
+                          <span>{pl.comp?.length || 0} slots</span>
+                          {warns > 0 && <span className="text-danger/90 font-semibold">▲ {warns}</span>}
+                          {planOverrides[b.id] && <span className="text-amber-300/90">editado local</span>}
+                        </>
+                      )
+                    })()}
                   </div>
                 </div>
                 <div className="text-right">

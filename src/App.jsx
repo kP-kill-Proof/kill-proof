@@ -45,7 +45,7 @@ export default function App() {
   useEffect(() => {
     purgeLegacyLocal()
     ;(async () => {
-      const [wings, players, events, comps, icons, builds, infallible] = await Promise.all([
+      const [wings, players, events, comps, icons, builds, infallible, plans] = await Promise.all([
         loadData('wings'),
         loadData('players'),
         loadData('events'),
@@ -53,6 +53,7 @@ export default function App() {
         loadData('icons'),
         loadData('builds'),
         loadData('infallible'),
+        loadData('plans'),
       ])
       setStore({
         wings: wings ?? { wings: [] },
@@ -62,6 +63,7 @@ export default function App() {
         icons: icons ?? {},
         builds: builds ?? { builds: [] },
         infallible: infallible ?? null,
+        plans: plans ?? { bosses: {} },
       })
     })()
   }, [])

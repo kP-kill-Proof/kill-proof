@@ -6,6 +6,7 @@ import { suggestAssignments, bestBuildFor, normRole } from '../lib/assign.js'
 import { squadCoverage, KEY_BOONS } from '../lib/boons.js'
 import { resolveBuildInfo } from '../lib/boons.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
+import PlanView, { PLAN_STATUS, planCoverage, planIsEmpty } from '../lib/plan.jsx'
 
 const dayKey = () => 'kp_run_' + new Date().toISOString().slice(0, 10)
 
@@ -193,8 +194,8 @@ function SquadPanel({ players, roster, setRoster, onDropSlot }) {
   )
 }
 
-function BossDetail({ boss, presentPlayers, done, onToggleDone, onMoveToSubgroup }) {
-  const { comps, icons, builds } = useData()
+function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMoveToSubgroup }) {
+  const { comps, icons, builds, plans } = useData()
   const comp = comps.bosses?.[boss.id]
   const k = comp || {}
 
@@ -205,6 +206,27 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onMoveToSubgroup
   const assigned = suggestions
 
   const coverage = useMemo(() => squadCoverage(assigned, builds), [assigned, builds])
+
+  const planOv = (() => { try { return JSON.parse(localStorage.getItem('kp_plans_v1')) || {} } catch { return {} } })()
+  const plan = planOv[boss.id] || plans?.bosses?.[boss.id] || null
+  const hasPlan = plan && !planIsEmpty(plan)
+  const cov = hasPlan ? planCoverage(plan, builds) : null
+
+  // which players have to swap template coming from the previous encounter
+  const swaps = useMemo(() => {
+    if (!hasPlan || !prevBoss) return []
+    const prev = planOv[prevBoss.id] || plans?.bosses?.[prevBoss.id]
+    if (!prev?.comp?.length) return []
+    const key = (r) => (r.player || '').split('|')[0].trim().toLowerCase()
+    const before = new Map(prev.comp.filter((r) => r.player).map((r) => [key(r), r.build]))
+    const out = []
+    for (const r of plan.comp) {
+      if (!r.player) continue
+      const b = before.get(key(r))
+      if (b && r.build && b !== r.build) out.push({ who: r.player.split('|')[0].trim(), from: b, to: r.build })
+    }
+    return out
+  }, [hasPlan, plan, prevBoss, plans])
 
   return (
     <div className="card p-5 lg:sticky lg:top-4 anim-in">
@@ -245,8 +267,30 @@ function BossDetail({ boss, presentPlayers, done, onToggleDone, onMoveToSubgroup
         </div>
       )}
 
+      {hasPlan && (
+        <div className="py-4 border-b border-teal-deep/30 space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold">Our plan</h3>
+            <span className={`px-2 py-0.5 rounded-md border text-[10px] uppercase tracking-wider ${(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).cls}`}>
+              {(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).label}
+            </span>
+          </div>
+          {swaps.length > 0 && (
+            <div className="rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2">
+              <div className="text-[10px] uppercase tracking-wider text-amber-300/90 mb-1">Cambios de template desde {prevBoss.name}</div>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-amber-100/90">
+                {swaps.map((sw, i) => (
+                  <span key={i}><b>{sw.who}</b>: {sw.from} → {sw.to}</span>
+                ))}
+              </div>
+            </div>
+          )}
+          <PlanView plan={plan} icons={icons} builds={builds} compact />
+        </div>
+      )}
+
       <div className="py-4">
-        <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-3">Comp</h3>
+        <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-3">Today's squad</h3>
         {!presentPlayers.length ? (
           <p className="text-sm text-silver/50">Select today's squad to see assignments.</p>
         ) : (
@@ -610,6 +654,10 @@ export default function SaleDay() {
           <BossDetail
             key={selectedBoss.id}
             boss={selectedBoss}
+            prevBoss={(() => {
+              const i = visibleList.findIndex((b) => b.id === selectedBoss.id)
+              return i > 0 ? visibleList[i - 1] : null
+            })()}
             presentPlayers={presentPlayers}
             done={completed.includes(selectedBoss.id)}
             onToggleDone={() => toggleDone(selectedBoss.id)}

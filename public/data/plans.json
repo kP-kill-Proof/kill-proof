@@ -1,0 +1,2828 @@
+{
+  "updated": "2026-07-24",
+  "source": "Reunión 2026-07-24 (transcript). Términos marcados con (?) o \"confirm\" están sin validar.",
+  "size": 6,
+  "rules": [
+    "Se juega 6-man: el comprador nunca cuenta en la comp.",
+    "No dependemos de jugadores ausentes: \"somos los que somos\".",
+    "Sin builds troll (no llegues con Mech de rifle).",
+    "El icono de Vulnerability se mantiene visible aunque sea redundante, para no olvidarlo si cambia la comp.",
+    "Etiquetas de posición: soportar números (1-2-3-4) Y brújula (North/East/West)."
+  ],
+  "rejectedGlobal": [
+    {
+      "what": "Soulbeast en 6-man",
+      "why": "Todos deben poder kitear; pierde daño y es malo en el split"
+    },
+    {
+      "what": "Heal Evoker",
+      "why": "Druid y Tempest son muy superiores"
+    },
+    {
+      "what": "Condi Druid (46–48k)",
+      "why": "No es jugable, ni aparece en Snow Crows"
+    }
+  ],
+  "bosses": {
+    "vale_guardian": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Heal",
+          "build": "Heal Alac Druid",
+          "player": "Vexio",
+          "duties": [
+            "Alacrity",
+            "Heal"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Condi Quick Firebrand",
+          "player": "",
+          "duties": [
+            "Quickness"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "\"vibran\" en el transcript"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "Condi"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS1 = condi"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS2 = Vuln"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Pre-event: TODO Condi",
+          "slot": -1,
+          "note": "Se cambia a la comp normal después del pre-evento",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Boonstrip Prevent",
+          "slot": -1,
+          "note": "Todos deben traerlo",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability"
+      ],
+      "decisions": [
+        {
+          "what": "Todo Condi para el pre-evento",
+          "why": "Mata el pre-evento mucho más rápido"
+        },
+        {
+          "what": "Dos condis: el Firebrand y otro",
+          "why": "Cubre el daño condi del pre-evento sin perder la quickness"
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "Spirit Woods se salta por ahora"
+      ]
+    },
+    "gorseval": {
+      "status": "testing",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Alac Specter",
+          "player": "Vexio",
+          "duties": [
+            "Alacrity"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "va con arrow + heart"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Quick Ritualist",
+          "player": "Strickzito",
+          "duties": [
+            "Quickness",
+            "Stability (Slams)",
+            "Stab 1"
+          ],
+          "gear": "",
+          "alt": "Quick Catalyst",
+          "note": "Strick siempre juega Ritu acá. Alternativa: Quick Catalyst"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Stab 2"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "el stab 2 lo cubre un DPS"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Split arrow: Alac + 2 DPS",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Split circle: Quickness + 2 DPS",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Markers: circle + square",
+          "slot": 1,
+          "note": "Support DPS",
+          "altLabel": ""
+        },
+        {
+          "label": "Markers: circle + heart",
+          "slot": 2,
+          "note": "DPS1",
+          "altLabel": ""
+        },
+        {
+          "label": "Markers: arrow + square",
+          "slot": 3,
+          "note": "DPS2",
+          "altLabel": ""
+        },
+        {
+          "label": "Markers: arrow + heart",
+          "slot": 0,
+          "note": "Vexio (heal/alac)",
+          "altLabel": ""
+        },
+        {
+          "label": "Stab 1",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Stab 2",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "El grupo se parte: Alac + 2 DPS al {mk_arrow}, Quickness + 2 DPS al {mk_circle}."
+        },
+        {
+          "text": "Cada DPS sigue su propio par de markers hasta su espíritu."
+        },
+        {
+          "text": "Los boon supports CRUZAN al segundo espíritu del lado opuesto (derecha→izquierda, izquierda→derecha). Los DPS mantienen su camino."
+        },
+        {
+          "text": "Ritualist: rotación → aplicar quickness → GUARDAR el 5 → caminar a Gorse → tirarlo cruzado. El 5 ya no da quickness."
+        },
+        {
+          "text": "Guardar el segundo Shroud 2 para el grupo que llega. Requiere improvisar."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "Stability"
+      ],
+      "decisions": [
+        {
+          "what": "El slot de stab puede ser un DPS",
+          "why": "Strick siempre trae Ritu, así que la quickness ya cubre Stab 1"
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "Necesita día de tutorial + log",
+        "La notación de cruce de boons hay que expresarla de otra forma (Lolwar)"
+      ]
+    },
+    "sabetha": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "",
+          "duties": [
+            "Alacrity",
+            "Stability",
+            "MOA"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Stability",
+            "MOA"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Cañón 3",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Cañón 1",
+          "slot": 1,
+          "note": "después del 3",
+          "altLabel": ""
+        },
+        {
+          "label": "Cañón 4",
+          "slot": 3,
+          "note": "primero el 4",
+          "altLabel": ""
+        },
+        {
+          "label": "Cañón 2",
+          "slot": 3,
+          "note": "salteando el primer 2",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "Cañón: ~3s matarlo, 8–12s la ida y vuelta completa."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "Stability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Se mantienen los dos Chronos",
+          "why": "Ambos traen Stability y MOA"
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "SIN RESOLVER: nombrar el cañón North (se hace 2 veces) vs numerar 1-2-3-4"
+      ]
+    },
+    "slothasor": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "",
+          "duties": [
+            "Alacrity",
+            "Stability",
+            "MOA"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Stability",
+            "MOA"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS2"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "DPS3"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Mushroom 1",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Pull 1",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Mushroom 2",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Pull 2",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Mushroom 3",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "Stability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Se deja como está",
+          "why": "Nunca tuvimos problema en Slothasor"
+        }
+      ],
+      "rejected": [],
+      "gaps": []
+    },
+    "trio": {
+      "status": "draft",
+      "comp": [],
+      "mechanics": [],
+      "steps": [],
+      "requires": [],
+      "decisions": [],
+      "rejected": [
+        {
+          "what": "Hacer el Trio",
+          "why": "Ya no se hace (se podría bugueando)"
+        }
+      ],
+      "gaps": []
+    },
+    "matthias": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Scourge",
+          "player": "Vexio",
+          "duties": [
+            "Spectral portal",
+            "Golem",
+            "Main CC"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "El main CC es quien se lleva el Sacrifice"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Condi Quick Firebrand",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "CC del domo/jaula (Sanctuary)"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability",
+            "CC"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS1"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "CC"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "CC"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "CC"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Sacrifice",
+          "slot": 0,
+          "note": "se lo lleva el main CC",
+          "altLabel": ""
+        },
+        {
+          "label": "CC del domo/jaula (Sanctuary)",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Jaulas: abrir todas a 5:10",
+          "slot": -1,
+          "note": "timers reales 5:10 / 5:07 / ~5:00",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "Matar los adds de abajo: importante, si no hay target cerca targetean directo."
+        },
+        {
+          "text": "En 6-man: todos adentro, nadie sale, mínimo 2 jugadores con blinks."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Heal Scourge en vez de Heal Spectre",
+          "why": "El Spectre tiene mejor CC, pero el Spectral portal da mucho más uptime de DPS"
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "Estrategia de jaulas en 6-man sin verificar"
+      ]
+    },
+    "escort": {
+      "status": "testing",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "Vexio",
+          "duties": [
+            "Torre"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "arriba"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "HermanGz",
+          "duties": [
+            "Torre"
+          ],
+          "gear": "",
+          "alt": "Condi Mirage",
+          "note": "arriba. Alternativa: Mirage (además las daña)"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Reaper",
+          "player": "",
+          "duties": [
+            "Torre"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "el tercero que sube"
+        },
+        {
+          "sub": 2,
+          "role": "Support",
+          "build": "Quick Scrapper",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Blind",
+            "Super Speed para Glenna"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "Support",
+          "build": "Condi Alac Renegade",
+          "player": "",
+          "duties": [
+            "Alacrity"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Legendary Dwarf"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Daredevil",
+          "player": "",
+          "duties": [
+            "Primer portal",
+            "Blind"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "nadie más lo va a tomar"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Tempest",
+          "player": "",
+          "duties": [
+            "Blind"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "fuente muy fuerte de blind; se queda abajo si el Reaper sube"
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Torres (2 arriba)",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Primer portal",
+          "slot": 5,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Super Speed para Glenna",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Blind",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "Split 2 arriba + 4 abajo, o 3+3 (se inclinan a 3+3 por velocidad)."
+        },
+        {
+          "text": "4 abajo es más consistente si algo sale mal."
+        }
+      ],
+      "requires": [],
+      "decisions": [
+        {
+          "what": "Mirages sirven igual que Chronos en torres",
+          "why": "Además las dañan, así que no hace falta Chrono"
+        },
+        {
+          "what": "Druid inútil abajo",
+          "why": "Se necesita Tempest por el blind"
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "Vexio debe armar build nueva de torre y testearla"
+      ]
+    },
+    "keep_construct": {
+      "status": "draft",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Soulbeast",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "buen daño sostenido"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Amalgam",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "\"Power Rain\" (?) ~44k"
+        }
+      ],
+      "mechanics": [],
+      "steps": [],
+      "requires": [
+        "Vulnerability"
+      ],
+      "decisions": [
+        {
+          "what": "Elección libre de DPS",
+          "why": "Solo sugerencias"
+        },
+        {
+          "what": "Regla: sin builds troll",
+          "why": "No llegues con Mech de rifle"
+        }
+      ],
+      "rejected": [],
+      "gaps": []
+    },
+    "xera": {
+      "status": "testing",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Heal",
+          "build": "Heal Quick Ritualist",
+          "player": "",
+          "duties": [
+            "Heal",
+            "Quickness",
+            "Spectral Grasp",
+            "Golem"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "trae \"Slamanito\"(?) / Spectral Armor(?) en vez de Spectral Sanctuary(?)",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Quick Ritualist",
+          "player": "",
+          "duties": [
+            "Quickness"
+          ],
+          "gear": "1 infusión de toughness",
+          "alt": "",
+          "note": "segundo tank, cubre si muere el primero y evita el bug del 10%"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Condi Alac Amalgam",
+          "player": "",
+          "duties": [
+            "Alacrity",
+            "Portal para volver a la plataforma",
+            "Tank"
+          ],
+          "gear": "se da Toughness a sí mismo → prioridad de tank",
+          "alt": "",
+          "note": "",
+          "unsure": true
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Ritualist",
+          "player": "",
+          "duties": [
+            "Spectral Grasp",
+            "Golem"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Ritualist",
+          "player": "",
+          "duties": [
+            "Spectral Grasp",
+            "Golem"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Ritualist",
+          "player": "",
+          "duties": [
+            "Spectral Grasp",
+            "Golem"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Portal de vuelta a la plataforma",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Main tank: 2 infusiones de toughness",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Segundo tank: 1 infusión",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "Sin daga/espada: el staff es solo para Ura (Stability). Acá Greatsword + Spear power rotation."
+        },
+        {
+          "text": "Riesgo: al tank lo revientan, sobre todo en 'Mesmer 2' — hay que esquivar."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "Stability"
+      ],
+      "decisions": [
+        {
+          "what": "Testear la comp de la hoja: 5 Power Ritualist + 1 Alac Amalgam",
+          "why": "Vale 1–2 intentos"
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "Origen de la comp desconocido, nunca se usó, puede ser de un parche viejo",
+        "Alternativa: Celestial Ritualist con Plaguelands (castea 1s, retrasa la quickness)"
+      ]
+    },
+    "cairn": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Heal",
+          "build": "Heal Scourge",
+          "player": "Vexio",
+          "duties": [
+            "Heal aislado",
+            "Stability en greens (Staff, 2 casts)"
+          ],
+          "gear": "",
+          "alt": "Celestial Scourge (para Mursaat)",
+          "note": "el grupo se dispersa, necesita heal partido"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Stab mantra"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "se mantiene específicamente para los portales de Twisted Castle después"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "Exandreus",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "DPS1"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "Strickzito",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "DPS2"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS3 / el de Vuln"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Condi Chrono",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "Strick: 46.5k bench, 50+ stacks de confusión"
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Agony 1",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Agony 2",
+          "slot": 2,
+          "note": "un DPS",
+          "altLabel": ""
+        },
+        {
+          "label": "Agony 3",
+          "slot": 4,
+          "note": "AMBIGÜEDAD PENDIENTE: ¿el de Vuln o DPS3? Causa de los wipes",
+          "altLabel": ""
+        },
+        {
+          "label": "Agony 4",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 4,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "Objetivo declarado: crear un ambiente donde los DPS puedan hacer su trabajo sin comerse un Agony."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "Stability"
+      ],
+      "decisions": [
+        {
+          "what": "Heal Scourge sobre Druid / Alac Evoker",
+          "why": "Necesita heal aislado porque el grupo se dispersa; da Stability en greens con Staff → el Chrono no tiene que cargarla"
+        },
+        {
+          "what": "Se mantiene el Chrono",
+          "why": "Lo necesitan para los portales de Twisted Castle"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Heal Chrono",
+          "why": "Healea muy poco para el daño disperso de Agony"
+        },
+        {
+          "what": "Ritualist en lugar del Chrono",
+          "why": "Se necesita el Chrono para los portales de después"
+        },
+        {
+          "what": "Quick Ritualist tomando Agony 2",
+          "why": "Radio de boons muy chico; solo un DPS Ritu podría"
+        },
+        {
+          "what": "All condi / 3 Virtuosos",
+          "why": "Lolwar prefiere all power"
+        }
+      ],
+      "gaps": [
+        "Las últimas 3–4 ventas no había orden fijo de DPS1/2/3 → Agony 3 se agarraba al azar → wipes"
+      ]
+    },
+    "mursaat": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Heal",
+          "build": "Heal Scourge",
+          "player": "Vexio",
+          "duties": [
+            "Dispel",
+            "Tank",
+            "Condi clear"
+          ],
+          "gear": "",
+          "alt": "Heal Alac Specter",
+          "note": "Celestial Scourge. Vexio también puede pasar a Heal Spectre acá \"para abrir la puerta\""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Quick Ritualist",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Claim"
+          ],
+          "gear": "",
+          "alt": "Boon Ritualist",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "Exandreus",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "DPS1 fijo"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Condi Chrono",
+          "player": "Strickzito",
+          "duties": [
+            "Protect"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS2 fijo"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Dispel",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Claim",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Protect",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 4,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability"
+      ],
+      "decisions": [],
+      "rejected": [],
+      "gaps": []
+    },
+    "samarog": {
+      "status": "draft",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "",
+          "duties": [
+            "Heal"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "El pull",
+            "CC fuerte"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "el pull hay que cubrirlo siempre. Alternativas de push: Ritualist Greatsword 5 (timing justo) o Virtuoso con Greatsword"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Tank"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "TANK SIN DECIDIR: Berserker, Luminary(?), Amalgam(?) o Scrapper",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "El pull (o push)",
+          "slot": 1,
+          "note": "push o pull, cualquiera sirve",
+          "altLabel": ""
+        },
+        {
+          "label": "Tank",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Se mantiene el Chrono para la quickness",
+          "why": "Cubre el pull y da CC fuerte"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Heal Scourge tankeando con Golem",
+          "why": "Mucho esfuerzo y la clase más aburrida (Vexio)"
+        }
+      ],
+      "gaps": [
+        "Tank sin decidir: solo candidatos"
+      ]
+    },
+    "deimos": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Heal",
+          "build": "Heal Catalyst",
+          "player": "",
+          "duties": [
+            "Kiter",
+            "Quickness"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Heal Scourge",
+          "player": "",
+          "duties": [
+            "Tank Deimos",
+            "Vulnerability",
+            "Aegis",
+            "Slams",
+            "Alacrity"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Celestial Scourge"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "North"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS1"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "West"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS3"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "East"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Pure DPS"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Kiter",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Tank",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Slams",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "North",
+          "slot": 2,
+          "note": "",
+          "altLabel": "1"
+        },
+        {
+          "label": "West",
+          "slot": 3,
+          "note": "",
+          "altLabel": "3"
+        },
+        {
+          "label": "East",
+          "slot": 4,
+          "note": "",
+          "altLabel": "2"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "Aegis"
+      ],
+      "decisions": [
+        {
+          "what": "Se deja como está",
+          "why": ""
+        }
+      ],
+      "rejected": [],
+      "gaps": []
+    },
+    "soulless_horror": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Heal",
+          "build": "Heal Alac Druid",
+          "player": "",
+          "duties": [
+            "Heal",
+            "Alacrity"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Opcional: Storm Spirit + trampa de cleanse para mucho más CC"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Condi Chrono",
+          "player": "Vexio",
+          "duties": [
+            "Tank",
+            "Push toda la pelea",
+            "Hold de las guadañas",
+            "Quickness",
+            "Condi Cleanse"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Al tankear como DPS hay que estar DENTRO del hitbox de Desmina"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Condi Scourge",
+          "player": "",
+          "duties": [
+            "CC (Fears)"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "ya carga el CC"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Condi Willbender",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Condi Amalgam",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "ideal pero difícil: solo Exa o quizá Kai",
+          "unsure": true
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Push (toda la pelea)",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Hold de guadañas",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "CC",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Chrono sobre Evoker",
+          "why": "Más CC, quickness fácil, tankea fácil y tiene DOS MOA vía CS"
+        },
+        {
+          "what": "Cambiar template cuesta ~15s",
+          "why": "No hay que rediseñar la comp alrededor de eso"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Alac/Quick Evoker tankeando",
+          "why": "No aporta nada nuevo, redundante con el Druid"
+        },
+        {
+          "what": "Amalgam con rifle",
+          "why": "Nadie juega esas clases"
+        }
+      ],
+      "gaps": [
+        "FALTA un engineer condi (ideal Condi Amalgam)",
+        "No dependemos de Piero ni de nadie que vuelva"
+      ]
+    },
+    "river": {
+      "status": "testing",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Quick Scrapper",
+          "player": "",
+          "duties": [
+            "Se queda atrás con Desmina",
+            "Activa el encuentro",
+            "Alacrity",
+            "Aegis"
+          ],
+          "gear": "Relic of the Rivers(?) — debe traer arco",
+          "alt": "",
+          "note": "si no, Gyros para Super Speed",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "HermanGz",
+          "duties": [
+            "TODOS los portales",
+            "Quickness"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "tiene el marker pack con los spawns numerados de Enervators"
+        },
+        {
+          "sub": 1,
+          "role": "Heal",
+          "build": "Heal Quick Troubadour",
+          "player": "",
+          "duties": [
+            "Heal",
+            "Quickness"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "segundo healer sugerido",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Virtuoso",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "daño a rango"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Virtuoso",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Activar el encuentro / quedarse con Desmina",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Todos los portales",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "Al iniciar, TODOS los DPS adelante. Solo el Heal Scrapper se queda atrás y lo activa."
+        },
+        {
+          "text": "Matar Enervator 1 — en el punto de inicio."
+        },
+        {
+          "text": "VOLVER por el camino y matar Enervator 2 (el más atrás)."
+        },
+        {
+          "text": "Caminar al Enervator 3, que está donde spawnea el 4."
+        },
+        {
+          "text": "Cuando el 3 está empezando: el Chrono genera clones y coloca PORTAL CON CS lo más adelante posible, y vuelve. {portal} {cs}"
+        },
+        {
+          "text": "Matar Enervator 4 (spawnea ahí cuando Desmina se acerca)."
+        },
+        {
+          "text": "TOMAR EL PORTAL. {portal}"
+        },
+        {
+          "text": "Matar Enervator 5, arriba a la izquierda, en la lomita."
+        },
+        {
+          "text": "Volver al Enervator 6, un poco atrás."
+        },
+        {
+          "text": "Matar Enervator 7, en la elevación del medio."
+        },
+        {
+          "text": "Ir directo al siguiente. Portal acá OPCIONAL."
+        },
+        {
+          "text": "Matar Enervator 8, el más alto, a la derecha."
+        },
+        {
+          "text": "Bajar y matar SOLO UNO de los dos que salen juntos (para ganar tiempo). Regla: en pares no vale matar los dos."
+        },
+        {
+          "text": "Subir: uno a la izquierda, uno a la derecha. Matar PRIMERO el de la izquierda."
+        },
+        {
+          "text": "Mientras se mata el de la izquierda, el Chrono pone PORTAL CON MIMIC (sin CS, no va a estar up) justo en el de la derecha. {portal}"
+        },
+        {
+          "text": "Matar el de la derecha, poner portal, matar el ÚLTIMO Enervator y subir."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "Aegis"
+      ],
+      "decisions": [
+        {
+          "what": "Sin Alacrity por ahora",
+          "why": "Se prueba así"
+        },
+        {
+          "what": "El Chrono maneja todos los portales",
+          "why": "Tiene el marker pack con los spawns"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Druid",
+          "why": "Inútil acá, la pelea es de velocidad"
+        },
+        {
+          "what": "Portal con CS después de matar el 2",
+          "why": "Innecesario"
+        }
+      ],
+      "gaps": [
+        "FALTA imagen de la ruta completa (solo hay un pedazo del final) — Herman la va a armar",
+        "Hueco sin healer después del portal largo → traer sustain o Protection/Regen fuerte",
+        "Herman debe practicar los portales"
+      ]
+    },
+    "dhuum": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "",
+          "duties": [
+            "Heal",
+            "Portales para G3"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "los dos viables son Heal Chrono o Druid"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Quick Catalyst",
+          "player": "",
+          "duties": [
+            "Quickness"
+          ],
+          "gear": "",
+          "alt": "Condi Alac Evoker",
+          "note": "35k. Alternativa: Alac Evoker (extiende boons 3s). OJO radio de boons 300 vs hitbox de Dhuum 400 de diámetro"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS1"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "DPS2"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "DPS3"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "Pure DPS: sin green"
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Green 1 (G1)",
+          "slot": 3,
+          "note": "DPS2",
+          "altLabel": ""
+        },
+        {
+          "label": "Green 2 (G2) — el primero",
+          "slot": 2,
+          "note": "DPS1, el de Vuln",
+          "altLabel": ""
+        },
+        {
+          "label": "Green 3 (G3) — primero/segundo",
+          "slot": 4,
+          "note": "DPS3",
+          "altLabel": ""
+        },
+        {
+          "label": "G3 después del Soul Split",
+          "slot": 1,
+          "note": "el tank",
+          "altLabel": ""
+        },
+        {
+          "label": "Sin green",
+          "slot": 5,
+          "note": "Pure DPS",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "El tank debe pararse PROFUNDO en el hitbox o la parte de atrás del grupo pierde boons (radio 300 vs hitbox 400)."
+        }
+      ],
+      "requires": [
+        "Vulnerability"
+      ],
+      "decisions": [
+        {
+          "what": "Se mantiene el Heal Chrono",
+          "why": "Tiene portales para G3"
+        },
+        {
+          "what": "Quick Catalyst o Alac Evoker, ambos válidos",
+          "why": "Cata 35k; el Alac Evoker extiende boons 3s"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Power Quick Evoker",
+          "why": "Encerrado en Fire, solo Might y Fury flojo, NO extiende boons"
+        }
+      ],
+      "gaps": [
+        "No siempre se hace: depende de dailies"
+      ]
+    },
+    "eyes": {
+      "status": "draft",
+      "comp": [],
+      "mechanics": [],
+      "steps": [],
+      "requires": [
+        "Vulnerability"
+      ],
+      "decisions": [],
+      "rejected": [],
+      "gaps": [
+        "No se discutió en la reunión (saltaron de River a Dhuum)"
+      ]
+    },
+    "eater": {
+      "status": "draft",
+      "comp": [],
+      "mechanics": [],
+      "steps": [],
+      "requires": [
+        "Vulnerability"
+      ],
+      "decisions": [],
+      "rejected": [],
+      "gaps": [
+        "No se discutió en la reunión (saltaron de River a Dhuum)"
+      ]
+    },
+    "broken_king": {
+      "status": "draft",
+      "comp": [],
+      "mechanics": [],
+      "steps": [],
+      "requires": [
+        "Vulnerability"
+      ],
+      "decisions": [],
+      "rejected": [],
+      "gaps": [
+        "No se discutió en la reunión (saltaron de River a Dhuum)"
+      ]
+    },
+    "ca": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "Vexio",
+          "duties": [
+            "Tank",
+            "Alacrity (pulse)",
+            "CS + Time Warp en la fase de espadas"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Pirate rune / Pirate Queen relic. Libera el slot de quickness a cualquier clase"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Quick Catalyst",
+          "player": "",
+          "duties": [
+            "Quickness"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "\"dejemos el cata\""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Time Warp en la fase de espadas",
+          "slot": 0,
+          "note": "Time Warp 120s, fase ~80s (60–90) → con CS cubre las dos",
+          "altLabel": ""
+        },
+        {
+          "label": "Tank",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Alac Tank Chrono con CS + Time Warp",
+          "why": "La quickness nunca cae en la fase de espadas → el slot de quickness queda libre para cualquier clase"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Ritualist como boon acá",
+          "why": "Los ataques de los espíritus fallan si está mal posicionado (Conjured Greatsword solo proca con 3 y 5)"
+        }
+      ],
+      "gaps": []
+    },
+    "largos": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "",
+          "duties": [
+            "Tank",
+            "Heal",
+            "MOA (CC)"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Condi Alac Evoker",
+          "player": "",
+          "duties": [
+            "Alacrity",
+            "Stability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Condi Harbinger",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "Condi Chrono",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Condi Harbinger",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "Condi Chrono",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Condi Chrono",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Condi Harbinger",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Tank",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "MOA para CC",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "Usar la estrategia con portal (igual es larga)."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "Stability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Heal Chrono tank en grupo 2 y Boon Evoker Alac en grupo 1",
+          "why": "El Evoker Alac trae Stability"
+        }
+      ],
+      "rejected": [],
+      "gaps": []
+    },
+    "qadim": {
+      "status": "testing",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "",
+          "duties": [
+            "Tank",
+            "Alacrity (pulse)"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Condi Alac Amalgam",
+          "player": "",
+          "duties": [
+            "Alacrity"
+          ],
+          "gear": "",
+          "alt": "Power Alac Luminary",
+          "note": "Alac power: Luminary(?) o Alac Amalgam. Luminary tiene mucho CC y es mejor >50% y en la Matriarch. MARCADO TEST",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Kite"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS1"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Reaper",
+          "player": "",
+          "duties": [
+            "Lámpara",
+            "Boonstrip"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS2 — Kai hace el boonstrip mientras hace la lámpara"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Pylon"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS3"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [
+            "Pylon",
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "DPS4"
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Kite",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Lámpara",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Pylon",
+          "slot": 4,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Pylon",
+          "slot": 5,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Boonstrip",
+          "slot": 3,
+          "note": "lo hace el de la lámpara",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [
+        {
+          "text": "El Quick Ritualist es débil arriba de 50% (trash, Hydra); el Luminary es mejor en las fases >50% y la Matriarch. Abajo de 33% no importa."
+        }
+      ],
+      "requires": [
+        "Vulnerability",
+        "Boonstrip"
+      ],
+      "decisions": [
+        {
+          "what": "Se elimina el Quick Scrapper",
+          "why": "El Boonstrip ya lo hace el jugador de la lámpara"
+        },
+        {
+          "what": "Luminary y Ritualist como flex, marcar TEST",
+          "why": "Depende de la fase"
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "Boon slot marcado TEST"
+      ]
+    },
+    "sabir": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Alac Specter",
+          "player": "",
+          "duties": [
+            "Alacrity",
+            "Portal 2",
+            "Big CC"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Se movió a subgrupo 2 en esta reunión (el Excel estaba stale). Idea: Troubadour(?) heal para tener una fuente de Rebound de cada tipo"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Boon Chrono",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Portal 1",
+            "MOA",
+            "Feedback",
+            "Stability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "Feedback para la parte final"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Amalgam",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "\"Amalgama\" en el transcript",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Ritualist",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "o cualquier cosa con buen ramp"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Tempest",
+          "player": "",
+          "duties": [
+            "Rebound"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "segundo Rebound: Distort cubre solo 5 y el Chrono puede irse"
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Portal 1",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Portal 2",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Big CC",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "MOA",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Feedback",
+          "slot": 1,
+          "note": "parte final",
+          "altLabel": ""
+        },
+        {
+          "label": "Rebound",
+          "slot": 4,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "CC",
+        "Stability"
+      ],
+      "decisions": [
+        {
+          "what": "Heal Spectre a subgrupo 2 con Alac + Portal 2 + Big CC",
+          "why": "Ya estaba acordado pero el Excel no se actualizó"
+        },
+        {
+          "what": "Tempest en el grupo",
+          "why": "Segundo Rebound; Distort solo cubre 5 y el Chrono puede blinkear e irse"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Power Quick Troubadour en vez de Power Quick Chrono",
+          "why": "31.7–32.7k vs ~34–35k del Chrono, y necesita support específico. El Chrono mantiene portal + MOA + Feedback + Elite"
+        }
+      ],
+      "gaps": []
+    },
+    "adina": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Quick Ritualist",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Tank"
+          ],
+          "gear": "1050 de toughness (casco + espaldar, o una infusión)",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Boon Chrono",
+          "player": "",
+          "duties": [
+            "Feedback",
+            "Portal",
+            "Stability",
+            "Alacrity",
+            "Boonstrip"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "NO se cambia, es lo mejor"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Bladesworn",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "\"Blaze War\" en el transcript",
+          "unsure": true
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Power Bladesworn",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "",
+          "unsure": true
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Bladesworn",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "",
+          "unsure": true
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "Power Tempest",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "SIEMPRE al menos un Tempest: Vuln al boss y Vuln inmediata a las manos"
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Tank (1050 toughness)",
+          "slot": 0,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Feedback",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Portal",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Boonstrip",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "Stability",
+        "Boonstrip"
+      ],
+      "decisions": [
+        {
+          "what": "Quick Ritualist tank a 1050 de toughness",
+          "why": "Casco + espaldar alcanza, o una infusión"
+        },
+        {
+          "what": "Siempre al menos un Tempest",
+          "why": "Vulnerability al boss y a las manos de inmediato"
+        },
+        {
+          "what": "Heal Chrono no se toca",
+          "why": "Cubre Feedback, Portal, Stability, Alacrity y Boonstrip"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Power Quick Evoker",
+          "why": "No extiende boons, encerrado en Fire"
+        }
+      ],
+      "gaps": []
+    },
+    "qtp": {
+      "status": "confirmed",
+      "comp": [
+        {
+          "sub": 2,
+          "role": "Heal",
+          "build": "Heal Alac Druid",
+          "player": "",
+          "duties": [
+            "Heal",
+            "Alacrity"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "elegido sobre Heal Chrono tanky: el Chrono tiene más CC pero el Druid healea mejor al final"
+        },
+        {
+          "sub": 1,
+          "role": "Support",
+          "build": "Power Quick Ritualist",
+          "player": "",
+          "duties": [
+            "Quickness",
+            "Pylon pump",
+            "Summon"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "slot abierto: \"lo que más pegue\", preferencia Ritualist. Debe traer su summon"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "Condi Scourge",
+          "player": "",
+          "duties": [
+            "Kite",
+            "CC completo de su pylon"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": "el Scourge puede CCear su pylon solo"
+        },
+        {
+          "sub": 1,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "Pylon pump"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [
+            "Vulnerability"
+          ],
+          "gear": "",
+          "alt": "",
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "build": "C DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "el tank mata todo / 3 targets"
+        }
+      ],
+      "mechanics": [
+        {
+          "label": "Kiter: CC completo de su propio pylon",
+          "slot": 2,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Pylon pump (condi DPS)",
+          "slot": 3,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Pylon pump (quickness)",
+          "slot": 1,
+          "note": "",
+          "altLabel": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 4,
+          "note": "",
+          "altLabel": ""
+        }
+      ],
+      "steps": [],
+      "requires": [
+        "Vulnerability",
+        "CC"
+      ],
+      "decisions": [
+        {
+          "what": "Daño Condi",
+          "why": ""
+        },
+        {
+          "what": "Heal Druid",
+          "why": "Healea mejor al final que el Heal Chrono tanky"
+        },
+        {
+          "what": "El kiter CCea su propio pylon completo",
+          "why": "Tanto el Spectre como el Scourge pueden solos"
+        }
+      ],
+      "rejected": [
+        {
+          "what": "Contar stacks de pylon / ir por targets extra",
+          "why": "1–2%, irrelevante en 6-man"
+        },
+        {
+          "what": "Sacar supports de los roles de pylon/pump",
+          "why": "Es perder una mecánica y alargar la pelea"
+        }
+      ],
+      "gaps": [
+        "Etiquetado por brújula (\"go east\") es un problema para varios: usar números también"
+      ]
+    },
+    "twisted_castle": {
+      "status": "draft",
+      "comp": [],
+      "mechanics": [],
+      "steps": [],
+      "requires": [],
+      "decisions": [
+        {
+          "what": "El Chrono de Cairn se mantiene para los portales de acá",
+          "why": ""
+        }
+      ],
+      "rejected": [],
+      "gaps": [
+        "No se cubrió en la reunión"
+      ]
+    }
+  }
+}

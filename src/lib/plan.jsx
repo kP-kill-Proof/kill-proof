@@ -92,8 +92,7 @@ function DutyChip({ duty, icons }) {
 
 function rowLabel(r) {
   if (!r) return '—'
-  const who = r.player ? r.player.split('|')[0].trim() : null
-  return [r.role2 ? `${r.role} ${r.role2}` : r.role, r.build || null, who].filter(Boolean).join(' · ')
+  return [r.role2 ? `${r.role} ${r.role2}` : r.role, r.build || null].filter(Boolean).join(' · ')
 }
 
 export function CoveragePanel({ cov, compact = false }) {
@@ -142,8 +141,25 @@ export function CoveragePanel({ cov, compact = false }) {
   )
 }
 
+// A section defined at module level — defining it inside the view would make
+// React remount the whole subtree on every keystroke (and jump scroll to top).
+function Section({ title, children, right, compact }) {
+  return (
+    <div className={compact ? 'space-y-2' : 'card p-5'}>
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold">{title}</h2>
+        {right}
+      </div>
+      {children}
+    </div>
+  )
+}
+
 // ---------------------------------------------------------------- comp
 function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) {
+  const items = (r.duties || []).filter((x) => x && x.trim())
+  const chips = items.filter((x) => x.length <= 26)
+  const lines = items.filter((x) => x.length > 26)
   if (!editing) {
     const icon = resolveBuildIcon(r.build, icons)
     return (
@@ -159,26 +175,25 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
                 {r.role2}
               </span>
             )}
-            {r.player && <span className="font-bold text-cream text-sm">{r.player.split('|')[0].trim()}</span>}
-            {r.build && <span className="text-cream/90 text-sm">{r.build}</span>}
+            {r.build && <span className="text-cream/90 text-sm font-semibold">{r.build}</span>}
             {r.unsure && (
               <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Taken from the meeting transcript — needs confirming">
                 confirm
               </span>
             )}
           </div>
-          {(r.duties || []).length > 0 && (
+          {chips.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mt-1">
-              {r.duties.map((d, j) => (
+              {chips.map((d, j) => (
                 <DutyChip key={j} duty={d} icons={icons} />
               ))}
             </div>
           )}
-          {r.note && (
-            <div className={`mt-1.5 text-xs ${r.note.includes('⚙') ? 'text-amber-300/90' : 'text-silver/80'}`}>
-              <NotesText text={r.note} icons={icons} />
+          {lines.map((t, j) => (
+            <div key={j} className={`mt-1 text-xs ${t.includes('⚙') ? 'text-amber-300/90' : 'text-silver/80'}`}>
+              <NotesText text={t} icons={icons} />
             </div>
-          )}
+          ))}
         </div>
       </div>
     )
@@ -189,18 +204,17 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
       <div className="flex items-center gap-1.5">
         <RoleChip role={r.role} onClick={cycle} />
         <Field value={r.role2} placeholder="2nd role" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, role2: v })} />
-        <Field value={r.player} placeholder="player" list="kp-roster-names" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, player: v })} />
         {r.build && resolveBuildIcon(r.build, icons) && <img src={resolveBuildIcon(r.build, icons)} alt="" className="w-8 h-8 rounded-md shrink-0" />}
         <Field value={r.build} placeholder="class/build" list="kp-build-names" className="flex-1 min-w-0" onCommit={(v) => onChange({ ...r, build: v })} />
         <button className="px-1 text-danger/70 hover:text-danger shrink-0" title="Remove slot" onClick={onDelete}>✕</button>
       </div>
       <Field
-        value={(r.duties || []).join(', ')}
-        placeholder="duties, comma separated — Portal 1, MOA, Vulnerability…"
-        className="w-full"
-        onCommit={(v) => onChange({ ...r, duties: v.split(',').map((x) => x.trim()).filter(Boolean) })}
+        textarea
+        value={items.join('\n')}
+        placeholder={'duties & notes — one per line\nPortal 1\nMOA\n1050 toughness'}
+        className="w-full min-h-[64px]"
+        onCommit={(v) => onChange({ ...r, duties: v.split('\n').map((x) => x.trim()).filter(Boolean) })}
       />
-      <Field value={r.note} placeholder="note — gear, alt build, anything" className="w-full" onCommit={(v) => onChange({ ...r, note: v })} />
     </div>
   )
 }
@@ -239,16 +253,6 @@ export default function PlanView({
     set({ [key]: a })
   }
 
-  const Section = ({ title, children, right }) => (
-    <div className={compact ? 'space-y-2' : 'card p-5'}>
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold">{title}</h2>
-        {right}
-      </div>
-      {children}
-    </div>
-  )
-
   return (
     <div className={compact ? 'space-y-4' : 'space-y-5'}>
       {!compact && (
@@ -270,12 +274,13 @@ export default function PlanView({
 
       {/* ---- comp ---- */}
       <Section
+        compact={compact}
         title="Comp"
         right={
           editing && (
             <button
               className="btn btn-ghost text-xs"
-              onClick={() => set({ comp: [...comp, { sub: comp.filter((r) => r.sub === 1).length <= comp.filter((r) => r.sub === 2).length ? 1 : 2, role: 'DPS', build: '', player: '', duties: [] }] })}
+              onClick={() => set({ comp: [...comp, { sub: comp.filter((r) => r.sub === 1).length <= comp.filter((r) => r.sub === 2).length ? 1 : 2, role: 'DPS', role2: '', build: '', duties: [] }] })}
             >
               + slot
             </button>
@@ -315,7 +320,7 @@ export default function PlanView({
                 {editing && (
                   <button
                     className="btn btn-ghost text-[11px] mt-2"
-                    onClick={() => set({ comp: [...comp, { sub: g, role: 'DPS', build: '', player: '', duties: [] }] })}
+                    onClick={() => set({ comp: [...comp, { sub: g, role: 'DPS', role2: '', build: '', duties: [] }] })}
                   >
                     + slot in subgroup {g}
                   </button>
@@ -329,6 +334,7 @@ export default function PlanView({
       {/* ---- fight notes ---- */}
       {(notes.length > 0 || editing) && (
         <Section
+          compact={compact}
           title="Fight notes"
           right={
             editing && (
@@ -351,7 +357,7 @@ export default function PlanView({
               if (editing) {
                 return (
                   <div key={i} className="flex flex-wrap items-center gap-1.5 rounded-xl border border-teal-deep/20 bg-ink/30 p-2">
-                    <Field value={m.label} placeholder="note — Agony 1 and 4, Green 1, cannon 3 then 1…" className="flex-1 min-w-[180px]" onCommit={(v) => setNote(i, { ...m, label: v })} />
+                    <Field value={m.label} placeholder="note — Agony 1 and 4, Green 1, cannon 3 then 1…" className="flex-1 min-w-[220px]" onCommit={(v) => setNote(i, { ...m, label: v })} />
                     <select className={selCls} value={m.slot} onChange={(e) => setNote(i, { ...m, slot: parseInt(e.target.value, 10) })}>
                       <option value={-1}>— nobody in particular —</option>
                       {comp.map((r, j) => (
@@ -360,29 +366,21 @@ export default function PlanView({
                         </option>
                       ))}
                     </select>
-                    <Field value={m.note} placeholder="detail" className="flex-1 min-w-[120px]" onCommit={(v) => setNote(i, { ...m, note: v })} />
                     <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === 0} onClick={() => moveNote(i, -1)}>↑</button>
                     <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === notes.length - 1} onClick={() => moveNote(i, 1)}>↓</button>
                     <button className="px-1 text-danger/70 hover:text-danger" onClick={() => setNotes(notes.filter((_, j) => j !== i))}>✕</button>
                   </div>
                 )
               }
-              const who = owner ? (owner.player ? owner.player.split('|')[0].trim() : owner.build) : null
-              const whoSub = owner ? [owner.role2 || owner.role, owner.player && owner.build ? owner.build : null].filter(Boolean).join(' · ') : null
+              const who = owner ? owner.build || owner.role : null
+              const whoSub = owner ? (owner.role2 ? `${owner.role} · ${owner.role2}` : owner.role) : null
               return (
                 <div
                   key={i}
                   className={`sm:grid sm:grid-cols-[1fr_auto] sm:items-start gap-x-4 gap-y-0.5 py-2 border-b border-teal-deep/15 last:border-0 ${flagged ? 'bg-amber-400/5' : ''}`}
                 >
-                  <div>
-                    <div className="text-[15px] text-cream font-semibold">
-                      <NotesText text={m.label} icons={icons} />
-                    </div>
-                    {m.note && (
-                      <div className={`text-xs mt-0.5 ${flagged ? 'text-amber-300' : 'text-silver'}`}>
-                        <NotesText text={m.note} icons={icons} />
-                      </div>
-                    )}
+                  <div className={`text-[15px] ${flagged ? 'text-amber-200' : 'text-cream'}`}>
+                    <NotesText text={m.label} icons={icons} />
                   </div>
                   <div className="text-right shrink-0 mt-1 sm:mt-0">
                     {who ? (
@@ -405,6 +403,7 @@ export default function PlanView({
       {/* ---- route / steps ---- */}
       {(steps.length > 0 || maps.length > 0 || editing) && (
         <Section
+          compact={compact}
           title="Route & strategy"
           right={
             <div className="flex items-center gap-2">
@@ -465,31 +464,17 @@ export default function PlanView({
         </Section>
       )}
 
-      {/* ---- decisions / rejected / gaps ---- */}
-      {!compact && (
-        <div className="grid md:grid-cols-2 gap-4">
-          <ListSection
-            title="Decided, and why"
-            items={plan?.decisions || []}
-            editing={editing}
-            tone="ok"
-            onChange={(v) => set({ decisions: v })}
-          />
-          <ListSection
-            title="Ruled out, and why"
-            items={plan?.rejected || []}
-            editing={editing}
-            tone="bad"
-            onChange={(v) => set({ rejected: v })}
-          />
-        </div>
-      )}
-
       {!compact && ((plan?.gaps || []).length > 0 || editing) && (
         <Section
-          title="Open items"
+          compact={compact}
+          title="Pending"
           right={editing && <button className="btn btn-ghost text-xs" onClick={() => set({ gaps: [...(plan?.gaps || []), ''] })}>+ item</button>}
         >
+          {editing && (
+            <p className="text-xs text-silver/60 mb-2">
+              Anything still unresolved for this encounter: a missing player or class, something to test, a decision nobody made yet.
+            </p>
+          )}
           <ul className="space-y-1.5">
             {(plan?.gaps || []).map((g, i) => (
               <li key={i} className="flex items-start gap-2 text-sm">
@@ -508,57 +493,6 @@ export default function PlanView({
         </Section>
       )}
 
-      {!compact && plan?.requires && (
-        <div className="text-xs text-silver/50">
-          {editing ? (
-            <label className="flex items-center gap-2">
-              Must cover:
-              <Field
-                value={(plan.requires || []).join(', ')}
-                className="flex-1"
-                placeholder="Vulnerability, CC, Stability…"
-                onCommit={(v) => set({ requires: v.split(',').map((x) => x.trim()).filter(Boolean) })}
-              />
-            </label>
-          ) : (
-            <>Must cover: {plan.requires.join(' · ') || '—'}</>
-          )}
-        </div>
-      )}
-    </div>
-  )
-}
-
-function ListSection({ title, items, editing, tone, onChange }) {
-  if (!editing && items.length === 0) return null
-  const color = tone === 'bad' ? 'text-danger/90' : 'text-emerald-300'
-  return (
-    <div className="card p-5">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold">{title}</h2>
-        {editing && (
-          <button className="btn btn-ghost text-xs" onClick={() => onChange([...items, { what: '', why: '' }])}>
-            +
-          </button>
-        )}
-      </div>
-      <ul className="space-y-2">
-        {items.map((it, i) =>
-          editing ? (
-            <li key={i} className="flex items-center gap-1.5">
-              <Field value={it.what} placeholder="what" className="flex-1" onCommit={(v) => onChange(items.map((x, j) => (j === i ? { ...x, what: v } : x)))} />
-              <Field value={it.why} placeholder="why" className="flex-1" onCommit={(v) => onChange(items.map((x, j) => (j === i ? { ...x, why: v } : x)))} />
-              <button className="px-1 text-danger/70 hover:text-danger" onClick={() => onChange(items.filter((_, j) => j !== i))}>✕</button>
-            </li>
-          ) : (
-            <li key={i} className="text-sm">
-              <span className={`font-semibold ${color}`}>{tone === 'bad' ? '✕' : '✓'} {it.what}</span>
-              {it.why && <span className="text-silver"> — {it.why}</span>}
-            </li>
-          )
-        )}
-        {items.length === 0 && <li className="text-sm text-silver/50 italic">—</li>}
-      </ul>
     </div>
   )
 }

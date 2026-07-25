@@ -138,9 +138,10 @@
           "build": "Heal Alac Specter",
           "player": "Vexio",
           "duties": [
-            "Alacrity"
+            "Alacrity",
+            "takes arrow + heart"
           ],
-          "note": "takes arrow + heart"
+          "note": ""
         },
         {
           "sub": 1,
@@ -151,9 +152,10 @@
           "duties": [
             "Quickness",
             "Stability (Slams)",
-            "Stab 1"
+            "Stab 1",
+            "alt: Quick Catalyst · Strick always plays Ritu here"
           ],
-          "note": "alt: Quick Catalyst · Strick always plays Ritu here"
+          "note": ""
         },
         {
           "sub": 1,
@@ -162,9 +164,10 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [
-            "Stab 2"
+            "Stab 2",
+            "a DPS covers the second Stability"
           ],
-          "note": "a DPS covers the second Stability"
+          "note": ""
         },
         {
           "sub": 1,
@@ -351,9 +354,9 @@
           "note": ""
         },
         {
-          "label": "Cannon 4, then cannon 2",
+          "label": "Cannon 4, then cannon 2 — skipping the first 2",
           "slot": 3,
-          "note": "skipping the first 2"
+          "note": ""
         },
         {
           "label": "Vulnerability",
@@ -515,9 +518,10 @@
           "duties": [
             "Spectral portal",
             "Golem",
-            "Main CC"
+            "Main CC",
+            "The main CC is the one who takes the Sacrifice"
           ],
-          "note": "The main CC is the one who takes the Sacrifice"
+          "note": ""
         },
         {
           "sub": 1,
@@ -579,9 +583,9 @@
       ],
       "notes": [
         {
-          "label": "Takes the Sacrifice",
+          "label": "Takes the Sacrifice — it lands on the main CC",
           "slot": 0,
-          "note": "it lands on the main CC"
+          "note": ""
         },
         {
           "label": "Cage CC with Sanctuary",
@@ -594,9 +598,9 @@
           "note": ""
         },
         {
-          "label": "Cages: we open all of them at 5:10",
+          "label": "Cages: we open all of them at 5:10 — real timers are 5:10 / 5:07 / ~5:00",
           "slot": -1,
-          "note": "real timers are 5:10 / 5:07 / ~5:00"
+          "note": ""
         }
       ],
       "steps": [
@@ -632,9 +636,10 @@
           "build": "Power Boon Chrono",
           "player": "Vexio",
           "duties": [
-            "Tower"
+            "Tower",
+            "alt: Condi Mirage"
           ],
-          "note": "alt: Condi Mirage"
+          "note": ""
         },
         {
           "sub": 1,
@@ -643,9 +648,10 @@
           "build": "Power Boon Chrono",
           "player": "HermanGz",
           "duties": [
-            "Tower"
+            "Tower",
+            "alt: Condi Mirage · Mirages work too and also damage the towers"
           ],
-          "note": "alt: Condi Mirage · Mirages work too and also damage the towers"
+          "note": ""
         },
         {
           "sub": 1,
@@ -654,9 +660,10 @@
           "build": "Power Reaper",
           "player": "",
           "duties": [
-            "Tower"
+            "Tower",
+            "the third one going up"
           ],
-          "note": "the third one going up"
+          "note": ""
         },
         {
           "sub": 2,
@@ -678,9 +685,10 @@
           "build": "Condi Alac Renegade",
           "player": "",
           "duties": [
-            "Alacrity"
+            "Alacrity",
+            "Legendary Dwarf"
           ],
-          "note": "Legendary Dwarf"
+          "note": ""
         },
         {
           "sub": 2,
@@ -690,9 +698,10 @@
           "player": "",
           "duties": [
             "First portal",
-            "Blind"
+            "Blind",
+            "nobody else will take the portal"
           ],
-          "note": "nobody else will take the portal"
+          "note": ""
         },
         {
           "sub": 2,
@@ -701,9 +710,10 @@
           "build": "Power Tempest",
           "player": "",
           "duties": [
-            "Blind"
+            "Blind",
+            "very strong blind source; stays down if the Reaper goes up"
           ],
-          "note": "very strong blind source; stays down if the Reaper goes up"
+          "note": ""
         }
       ],
       "notes": [
@@ -756,8 +766,10 @@
           "role2": "",
           "build": "Power Soulbeast",
           "player": "",
-          "duties": [],
-          "note": "good sustained damage"
+          "duties": [
+            "good sustained damage"
+          ],
+          "note": ""
         },
         {
           "sub": 1,
@@ -775,8 +787,10 @@
           "role2": "",
           "build": "P DPS (generic)",
           "player": "",
-          "duties": [],
-          "note": "\"Power Rain\" (?) ~44k"
+          "duties": [
+            "\"Power Rain\" (?) ~44k"
+          ],
+          "note": ""
         }
       ],
       "notes": [],
@@ -812,9 +826,10 @@
             "Heal",
             "Quickness",
             "Spectral Grasp",
-            "Golem"
+            "Golem",
+            "brings Spectral Armor (?) instead of Spectral Sanctuary (?)"
           ],
-          "note": "brings Spectral Armor (?) instead of Spectral Sanctuary (?)",
+          "note": "",
           "unsure": true
         },
         {
@@ -824,9 +839,10 @@
           "build": "Power Quick Ritualist",
           "player": "",
           "duties": [
-            "Quickness"
+            "Quickness",
+            "⚙ 1 toughness infusion · second tank: covers if the first one dies and avoids the 10% bug"
           ],
-          "note": "⚙ 1 toughness infusion · second tank: covers if the first one dies and avoids the 10% bug"
+          "note": ""
         },
         {
           "sub": 1,
@@ -836,9 +852,10 @@
           "player": "",
           "duties": [
             "Alacrity",
-            "Portal back to the platform"
+            "Portal back to the platform",
+            "⚙ 2 toughness infusions — can give itself Toughness, so it takes tank priority"
           ],
-          "note": "⚙ 2 toughness infusions — can give itself Toughness, so it takes tank priority",
+          "note": "",
           "unsure": true
         },
         {
@@ -921,9 +938,10 @@
           "player": "Vexio",
           "duties": [
             "Isolated heal",
-            "Stability on greens (Staff, 2 casts)"
+            "Stability on greens (Staff, 2 casts)",
+            "alt: Celestial Scourge (for Mursaat) · the group spreads out, so healing has to be split"
           ],
-          "note": "alt: Celestial Scourge (for Mursaat) · the group spreads out, so healing has to be split"
+          "note": ""
         },
         {
           "sub": 1,
@@ -933,9 +951,10 @@
           "player": "",
           "duties": [
             "Quickness",
-            "Stability mantra"
+            "Stability mantra",
+            "kept specifically for the Twisted Castle portals later"
           ],
-          "note": "kept specifically for the Twisted Castle portals later"
+          "note": ""
         },
         {
           "sub": 1,
@@ -972,8 +991,10 @@
           "role2": "",
           "build": "Condi Chrono",
           "player": "",
-          "duties": [],
-          "note": "Strick: 46.5k bench, 50+ confusion stacks"
+          "duties": [
+            "Strick: 46.5k bench, 50+ confusion stacks"
+          ],
+          "note": ""
         }
       ],
       "notes": [
@@ -983,14 +1004,14 @@
           "note": ""
         },
         {
-          "label": "Agony 2",
+          "label": "Agony 2 — a DPS",
           "slot": 2,
-          "note": "a DPS"
+          "note": ""
         },
         {
-          "label": "Agony 3",
+          "label": "Agony 3 — STILL AMBIGUOUS: the Vuln DPS or the third DPS? This is what caused the wipes",
           "slot": 4,
-          "note": "STILL AMBIGUOUS: the Vuln DPS or the third DPS? This is what caused the wipes"
+          "note": ""
         },
         {
           "label": "Vulnerability",
@@ -1050,9 +1071,10 @@
           "player": "Vexio",
           "duties": [
             "Dispel",
-            "Condi clear"
+            "Condi clear",
+            "alt: Heal Alac Specter · Celestial Scourge. Vexio can also swap to Heal Spectre here"
           ],
-          "note": "alt: Heal Alac Specter · Celestial Scourge. Vexio can also swap to Heal Spectre here"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1062,9 +1084,10 @@
           "player": "",
           "duties": [
             "Quickness",
-            "Claim"
+            "Claim",
+            "alt: Boon Ritualist"
           ],
-          "note": "alt: Boon Ritualist"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1160,9 +1183,10 @@
           "duties": [
             "Quickness",
             "The pull",
-            "Strong CC"
+            "Strong CC",
+            "the pull has to be covered no matter what. Push alternatives: Ritualist Greatsword 5 (tight timing) or a Virtuoso with Greatsword"
           ],
-          "note": "the pull has to be covered no matter what. Push alternatives: Ritualist Greatsword 5 (tight timing) or a Virtuoso with Greatsword"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1170,8 +1194,10 @@
           "role2": "Tank",
           "build": "P DPS (generic)",
           "player": "",
-          "duties": [],
-          "note": "TANK UNDECIDED: Berserker, Luminary (?), Amalgam (?) or Scrapper",
+          "duties": [
+            "TANK UNDECIDED: Berserker, Luminary (?), Amalgam (?) or Scrapper"
+          ],
+          "note": "",
           "unsure": true
         },
         {
@@ -1206,9 +1232,9 @@
       ],
       "notes": [
         {
-          "label": "The pull (or the push)",
+          "label": "The pull (or the push) — either one works",
           "slot": 1,
-          "note": "either one works"
+          "note": ""
         },
         {
           "label": "Vulnerability",
@@ -1260,9 +1286,10 @@
             "Vulnerability",
             "Aegis",
             "Slams",
-            "Alacrity"
+            "Alacrity",
+            "Celestial Scourge"
           ],
-          "note": "Celestial Scourge"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1359,9 +1386,10 @@
           "player": "",
           "duties": [
             "Heal",
-            "Alacrity"
+            "Alacrity",
+            "Optional: Storm Spirit + cleanse trap for a lot more CC"
           ],
-          "note": "Optional: Storm Spirit + cleanse trap for a lot more CC"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1373,9 +1401,10 @@
             "Push all fight",
             "Hold the scythes",
             "Quickness",
-            "Condi Cleanse"
+            "Condi Cleanse",
+            "when tanking as a DPS you must stand INSIDE the hitbox"
           ],
-          "note": "when tanking as a DPS you must stand INSIDE the hitbox"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1384,9 +1413,10 @@
           "build": "Condi Scourge",
           "player": "",
           "duties": [
-            "CC (Fears)"
+            "CC (Fears)",
+            "already carries the CC"
           ],
-          "note": "already carries the CC"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1403,8 +1433,10 @@
           "role2": "",
           "build": "Condi Amalgam",
           "player": "",
-          "duties": [],
-          "note": "ideal but hard: only Exa or maybe Kai",
+          "duties": [
+            "ideal but hard: only Exa or maybe Kai"
+          ],
+          "note": "",
           "unsure": true
         },
         {
@@ -1485,9 +1517,10 @@
             "Stays back with Desmina",
             "Activates the encounter",
             "Alacrity",
-            "Aegis"
+            "Aegis",
+            "⚙ Relic of the Rivers (?) — must bring the bow · otherwise Gyros for Super Speed"
           ],
-          "note": "⚙ Relic of the Rivers (?) — must bring the bow · otherwise Gyros for Super Speed",
+          "note": "",
           "unsure": true
         },
         {
@@ -1498,9 +1531,10 @@
           "player": "HermanGz",
           "duties": [
             "All the portals",
-            "Quickness"
+            "Quickness",
+            "has the marker pack with the numbered Enervator spawns"
           ],
-          "note": "has the marker pack with the numbered Enervator spawns"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1510,9 +1544,10 @@
           "player": "",
           "duties": [
             "Heal",
-            "Quickness"
+            "Quickness",
+            "suggested second healer"
           ],
-          "note": "suggested second healer",
+          "note": "",
           "unsure": true
         },
         {
@@ -1521,8 +1556,10 @@
           "role2": "",
           "build": "Power Virtuoso",
           "player": "",
-          "duties": [],
-          "note": "ranged damage"
+          "duties": [
+            "ranged damage"
+          ],
+          "note": ""
         },
         {
           "sub": 2,
@@ -1658,9 +1695,10 @@
           "player": "",
           "duties": [
             "Heal",
-            "Portals for G3"
+            "Portals for G3",
+            "the only two viable healers are Heal Chrono or Druid"
           ],
-          "note": "the only two viable healers are Heal Chrono or Druid"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1669,9 +1707,10 @@
           "build": "Quick Catalyst",
           "player": "",
           "duties": [
-            "Quickness"
+            "Quickness",
+            "alt: Condi Alac Evoker · 35k. Careful: boon radius is 300 and Dhuum hitbox is 400 across"
           ],
-          "note": "alt: Condi Alac Evoker · 35k. Careful: boon radius is 300 and Dhuum hitbox is 400 across"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1729,9 +1768,9 @@
           "note": ""
         },
         {
-          "label": "Green 3 after the Soul Split",
+          "label": "Green 3 after the Soul Split — the tank takes it",
           "slot": 1,
-          "note": "the tank takes it"
+          "note": ""
         },
         {
           "label": "No green at all",
@@ -1825,9 +1864,10 @@
           "player": "Vexio",
           "duties": [
             "Alacrity (pulse)",
-            "CS + Time Warp on the sword phase"
+            "CS + Time Warp on the sword phase",
+            "Pirate rune / Pirate Queen relic. Frees the quickness slot to be any class"
           ],
-          "note": "Pirate rune / Pirate Queen relic. Frees the quickness slot to be any class"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1881,9 +1921,9 @@
       ],
       "notes": [
         {
-          "label": "Time Warp on the sword phase",
+          "label": "Time Warp on the sword phase — Time Warp is 120s and the phase is ~80s, so with CS it covers both",
           "slot": 0,
-          "note": "Time Warp is 120s and the phase is ~80s, so with CS it covers both"
+          "note": ""
         },
         {
           "label": "Vulnerability",
@@ -1943,9 +1983,10 @@
           "build": "Condi Harbinger",
           "player": "",
           "duties": [
-            "Vulnerability"
+            "Vulnerability",
+            "alt: Condi Chrono"
           ],
-          "note": "alt: Condi Chrono"
+          "note": ""
         },
         {
           "sub": 1,
@@ -1953,8 +1994,10 @@
           "role2": "",
           "build": "Condi Harbinger",
           "player": "",
-          "duties": [],
-          "note": "alt: Condi Chrono"
+          "duties": [
+            "alt: Condi Chrono"
+          ],
+          "note": ""
         },
         {
           "sub": 2,
@@ -2028,9 +2071,10 @@
           "build": "Condi Alac Amalgam",
           "player": "",
           "duties": [
-            "Alacrity"
+            "Alacrity",
+            "alt: Power Alac Luminary · MARKED TEST. Luminary has a lot of CC and is better above 50% and on the Matriarch"
           ],
-          "note": "alt: Power Alac Luminary · MARKED TEST. Luminary has a lot of CC and is better above 50% and on the Matriarch",
+          "note": "",
           "unsure": true
         },
         {
@@ -2085,9 +2129,9 @@
           "note": ""
         },
         {
-          "label": "Lamp",
+          "label": "Lamp — Kai does the Boonstrip while doing the lamp",
           "slot": 3,
-          "note": "Kai does the Boonstrip while doing the lamp"
+          "note": ""
         },
         {
           "label": "Pylon",
@@ -2141,9 +2185,10 @@
           "duties": [
             "Alacrity",
             "Portal 2",
-            "Big CC"
+            "Big CC",
+            "Moved to subgroup 2 in this meeting (the sheet was stale)"
           ],
-          "note": "Moved to subgroup 2 in this meeting (the sheet was stale)"
+          "note": ""
         },
         {
           "sub": 1,
@@ -2156,9 +2201,10 @@
             "Portal 1",
             "MOA",
             "Feedback",
-            "Stability"
+            "Stability",
+            "Feedback for the final part"
           ],
-          "note": "Feedback for the final part"
+          "note": ""
         },
         {
           "sub": 1,
@@ -2178,8 +2224,10 @@
           "role2": "",
           "build": "Power Ritualist",
           "player": "",
-          "duties": [],
-          "note": "or anything with a good ramp"
+          "duties": [
+            "or anything with a good ramp"
+          ],
+          "note": ""
         },
         {
           "sub": 2,
@@ -2188,9 +2236,10 @@
           "build": "Power Tempest",
           "player": "",
           "duties": [
-            "Rebound"
+            "Rebound",
+            "second Rebound source: Distort only covers 5 and the Chrono can blink away"
           ],
-          "note": "second Rebound source: Distort only covers 5 and the Chrono can blink away"
+          "note": ""
         },
         {
           "sub": 2,
@@ -2224,9 +2273,9 @@
           "note": ""
         },
         {
-          "label": "Feedback",
+          "label": "Feedback — final part",
           "slot": 1,
-          "note": "final part"
+          "note": ""
         },
         {
           "label": "Rebound",
@@ -2275,9 +2324,10 @@
           "build": "Power Quick Ritualist",
           "player": "",
           "duties": [
-            "Quickness"
+            "Quickness",
+            "⚙ 1050 toughness (helmet + backpack is enough, or one infusion)"
           ],
-          "note": "⚙ 1050 toughness (helmet + backpack is enough, or one infusion)"
+          "note": ""
         },
         {
           "sub": 2,
@@ -2290,9 +2340,10 @@
             "Portal",
             "Stability",
             "Alacrity",
-            "Boonstrip"
+            "Boonstrip",
+            "not changing, this is the best option"
           ],
-          "note": "not changing, this is the best option"
+          "note": ""
         },
         {
           "sub": 1,
@@ -2331,9 +2382,10 @@
           "build": "Power Tempest",
           "player": "",
           "duties": [
-            "Vulnerability"
+            "Vulnerability",
+            "ALWAYS at least one Tempest: Vuln on the boss and instant Vuln on the hands"
           ],
-          "note": "ALWAYS at least one Tempest: Vuln on the boss and instant Vuln on the hands"
+          "note": ""
         }
       ],
       "notes": [
@@ -2397,9 +2449,10 @@
           "player": "",
           "duties": [
             "Heal",
-            "Alacrity"
+            "Alacrity",
+            "picked over a tanky Heal Chrono: the Chrono has more CC but the Druid heals better at the end"
           ],
-          "note": "picked over a tanky Heal Chrono: the Chrono has more CC but the Druid heals better at the end"
+          "note": ""
         },
         {
           "sub": 1,
@@ -2410,9 +2463,10 @@
           "duties": [
             "Quickness",
             "Pylon pump",
-            "Summon"
+            "Summon",
+            "open slot: \"whatever hits hardest\", Ritualist preferred. Must bring its summon"
           ],
-          "note": "open slot: \"whatever hits hardest\", Ritualist preferred. Must bring its summon"
+          "note": ""
         },
         {
           "sub": 1,
@@ -2421,9 +2475,10 @@
           "build": "Condi Scourge",
           "player": "",
           "duties": [
-            "Full CC on its own pylon"
+            "Full CC on its own pylon",
+            "the Scourge can CC its pylon alone"
           ],
-          "note": "the Scourge can CC its pylon alone"
+          "note": ""
         },
         {
           "sub": 1,
@@ -2453,8 +2508,10 @@
           "role2": "",
           "build": "C DPS (generic)",
           "player": "",
-          "duties": [],
-          "note": "the tank kills everything / 3 targets"
+          "duties": [
+            "the tank kills everything / 3 targets"
+          ],
+          "note": ""
         }
       ],
       "notes": [

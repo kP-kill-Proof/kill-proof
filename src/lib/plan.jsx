@@ -174,11 +174,9 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
               ))}
             </div>
           )}
-          {(r.gear || r.alt || r.note) && (
-            <div className="mt-1.5 space-y-0.5 text-xs">
-              {r.gear && <div className="text-amber-300/90">⚙ {r.gear}</div>}
-              {r.alt && <div className="text-silver">alt: {r.alt}</div>}
-              {r.note && <div className="text-silver/80"><NotesText text={r.note} icons={icons} /></div>}
+          {r.note && (
+            <div className={`mt-1.5 text-xs ${r.note.includes('⚙') ? 'text-amber-300/90' : 'text-silver/80'}`}>
+              <NotesText text={r.note} icons={icons} />
             </div>
           )}
         </div>
@@ -190,7 +188,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
     <div className="rounded-xl border border-teal-deep/20 bg-ink/30 p-2 space-y-1.5">
       <div className="flex items-center gap-1.5">
         <RoleChip role={r.role} onClick={cycle} />
-        <Field value={r.role2} placeholder="2nd role (tank, kiter…)" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, role2: v })} />
+        <Field value={r.role2} placeholder="2nd role" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, role2: v })} />
         <Field value={r.player} placeholder="player" list="kp-roster-names" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, player: v })} />
         {r.build && resolveBuildIcon(r.build, icons) && <img src={resolveBuildIcon(r.build, icons)} alt="" className="w-8 h-8 rounded-md shrink-0" />}
         <Field value={r.build} placeholder="class/build" list="kp-build-names" className="flex-1 min-w-0" onCommit={(v) => onChange({ ...r, build: v })} />
@@ -202,11 +200,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
         className="w-full"
         onCommit={(v) => onChange({ ...r, duties: v.split(',').map((x) => x.trim()).filter(Boolean) })}
       />
-      <div className="flex gap-1.5">
-        <Field value={r.gear} placeholder="gear (1050 toughness…)" className="flex-1" onCommit={(v) => onChange({ ...r, gear: v })} />
-        <Field value={r.alt} placeholder="alternative build" className="flex-1" onCommit={(v) => onChange({ ...r, alt: v })} />
-      </div>
-      <Field value={r.note} placeholder="note" className="w-full" onCommit={(v) => onChange({ ...r, note: v })} />
+      <Field value={r.note} placeholder="note — gear, alt build, anything" className="w-full" onCommit={(v) => onChange({ ...r, note: v })} />
     </div>
   )
 }

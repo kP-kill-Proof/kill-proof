@@ -38,8 +38,6 @@
             "Alacrity",
             "Heal"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -51,8 +49,6 @@
           "duties": [
             "Quickness"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -64,8 +60,6 @@
           "duties": [
             "Condi"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -77,8 +71,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -88,8 +80,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -99,8 +89,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -152,8 +140,6 @@
           "duties": [
             "Alacrity"
           ],
-          "gear": "",
-          "alt": "",
           "note": "takes arrow + heart"
         },
         {
@@ -167,9 +153,7 @@
             "Stability (Slams)",
             "Stab 1"
           ],
-          "gear": "",
-          "alt": "Quick Catalyst",
-          "note": "Strick always plays Ritu here"
+          "note": "alt: Quick Catalyst · Strick always plays Ritu here"
         },
         {
           "sub": 1,
@@ -180,8 +164,6 @@
           "duties": [
             "Stab 2"
           ],
-          "gear": "",
-          "alt": "",
           "note": "a DPS covers the second Stability"
         },
         {
@@ -193,8 +175,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -204,8 +184,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -215,8 +193,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -314,8 +290,6 @@
             "Stability",
             "MOA"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -329,8 +303,6 @@
             "Stability",
             "MOA"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -342,8 +314,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -353,8 +323,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -364,8 +332,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -375,8 +341,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -433,8 +397,6 @@
             "Stability",
             "MOA"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -448,8 +410,6 @@
             "Stability",
             "MOA"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -461,8 +421,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -472,8 +430,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -483,8 +439,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -494,8 +448,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -565,8 +517,6 @@
             "Golem",
             "Main CC"
           ],
-          "gear": "",
-          "alt": "",
           "note": "The main CC is the one who takes the Sacrifice"
         },
         {
@@ -579,8 +529,6 @@
             "Quickness",
             "Cage CC (Sanctuary)"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -593,8 +541,6 @@
             "Vulnerability",
             "CC"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -606,8 +552,6 @@
           "duties": [
             "CC"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -619,8 +563,6 @@
           "duties": [
             "CC"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -632,8 +574,6 @@
           "duties": [
             "CC"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -694,9 +634,7 @@
           "duties": [
             "Tower"
           ],
-          "gear": "",
-          "alt": "Condi Mirage",
-          "note": ""
+          "note": "alt: Condi Mirage"
         },
         {
           "sub": 1,
@@ -707,9 +645,7 @@
           "duties": [
             "Tower"
           ],
-          "gear": "",
-          "alt": "Condi Mirage",
-          "note": "Mirages work too and also damage the towers"
+          "note": "alt: Condi Mirage · Mirages work too and also damage the towers"
         },
         {
           "sub": 1,
@@ -720,8 +656,6 @@
           "duties": [
             "Tower"
           ],
-          "gear": "",
-          "alt": "",
           "note": "the third one going up"
         },
         {
@@ -735,8 +669,6 @@
             "Blind",
             "Super Speed for Glenna"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -748,8 +680,6 @@
           "duties": [
             "Alacrity"
           ],
-          "gear": "",
-          "alt": "",
           "note": "Legendary Dwarf"
         },
         {
@@ -762,8 +692,6 @@
             "First portal",
             "Blind"
           ],
-          "gear": "",
-          "alt": "",
           "note": "nobody else will take the portal"
         },
         {
@@ -775,8 +703,6 @@
           "duties": [
             "Blind"
           ],
-          "gear": "",
-          "alt": "",
           "note": "very strong blind source; stays down if the Reaper goes up"
         }
       ],
@@ -831,8 +757,6 @@
           "build": "Power Soulbeast",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "good sustained damage"
         },
         {
@@ -842,8 +766,6 @@
           "build": "Power Amalgam",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "",
           "unsure": true
         },
@@ -854,8 +776,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "\"Power Rain\" (?) ~44k"
         }
       ],
@@ -894,8 +814,6 @@
             "Spectral Grasp",
             "Golem"
           ],
-          "gear": "",
-          "alt": "",
           "note": "brings Spectral Armor (?) instead of Spectral Sanctuary (?)",
           "unsure": true
         },
@@ -908,9 +826,7 @@
           "duties": [
             "Quickness"
           ],
-          "gear": "1 toughness infusion",
-          "alt": "",
-          "note": "second tank: covers if the first one dies and avoids the 10% bug"
+          "note": "⚙ 1 toughness infusion · second tank: covers if the first one dies and avoids the 10% bug"
         },
         {
           "sub": 1,
@@ -922,9 +838,7 @@
             "Alacrity",
             "Portal back to the platform"
           ],
-          "gear": "2 toughness infusions — can give itself Toughness, so it takes tank priority",
-          "alt": "",
-          "note": "",
+          "note": "⚙ 2 toughness infusions — can give itself Toughness, so it takes tank priority",
           "unsure": true
         },
         {
@@ -937,8 +851,6 @@
             "Spectral Grasp",
             "Golem"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -951,8 +863,6 @@
             "Spectral Grasp",
             "Golem"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -965,8 +875,6 @@
             "Spectral Grasp",
             "Golem"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -1015,9 +923,7 @@
             "Isolated heal",
             "Stability on greens (Staff, 2 casts)"
           ],
-          "gear": "",
-          "alt": "Celestial Scourge (for Mursaat)",
-          "note": "the group spreads out, so healing has to be split"
+          "note": "alt: Celestial Scourge (for Mursaat) · the group spreads out, so healing has to be split"
         },
         {
           "sub": 1,
@@ -1029,8 +935,6 @@
             "Quickness",
             "Stability mantra"
           ],
-          "gear": "",
-          "alt": "",
           "note": "kept specifically for the Twisted Castle portals later"
         },
         {
@@ -1040,8 +944,6 @@
           "build": "P DPS (generic)",
           "player": "Exandreus",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1051,8 +953,6 @@
           "build": "P DPS (generic)",
           "player": "Strickzito",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1064,8 +964,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1075,8 +973,6 @@
           "build": "Condi Chrono",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "Strick: 46.5k bench, 50+ confusion stacks"
         }
       ],
@@ -1156,9 +1052,7 @@
             "Dispel",
             "Condi clear"
           ],
-          "gear": "",
-          "alt": "Heal Alac Specter",
-          "note": "Celestial Scourge. Vexio can also swap to Heal Spectre here"
+          "note": "alt: Heal Alac Specter · Celestial Scourge. Vexio can also swap to Heal Spectre here"
         },
         {
           "sub": 1,
@@ -1170,9 +1064,7 @@
             "Quickness",
             "Claim"
           ],
-          "gear": "",
-          "alt": "Boon Ritualist",
-          "note": ""
+          "note": "alt: Boon Ritualist"
         },
         {
           "sub": 1,
@@ -1181,8 +1073,6 @@
           "build": "P DPS (generic)",
           "player": "Exandreus",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1194,8 +1084,6 @@
           "duties": [
             "Protect"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1207,8 +1095,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1218,8 +1104,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -1265,8 +1149,6 @@
           "duties": [
             "Heal"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1280,8 +1162,6 @@
             "The pull",
             "Strong CC"
           ],
-          "gear": "",
-          "alt": "",
           "note": "the pull has to be covered no matter what. Push alternatives: Ritualist Greatsword 5 (tight timing) or a Virtuoso with Greatsword"
         },
         {
@@ -1291,8 +1171,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "TANK UNDECIDED: Berserker, Luminary (?), Amalgam (?) or Scrapper",
           "unsure": true
         },
@@ -1305,8 +1183,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1316,8 +1192,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1327,8 +1201,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -1376,8 +1248,6 @@
           "duties": [
             "Quickness"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1392,8 +1262,6 @@
             "Slams",
             "Alacrity"
           ],
-          "gear": "",
-          "alt": "",
           "note": "Celestial Scourge"
         },
         {
@@ -1405,8 +1273,6 @@
           "duties": [
             "North"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1418,8 +1284,6 @@
           "duties": [
             "West"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1431,8 +1295,6 @@
           "duties": [
             "East"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1442,8 +1304,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -1501,8 +1361,6 @@
             "Heal",
             "Alacrity"
           ],
-          "gear": "",
-          "alt": "",
           "note": "Optional: Storm Spirit + cleanse trap for a lot more CC"
         },
         {
@@ -1517,8 +1375,6 @@
             "Quickness",
             "Condi Cleanse"
           ],
-          "gear": "",
-          "alt": "",
           "note": "when tanking as a DPS you must stand INSIDE the hitbox"
         },
         {
@@ -1530,8 +1386,6 @@
           "duties": [
             "CC (Fears)"
           ],
-          "gear": "",
-          "alt": "",
           "note": "already carries the CC"
         },
         {
@@ -1541,8 +1395,6 @@
           "build": "Condi Willbender",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1552,8 +1404,6 @@
           "build": "Condi Amalgam",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "ideal but hard: only Exa or maybe Kai",
           "unsure": true
         },
@@ -1566,8 +1416,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -1639,9 +1487,7 @@
             "Alacrity",
             "Aegis"
           ],
-          "gear": "Relic of the Rivers (?) — must bring the bow",
-          "alt": "",
-          "note": "otherwise Gyros for Super Speed",
+          "note": "⚙ Relic of the Rivers (?) — must bring the bow · otherwise Gyros for Super Speed",
           "unsure": true
         },
         {
@@ -1654,8 +1500,6 @@
             "All the portals",
             "Quickness"
           ],
-          "gear": "",
-          "alt": "",
           "note": "has the marker pack with the numbered Enervator spawns"
         },
         {
@@ -1668,8 +1512,6 @@
             "Heal",
             "Quickness"
           ],
-          "gear": "",
-          "alt": "",
           "note": "suggested second healer",
           "unsure": true
         },
@@ -1680,8 +1522,6 @@
           "build": "Power Virtuoso",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "ranged damage"
         },
         {
@@ -1691,8 +1531,6 @@
           "build": "Power Virtuoso",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1704,8 +1542,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -1824,8 +1660,6 @@
             "Heal",
             "Portals for G3"
           ],
-          "gear": "",
-          "alt": "",
           "note": "the only two viable healers are Heal Chrono or Druid"
         },
         {
@@ -1837,9 +1671,7 @@
           "duties": [
             "Quickness"
           ],
-          "gear": "",
-          "alt": "Condi Alac Evoker",
-          "note": "35k. Careful: boon radius is 300 and Dhuum hitbox is 400 across"
+          "note": "alt: Condi Alac Evoker · 35k. Careful: boon radius is 300 and Dhuum hitbox is 400 across"
         },
         {
           "sub": 1,
@@ -1850,8 +1682,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1861,8 +1691,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1872,8 +1700,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -1883,8 +1709,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -2003,8 +1827,6 @@
             "Alacrity (pulse)",
             "CS + Time Warp on the sword phase"
           ],
-          "gear": "",
-          "alt": "",
           "note": "Pirate rune / Pirate Queen relic. Frees the quickness slot to be any class"
         },
         {
@@ -2016,8 +1838,6 @@
           "duties": [
             "Quickness"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2029,8 +1849,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2040,8 +1858,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2051,8 +1867,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2062,8 +1876,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -2110,8 +1922,6 @@
             "Heal",
             "MOA (CC)"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2124,8 +1934,6 @@
             "Alacrity",
             "Stability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2137,9 +1945,7 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "Condi Chrono",
-          "note": ""
+          "note": "alt: Condi Chrono"
         },
         {
           "sub": 1,
@@ -2148,9 +1954,7 @@
           "build": "Condi Harbinger",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "Condi Chrono",
-          "note": ""
+          "note": "alt: Condi Chrono"
         },
         {
           "sub": 2,
@@ -2159,8 +1963,6 @@
           "build": "Condi Chrono",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2170,8 +1972,6 @@
           "build": "Condi Harbinger",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -2219,8 +2019,6 @@
           "duties": [
             "Alacrity (pulse)"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2232,9 +2030,7 @@
           "duties": [
             "Alacrity"
           ],
-          "gear": "",
-          "alt": "Power Alac Luminary",
-          "note": "MARKED TEST. Luminary has a lot of CC and is better above 50% and on the Matriarch",
+          "note": "alt: Power Alac Luminary · MARKED TEST. Luminary has a lot of CC and is better above 50% and on the Matriarch",
           "unsure": true
         },
         {
@@ -2244,8 +2040,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2258,8 +2052,6 @@
             "Lamp",
             "Boonstrip"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2271,8 +2063,6 @@
           "duties": [
             "Pylon"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2285,8 +2075,6 @@
             "Pylon",
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -2355,8 +2143,6 @@
             "Portal 2",
             "Big CC"
           ],
-          "gear": "",
-          "alt": "",
           "note": "Moved to subgroup 2 in this meeting (the sheet was stale)"
         },
         {
@@ -2372,8 +2158,6 @@
             "Feedback",
             "Stability"
           ],
-          "gear": "",
-          "alt": "",
           "note": "Feedback for the final part"
         },
         {
@@ -2385,8 +2169,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": "",
           "unsure": true
         },
@@ -2397,8 +2179,6 @@
           "build": "Power Ritualist",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "or anything with a good ramp"
         },
         {
@@ -2410,8 +2190,6 @@
           "duties": [
             "Rebound"
           ],
-          "gear": "",
-          "alt": "",
           "note": "second Rebound source: Distort only covers 5 and the Chrono can blink away"
         },
         {
@@ -2421,8 +2199,6 @@
           "build": "P DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": ""
         }
       ],
@@ -2501,9 +2277,7 @@
           "duties": [
             "Quickness"
           ],
-          "gear": "1050 toughness (helmet + backpack is enough, or one infusion)",
-          "alt": "",
-          "note": ""
+          "note": "⚙ 1050 toughness (helmet + backpack is enough, or one infusion)"
         },
         {
           "sub": 2,
@@ -2518,8 +2292,6 @@
             "Alacrity",
             "Boonstrip"
           ],
-          "gear": "",
-          "alt": "",
           "note": "not changing, this is the best option"
         },
         {
@@ -2529,8 +2301,6 @@
           "build": "Power Bladesworn",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "",
           "unsure": true
         },
@@ -2541,8 +2311,6 @@
           "build": "Power Bladesworn",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "",
           "unsure": true
         },
@@ -2553,8 +2321,6 @@
           "build": "Power Bladesworn",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "",
           "unsure": true
         },
@@ -2567,8 +2333,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": "ALWAYS at least one Tempest: Vuln on the boss and instant Vuln on the hands"
         }
       ],
@@ -2635,8 +2399,6 @@
             "Heal",
             "Alacrity"
           ],
-          "gear": "",
-          "alt": "",
           "note": "picked over a tanky Heal Chrono: the Chrono has more CC but the Druid heals better at the end"
         },
         {
@@ -2650,8 +2412,6 @@
             "Pylon pump",
             "Summon"
           ],
-          "gear": "",
-          "alt": "",
           "note": "open slot: \"whatever hits hardest\", Ritualist preferred. Must bring its summon"
         },
         {
@@ -2663,8 +2423,6 @@
           "duties": [
             "Full CC on its own pylon"
           ],
-          "gear": "",
-          "alt": "",
           "note": "the Scourge can CC its pylon alone"
         },
         {
@@ -2676,8 +2434,6 @@
           "duties": [
             "Pylon pump"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2689,8 +2445,6 @@
           "duties": [
             "Vulnerability"
           ],
-          "gear": "",
-          "alt": "",
           "note": ""
         },
         {
@@ -2700,8 +2454,6 @@
           "build": "C DPS (generic)",
           "player": "",
           "duties": [],
-          "gear": "",
-          "alt": "",
           "note": "the tank kills everything / 3 targets"
         }
       ],

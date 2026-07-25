@@ -1,6 +1,6 @@
 {
   "updated": "2026-07-25",
-  "note": "Build catalog aligned to Snow Crows raid builds (Jul 2026) + legacy extras. 'tank' marks builds SC lists as tank-capable. Custom free-text builds are allowed in comps.",
+  "note": "Build catalog aligned to Snow Crows raid builds (Jul 2026). Boon lists on heal/support builds were filled in from general knowledge so the coverage checker works — correct any entry that is wrong. DPS builds intentionally list no boons: dedicated duties like Vulnerability are tracked per encounter, not per build.",
   "source": "https://snowcrows.com/builds/raids",
   "builds": [
     {
@@ -12,7 +12,14 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Elementalist",
@@ -27,7 +34,14 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Elementalist"
@@ -55,7 +69,14 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Elementalist",
@@ -81,7 +102,14 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Elementalist"
@@ -129,8 +157,16 @@
       ],
       "type": "support",
       "boons": [
+        "Aegis",
         "Alacrity",
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Stability",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Mesmer"
@@ -158,8 +194,16 @@
       ],
       "type": "heal",
       "boons": [
+        "Aegis",
         "Alacrity",
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Stability",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Mesmer",
@@ -174,8 +218,16 @@
       ],
       "type": "support",
       "boons": [
+        "Aegis",
         "Alacrity",
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Stability",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Mesmer"
@@ -201,7 +253,11 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Regeneration",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Mesmer"
@@ -252,7 +308,12 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Mesmer",
@@ -269,7 +330,12 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Mesmer"
@@ -306,7 +372,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Necromancer",
@@ -321,7 +393,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Necromancer"
@@ -349,7 +427,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Necromancer",
@@ -390,7 +474,11 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Quickness",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Necromancer"
@@ -415,7 +503,11 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Quickness",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Necromancer"
@@ -430,7 +522,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Necromancer",
@@ -446,7 +544,13 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Necromancer"
@@ -472,7 +576,14 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Stability",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Engineer"
@@ -488,7 +599,14 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Stability",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Engineer",
@@ -503,7 +621,14 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Stability",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Engineer",
@@ -554,7 +679,14 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Engineer"
@@ -596,7 +728,14 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Engineer",
@@ -611,7 +750,14 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Engineer"
@@ -651,7 +797,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Ranger",
@@ -700,7 +852,13 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Ranger"
@@ -714,7 +872,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Ranger",
@@ -729,7 +893,13 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Ranger"
@@ -765,7 +935,11 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Quickness",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Ranger"
@@ -814,6 +988,8 @@
       ],
       "type": "support",
       "boons": [
+        "Fury",
+        "Might",
         "Quickness"
       ],
       "condis": [],
@@ -850,6 +1026,8 @@
       ],
       "type": "support",
       "boons": [
+        "Fury",
+        "Might",
         "Quickness"
       ],
       "condis": [],
@@ -864,7 +1042,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Thief",
@@ -881,7 +1065,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Thief"
@@ -909,7 +1099,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Thief",
@@ -935,7 +1131,15 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Aegis",
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Resolution",
+        "Stability",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian",
@@ -965,7 +1169,15 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Aegis",
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Resolution",
+        "Stability",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian"
@@ -980,7 +1192,15 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Aegis",
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Resolution",
+        "Stability",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian",
@@ -995,7 +1215,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian"
@@ -1021,7 +1247,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian"
@@ -1035,7 +1267,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian"
@@ -1073,7 +1311,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian",
@@ -1088,7 +1332,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Aegis",
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Guardian"
@@ -1113,7 +1363,13 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Revenant",
@@ -1141,7 +1397,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Revenant",
@@ -1169,7 +1431,13 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Revenant"
@@ -1185,7 +1453,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Revenant"
@@ -1211,7 +1485,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Revenant",
@@ -1226,7 +1506,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Revenant"
@@ -1253,7 +1539,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Revenant",
@@ -1291,7 +1583,12 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Quickness",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Warrior"
@@ -1305,7 +1602,12 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Quickness",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Warrior",
@@ -1331,7 +1633,12 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Quickness",
+        "Regeneration",
+        "Resolution",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Warrior"
@@ -1379,7 +1686,11 @@
       ],
       "type": "heal",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Warrior",
@@ -1394,7 +1705,11 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Fury",
+        "Might",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Warrior"
@@ -1419,7 +1734,13 @@
       ],
       "type": "heal",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Elementalist"
@@ -1434,7 +1755,13 @@
       ],
       "type": "support",
       "boons": [
-        "Quickness"
+        "Fury",
+        "Might",
+        "Protection",
+        "Quickness",
+        "Regeneration",
+        "Swiftness",
+        "Vigor"
       ],
       "condis": [],
       "profession": "Elementalist"
@@ -1488,11 +1815,12 @@
       "type": "support",
       "boons": [
         "Alacrity",
-        "Might",
+        "Boon Extension",
         "Fury",
+        "Might",
         "Protection",
         "Regeneration",
-        "Boon Extension"
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Elementalist"
@@ -1507,8 +1835,12 @@
       ],
       "type": "support",
       "boons": [
+        "Fury",
+        "Might",
+        "Protection",
         "Quickness",
-        "Might"
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Elementalist"
@@ -1522,8 +1854,11 @@
       "type": "support",
       "boons": [
         "Alacrity",
+        "Fury",
         "Might",
-        "Fury"
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Elementalist"
@@ -1538,7 +1873,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Engineer"
@@ -1551,7 +1892,13 @@
       ],
       "type": "support",
       "boons": [
-        "Alacrity"
+        "Alacrity",
+        "Barrier",
+        "Fury",
+        "Might",
+        "Protection",
+        "Regeneration",
+        "Swiftness"
       ],
       "condis": [],
       "profession": "Engineer"

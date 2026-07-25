@@ -112,34 +112,6 @@ function BossPage({ wing, boss, onBack }) {
         </div>
       </div>
 
-      <div className="card p-5">
-        <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold mb-3">Strategy</h2>
-        <p className="text-sm"><NotesText text={k.strategy || '—'} icons={icons} /></p>
-      </div>
-
-      <div className="card p-5">
-        <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold mb-3">
-          Ideal comp <span className="text-silver/50 normal-case">(priority order, flexible squad size)</span>
-        </h2>
-        <div className="space-y-2">
-          {(k.slots || []).map((s, i) => (
-            <div key={i} className="flex flex-wrap items-center gap-3 bg-ink/50 rounded-xl px-3 py-2 text-sm">
-              <span className="text-silver/40 font-bold w-4">{i + 1}</span>
-              <span className={`chip ${s.role === 'Heal' ? 'bg-teal/25 text-teal-light' : s.role === 'Support' ? 'bg-cream/15 text-cream' : 'bg-silver/10 text-silver'}`}>{s.role}</span>
-              <span className="font-semibold text-cream">
-                {(s.builds || []).map((b, j) => (
-                  <BuildChip key={j} name={b} icons={icons} className={j > 0 ? 'ml-2' : ''} />
-                ))}
-              </span>
-              <span className="text-silver/70 ml-auto"><NotesText text={s.notes} icons={icons} /></span>
-            </div>
-          ))}
-          {(k.slots || []).length === 0 && (
-            <p className="text-sm text-silver/50">No comp defined yet.</p>
-          )}
-        </div>
-      </div>
-
       <div className="pt-2">
         <h2 className="font-display text-2xl text-cream mb-1">Our plan</h2>
         <p className="text-xs text-silver/60 mb-3">

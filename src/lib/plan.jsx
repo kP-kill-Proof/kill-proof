@@ -24,9 +24,18 @@ const SYNONYMS = {
   stability: ['stability', 'stab'],
   boonstrip: ['boonstrip', 'strip'],
   aegis: ['aegis'],
+  might: ['might'],
+  protection: ['protection', 'prot'],
+  regeneration: ['regeneration', 'regen'],
+  swiftness: ['swiftness', 'swift'],
   quickness: ['quickness', 'quick'],
   alacrity: ['alacrity', 'alac'],
 }
+
+// The minimum every comp has to cover, on every single fight.
+// Quickness/Alacrity are deliberately NOT here: in 6-man a subgroup won't
+// always have both, and that is fine.
+export const BASELINE_REQUIRES = ['Vulnerability', 'Might', 'Protection', 'Regeneration', 'Swiftness']
 
 // ---------------------------------------------------------------- coverage
 // Everything a plan covers comes from two places: the duties the team wrote
@@ -54,7 +63,7 @@ export function planCoverage(plan, buildsData) {
     return false
   }
 
-  const requires = plan?.requires || []
+  const requires = [...new Set([...BASELINE_REQUIRES, ...(plan?.requires || [])])]
   const notes = plan?.notes || plan?.mechanics || []
 
   return {
@@ -67,10 +76,6 @@ export function planCoverage(plan, buildsData) {
     // the team itself flagged these as unresolved
     flagged: notes.filter((m) => AMBIGUOUS.test(m.note || '') || AMBIGUOUS.test(m.label || '')),
     unsure: comp.filter((r) => r.unsure),
-    missingBoons: {
-      1: ['Quickness', 'Alacrity'].filter((b) => !bySub[1].has(b)),
-      2: ['Quickness', 'Alacrity'].filter((b) => !bySub[2].has(b)),
-    },
   }
 }
 
@@ -96,11 +101,7 @@ function rowLabel(r) {
 }
 
 export function CoveragePanel({ cov, compact = false }) {
-  const hard = [
-    ...cov.missingReq.map((r) => `Nobody covers ${r}`),
-    ...(cov.missingBoons[1].length ? [`Subgroup 1 has no ${cov.missingBoons[1].join(' or ')}`] : []),
-    ...(cov.missingBoons[2].length ? [`Subgroup 2 has no ${cov.missingBoons[2].join(' or ')}`] : []),
-  ]
+  const hard = cov.missingReq.map((r) => `Nobody covers ${r}`)
   const soft = [
     ...cov.unassigned.map((m) => `"${m.label}" lost its owner`),
     ...cov.flagged.map((m) => `${m.label}${m.note ? `: ${m.note}` : ''}`),
@@ -211,7 +212,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
       <Field
         textarea
         value={items.join('\n')}
-        placeholder={'duties & notes — one per line\nPortal 1\nMOA\n1050 toughness'}
+        placeholder=""
         className="w-full min-h-[64px]"
         onCommit={(v) => onChange({ ...r, duties: v.split('\n').map((x) => x.trim()).filter(Boolean) })}
       />

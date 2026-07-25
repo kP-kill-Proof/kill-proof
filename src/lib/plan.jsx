@@ -3,7 +3,7 @@
 // Shared by the Bible (full page, editable) and Today's Sale (compact, live).
 import { useState } from 'react'
 import { BuildChip, NotesText, lookupToken, resolveBuildIcon } from './icons.jsx'
-import { ROLES, RoleChip, Field, selCls } from './ui.jsx'
+import { ROLES, RoleChip, Field, BuildCombo, selCls } from './ui.jsx'
 import { StrategyImage } from './mapedit.jsx'
 import { resolveBuildInfo } from './boons.js'
 
@@ -206,7 +206,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
         <RoleChip role={r.role} onClick={cycle} />
         <Field value={r.role2} placeholder="2nd role" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, role2: v })} />
         {r.build && resolveBuildIcon(r.build, icons) && <img src={resolveBuildIcon(r.build, icons)} alt="" className="w-8 h-8 rounded-md shrink-0" />}
-        <Field value={r.build} placeholder="class/build" list="kp-build-names" className="flex-1 min-w-0" onCommit={(v) => onChange({ ...r, build: v })} />
+        <BuildCombo value={r.build} builds={builds?.builds || []} icons={icons} className="flex-1" onCommit={(v) => onChange({ ...r, build: v })} />
         <button className="px-1 text-danger/70 hover:text-danger shrink-0" title="Remove slot" onClick={onDelete}>✕</button>
       </div>
       <Field

@@ -10,6 +10,10 @@ import Infallible from './views/Infallible.jsx'
 export const DataCtx = createContext(null)
 export const useData = () => useContext(DataCtx)
 
+// lets Today's Sale jump straight to a boss page in the Bible
+export const NavCtx = createContext({ openBible: () => {} })
+export const useNav = () => useContext(NavCtx)
+
 const TABS = [
   { id: 'sale', label: "Today's Sale" },
   { id: 'bible', label: 'Bible' },
@@ -41,6 +45,14 @@ function Logo() {
 export default function App() {
   const [tab, setTab] = useState('sale')
   const [store, setStore] = useState(null)
+  const [bibleTarget, setBibleTarget] = useState(null)
+  const nav = {
+    openBible: (wingId, bossId) => {
+      setBibleTarget({ wingId, bossId, at: Date.now() })
+      setTab('bible')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+  }
 
   useEffect(() => {
     purgeLegacyLocal()
@@ -70,6 +82,7 @@ export default function App() {
 
   return (
     <DataCtx.Provider value={store}>
+     <NavCtx.Provider value={nav}>
       <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-24">
         <header className="pt-6 pb-4 flex flex-wrap items-center justify-between gap-4 anim-in">
           <Logo />
@@ -91,7 +104,7 @@ export default function App() {
         ) : (
           <main key={tab} className="anim-in">
             {tab === 'sale' && <SaleDay />}
-            {tab === 'bible' && <Bible />}
+            {tab === 'bible' && <Bible target={bibleTarget} />}
             {tab === 'roster' && <Roster />}
             {tab === 'events' && <Events />}
             {tab === 'infallible' && <Infallible />}
@@ -99,6 +112,7 @@ export default function App() {
           </main>
         )}
       </div>
+     </NavCtx.Provider>
     </DataCtx.Provider>
   )
 }

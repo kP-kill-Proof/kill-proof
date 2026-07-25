@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useData } from '../App.jsx'
+import { useData, useNav } from '../App.jsx'
 import { fetchDailyBounties, matchBossId, msToReset, fmtCountdown, fmtTime } from '../lib/gw2.js'
 import { buildSaleList } from '../lib/order.js'
 import { suggestAssignments, bestBuildFor, normRole } from '../lib/assign.js'
@@ -196,6 +196,7 @@ function SquadPanel({ players, roster, setRoster, onDropSlot }) {
 
 function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMoveToSubgroup }) {
   const { comps, icons, builds, plans } = useData()
+  const { openBible } = useNav()
   const comp = comps.bosses?.[boss.id]
   const k = comp || {}
 
@@ -257,9 +258,14 @@ function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMove
         <div className="py-4 border-b border-teal-deep/30 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold">Our plan</h3>
-            <span className={`px-2 py-0.5 rounded-md border text-[10px] uppercase tracking-wider ${(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).cls}`}>
-              {(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).label}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className={`px-2 py-0.5 rounded-md border text-[10px] uppercase tracking-wider ${(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).cls}`}>
+                {(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).label}
+              </span>
+              <button className="btn btn-ghost text-xs" onClick={() => openBible(boss.wing.id, boss.id)} title="Open this encounter in the Bible to edit the plan">
+                ✎ Edit plan
+              </button>
+            </div>
           </div>
           {swaps.length > 0 && (
             <div className="rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2">

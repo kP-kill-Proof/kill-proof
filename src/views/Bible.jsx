@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useData } from '../App.jsx'
 import { fmtTime } from '../lib/gw2.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
@@ -165,10 +165,16 @@ function BossPage({ wing, boss, onBack }) {
   )
 }
 
-export default function Bible() {
+export default function Bible({ target }) {
   const { wings, comps, plans, builds } = useData()
   const planOverrides = loadPlanOv()
   const [nav, setNav] = useState({ section: 'raid', wingId: null, bossId: null })
+
+  useEffect(() => {
+    if (!target?.bossId) return
+    const w = wings.wings.find((x) => x.id === target.wingId)
+    setNav({ section: w?.type === 'strike' ? 'strike' : 'raid', wingId: target.wingId, bossId: target.bossId })
+  }, [target?.at])
 
   const sections = [
     { id: 'raid', label: 'Raids' },

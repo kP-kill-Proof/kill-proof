@@ -147,8 +147,8 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
   if (!editing) {
     const icon = resolveBuildIcon(r.build, icons)
     return (
-      <div className="flex gap-3 py-2.5 border-b border-teal-deep/15 last:border-0">
-        <div className="w-11 h-11 shrink-0 rounded-lg bg-ink/60 border border-teal-deep/30 flex items-center justify-center overflow-hidden">
+      <div className="flex gap-2.5 py-2 border-b border-teal-deep/15 last:border-0">
+        <div className="w-9 h-9 shrink-0 rounded-lg bg-ink/60 border border-teal-deep/30 flex items-center justify-center overflow-hidden">
           {icon ? <img src={icon} alt="" className="w-full h-full object-cover" /> : <span className="text-silver/30 text-xs">—</span>}
         </div>
         <div className="min-w-0 flex-1">
@@ -159,8 +159,8 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
                 {r.role2}
               </span>
             )}
-            {r.player && <span className="font-bold text-cream text-[15px]">{r.player.split('|')[0].trim()}</span>}
-            {r.build && <span className="text-cream/90 text-[15px]">{r.build}</span>}
+            {r.player && <span className="font-bold text-cream text-sm">{r.player.split('|')[0].trim()}</span>}
+            {r.build && <span className="text-cream/90 text-sm">{r.build}</span>}
             {r.unsure && (
               <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Taken from the meeting transcript — needs confirming">
                 confirm
@@ -168,7 +168,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
             )}
           </div>
           {(r.duties || []).length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-1.5">
+            <div className="flex flex-wrap gap-1.5 mt-1">
               {r.duties.map((d, j) => (
                 <DutyChip key={j} duty={d} icons={icons} />
               ))}
@@ -221,8 +221,6 @@ export default function PlanView({
   compact = false,
   onChange,
 }) {
-  const [openMap, setOpenMap] = useState(compact ? null : 0)
-  const [showRoute, setShowRoute] = useState(!compact)
   const cov = planCoverage(plan, builds)
   const comp = plan?.comp || []
   const notes = plan?.notes || plan?.mechanics || []
@@ -293,7 +291,7 @@ export default function PlanView({
         {comp.length === 0 ? (
           <p className="text-sm text-silver/50 italic">No comp defined yet.</p>
         ) : (
-          <div className={`grid gap-3 ${editing ? 'xl:grid-cols-2' : ''}`}>
+          <div className="grid lg:grid-cols-2 gap-3">
             {[1, 2].map((g) => (
               <div key={g} className="bg-ink/40 border border-teal-deep/25 rounded-xl px-4 py-3">
                 <div className="flex items-baseline gap-3 mb-1 pb-2 border-b border-teal-deep/25">
@@ -413,7 +411,7 @@ export default function PlanView({
       {/* ---- route / steps ---- */}
       {(steps.length > 0 || maps.length > 0 || editing) && (
         <Section
-          title={compact ? `Route & strategy${steps.length ? ` · ${steps.length} steps` : ''}${maps.length ? ` · ${maps.length} map${maps.length > 1 ? 's' : ''}` : ''}` : 'Route & strategy'}
+          title="Route & strategy"
           right={
             <div className="flex items-center gap-2">
               {editing && (
@@ -422,16 +420,10 @@ export default function PlanView({
                   <button className="btn btn-ghost text-xs" onClick={() => set({ maps: [...maps, { name: 'Map', image: null, pins: [], draw: [], imgSize: 'md' }] })}>+ map</button>
                 </>
               )}
-              {compact && (steps.length > 0 || maps.length > 0) && (
-                <button className="btn btn-ghost text-xs" onClick={() => setShowRoute(!showRoute)}>
-                  {showRoute ? 'Collapse' : 'Open'}
-                </button>
-              )}
             </div>
           }
         >
-          {(!compact || showRoute) && (
-            <div className="space-y-3">
+          <div className="space-y-3">
               {steps.length > 0 && (
                 <ol className="space-y-1.5">
                   {steps.map((s, i) => (
@@ -465,23 +457,17 @@ export default function PlanView({
                         <button className="px-1 text-danger/70 hover:text-danger ml-auto" onClick={() => set({ maps: maps.filter((_, j) => j !== i) })}>✕</button>
                       </>
                     ) : (
-                      <button className="text-sm font-semibold text-cream flex items-center gap-2" onClick={() => setOpenMap(openMap === i ? null : i)}>
-                        <span className="text-teal-light">{openMap === i ? '▾' : '▸'}</span>
-                        {mp.name || `Map ${i + 1}`}
-                      </button>
+                      <span className="text-sm font-semibold text-cream">{mp.name || `Map ${i + 1}`}</span>
                     )}
                   </div>
-                  {(editing || openMap === i) && (
-                    <StrategyImage
-                      seg={mp}
-                      editing={editing}
-                      onChange={(next) => set({ maps: maps.map((x, j) => (j === i ? next : x)) })}
-                    />
-                  )}
+                  <StrategyImage
+                    seg={mp}
+                    editing={editing}
+                    onChange={(next) => set({ maps: maps.map((x, j) => (j === i ? next : x)) })}
+                  />
                 </div>
               ))}
-            </div>
-          )}
+          </div>
         </Section>
       )}
 

@@ -55,17 +55,17 @@ export function planCoverage(plan, buildsData) {
   }
 
   const requires = plan?.requires || []
-  const mechanics = plan?.mechanics || []
+  const notes = plan?.notes || plan?.mechanics || []
 
   return {
     covered,
     bySub,
     missingReq: requires.filter((r) => !isCovered(r)),
     okReq: requires.filter((r) => isCovered(r)),
-    // a mechanic pointing at a comp row that doesn't exist has no owner
-    unassigned: mechanics.filter((m) => m.slot >= 0 && !comp[m.slot]),
+    // a note pointing at a comp row that no longer exists lost its owner
+    unassigned: notes.filter((m) => m.slot >= 0 && !comp[m.slot]),
     // the team itself flagged these as unresolved
-    flagged: mechanics.filter((m) => AMBIGUOUS.test(m.note || '')),
+    flagged: notes.filter((m) => AMBIGUOUS.test(m.note || '') || AMBIGUOUS.test(m.label || '')),
     unsure: comp.filter((r) => r.unsure),
     missingBoons: {
       1: ['Quickness', 'Alacrity'].filter((b) => !bySub[1].has(b)),
@@ -76,7 +76,7 @@ export function planCoverage(plan, buildsData) {
 
 export function planIsEmpty(plan) {
   if (!plan) return true
-  return !(plan.comp?.length || plan.mechanics?.length || plan.steps?.length || plan.maps?.length)
+  return !(plan.comp?.length || (plan.notes || plan.mechanics)?.length || plan.steps?.length || plan.maps?.length)
 }
 
 // ---------------------------------------------------------------- small bits
@@ -93,17 +93,20 @@ function DutyChip({ duty, icons }) {
 function rowLabel(r) {
   if (!r) return '—'
   const who = r.player ? r.player.split('|')[0].trim() : null
-  return [r.role, r.build || null, who].filter(Boolean).join(' · ')
+  return [r.role2 ? `${r.role} ${r.role2}` : r.role, r.build || null, who].filter(Boolean).join(' · ')
 }
 
 export function CoveragePanel({ cov, compact = false }) {
-  const warn = [
+  const hard = [
     ...cov.missingReq.map((r) => `${r} sin cubrir`),
-    ...cov.unassigned.map((m) => `"${m.label}" sin dueño`),
-    ...cov.flagged.map((m) => `"${m.label}": ${m.note}`),
     ...(cov.missingBoons[1].length ? [`Subgrupo 1 sin ${cov.missingBoons[1].join(' ni ')}`] : []),
     ...(cov.missingBoons[2].length ? [`Subgrupo 2 sin ${cov.missingBoons[2].join(' ni ')}`] : []),
   ]
+  const soft = [
+    ...cov.unassigned.map((m) => `"${m.label}" quedó sin asignar`),
+    ...cov.flagged.map((m) => `${m.label}${m.note ? `: ${m.note}` : ''}`),
+  ]
+  const warn = [...hard, ...soft]
   if (!warn.length && cov.okReq.length === 0) return null
   return (
     <div className={compact ? '' : 'card p-4'}>
@@ -121,9 +124,15 @@ export function CoveragePanel({ cov, compact = false }) {
       </div>
       {warn.length > 0 && (
         <ul className="mt-2 space-y-1">
-          {warn.map((w, i) => (
-            <li key={i} className="text-xs text-danger/90 flex items-start gap-1.5">
+          {hard.map((w, i) => (
+            <li key={`h${i}`} className="text-xs text-danger/90 flex items-start gap-1.5">
               <span className="mt-[2px]">▲</span>
+              <span>{w}</span>
+            </li>
+          ))}
+          {soft.map((w, i) => (
+            <li key={`s${i}`} className="text-xs text-amber-300/90 flex items-start gap-1.5">
+              <span className="mt-[2px]">•</span>
               <span>{w}</span>
             </li>
           ))}
@@ -140,6 +149,11 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
       <div className="py-1">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <RoleChip role={r.role} />
+          {r.role2 && (
+            <span className="px-1.5 py-0.5 rounded-md bg-cream/10 border border-cream/25 text-cream/90 text-[11px] font-semibold">
+              {r.role2}
+            </span>
+          )}
           {r.player && <span className="font-semibold text-cream shrink-0">{r.player.split('|')[0].trim()}</span>}
           {r.build && <BuildChip name={r.build} icons={icons} className="text-cream/90" />}
           {r.unsure && (
@@ -166,6 +180,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
     <div className="rounded-xl border border-teal-deep/20 bg-ink/30 p-2 space-y-1.5">
       <div className="flex items-center gap-1.5">
         <RoleChip role={r.role} onClick={cycle} />
+        <Field value={r.role2} placeholder="rol 2 (tank, kiter…)" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, role2: v })} />
         <Field value={r.player} placeholder="player" list="kp-roster-names" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, player: v })} />
         {r.build && resolveBuildIcon(r.build, icons) && <img src={resolveBuildIcon(r.build, icons)} alt="" className="w-8 h-8 rounded-md shrink-0" />}
         <Field value={r.build} placeholder="class/build" list="kp-build-names" className="flex-1 min-w-0" onCommit={(v) => onChange({ ...r, build: v })} />
@@ -200,14 +215,21 @@ export default function PlanView({
   const [showRoute, setShowRoute] = useState(!compact)
   const cov = planCoverage(plan, builds)
   const comp = plan?.comp || []
-  const mechanics = plan?.mechanics || []
+  const notes = plan?.notes || plan?.mechanics || []
   const steps = plan?.steps || []
   const maps = plan?.maps || []
   const st = PLAN_STATUS[plan?.status] || PLAN_STATUS.draft
 
   const set = (patch) => onChange?.({ ...plan, ...patch })
   const setRow = (i, r) => set({ comp: comp.map((x, j) => (j === i ? r : x)) })
-  const setMech = (i, m) => set({ mechanics: mechanics.map((x, j) => (j === i ? m : x)) })
+  const setNotes = (v) => set({ notes: v, mechanics: undefined })
+  const setNote = (i, m) => setNotes(notes.map((x, j) => (j === i ? m : x)))
+  const moveNote = (i, dir) => {
+    const a = [...notes]
+    const [x] = a.splice(i, 1)
+    a.splice(i + dir, 0, x)
+    setNotes(a)
+  }
   const move = (arr, key, i, dir) => {
     const a = [...arr]
     const [x] = a.splice(i, 1)
@@ -301,71 +323,74 @@ export default function PlanView({
         )}
       </Section>
 
-      {/* ---- mechanic ownership ---- */}
-      {(mechanics.length > 0 || editing) && (
+      {/* ---- fight notes ---- */}
+      {(notes.length > 0 || editing) && (
         <Section
-          title="Mecánicas — quién hace qué"
+          title="Notas de la pelea"
           right={
             editing && (
-              <button className="btn btn-ghost text-xs" onClick={() => set({ mechanics: [...mechanics, { label: '', slot: -1, note: '', altLabel: '' }] })}>
-                + mecánica
+              <button className="btn btn-ghost text-xs" onClick={() => setNotes([...notes, { label: '', slot: -1, note: '' }])}>
+                + nota
               </button>
             )
           }
         >
+          {!compact && editing && (
+            <p className="text-xs text-silver/60 mb-2">
+              Texto libre. Ej: "Agony 1 y 4" → el healer · "Agony 3" → un DPS dedicado. Asignar a alguien es opcional.
+            </p>
+          )}
           <div className={editing ? 'space-y-2' : 'space-y-1'}>
-            {mechanics.map((m, i) => {
+            {notes.map((m, i) => {
               const owner = m.slot >= 0 ? comp[m.slot] : null
               const orphan = m.slot >= 0 && !owner
-              const flagged = AMBIGUOUS.test(m.note || '')
+              const flagged = AMBIGUOUS.test(m.note || '') || AMBIGUOUS.test(m.label || '')
               if (editing) {
                 return (
                   <div key={i} className="flex flex-wrap items-center gap-1.5 rounded-xl border border-teal-deep/20 bg-ink/30 p-2">
-                    <Field value={m.label} placeholder="mecánica (Agony 3, Green 1…)" className="w-52" onCommit={(v) => setMech(i, { ...m, label: v })} />
-                    <Field value={m.altLabel} placeholder="alias (North)" className="w-24" onCommit={(v) => setMech(i, { ...m, altLabel: v })} />
-                    <select className={selCls} value={m.slot} onChange={(e) => setMech(i, { ...m, slot: parseInt(e.target.value, 10) })}>
-                      <option value={-1}>— todos —</option>
+                    <Field value={m.label} placeholder="nota — Agony 1 y 4, Green 1, cañón 3 luego 1…" className="flex-1 min-w-[180px]" onCommit={(v) => setNote(i, { ...m, label: v })} />
+                    <select className={selCls} value={m.slot} onChange={(e) => setNote(i, { ...m, slot: parseInt(e.target.value, 10) })}>
+                      <option value={-1}>— sin asignar —</option>
                       {comp.map((r, j) => (
                         <option key={j} value={j}>
                           {rowLabel(r)}
                         </option>
                       ))}
                     </select>
-                    <Field value={m.note} placeholder="nota" className="flex-1 min-w-[120px]" onCommit={(v) => setMech(i, { ...m, note: v })} />
-                    <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === 0} onClick={() => move(mechanics, 'mechanics', i, -1)}>↑</button>
-                    <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === mechanics.length - 1} onClick={() => move(mechanics, 'mechanics', i, 1)}>↓</button>
-                    <button className="px-1 text-danger/70 hover:text-danger" onClick={() => set({ mechanics: mechanics.filter((_, j) => j !== i) })}>✕</button>
+                    <Field value={m.note} placeholder="detalle" className="flex-1 min-w-[120px]" onCommit={(v) => setNote(i, { ...m, note: v })} />
+                    <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === 0} onClick={() => moveNote(i, -1)}>↑</button>
+                    <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === notes.length - 1} onClick={() => moveNote(i, 1)}>↓</button>
+                    <button className="px-1 text-danger/70 hover:text-danger" onClick={() => setNotes(notes.filter((_, j) => j !== i))}>✕</button>
                   </div>
                 )
               }
               return (
                 <div
                   key={i}
-                  className={`flex flex-wrap items-center gap-2 text-sm rounded-lg px-2 py-1 ${orphan || flagged ? 'bg-danger/10 border border-danger/30' : ''}`}
+                  className={`flex flex-wrap items-center gap-2 text-sm rounded-lg px-2 py-1 ${flagged ? 'bg-amber-400/10 border border-amber-400/30' : ''}`}
                 >
-                  <span className="font-semibold text-cream min-w-[9rem]">
-                    {m.label}
-                    {m.altLabel && <span className="text-silver/60 font-normal"> ({m.altLabel})</span>}
+                  <span className="font-semibold text-cream">
+                    <NotesText text={m.label} icons={icons} />
                   </span>
-                  <span className="text-teal-light">→</span>
-                  {owner ? (
-                    <span className="flex items-center gap-1.5">
-                      <RoleChip role={owner.role} />
-                      {owner.player && <span className="font-semibold text-cream">{owner.player.split('|')[0].trim()}</span>}
-                      {owner.build && <BuildChip name={owner.build} icons={icons} className="text-cream/90" />}
-                    </span>
-                  ) : m.slot === -1 ? (
-                    <span className="text-silver">todos</span>
-                  ) : (
-                    <span className="text-danger font-semibold">SIN DUEÑO</span>
+                  {owner && (
+                    <>
+                      <span className="text-teal-light">→</span>
+                      <span className="flex items-center gap-1.5">
+                        <RoleChip role={owner.role} />
+                        {owner.role2 && <span className="text-cream/80 text-xs font-semibold">{owner.role2}</span>}
+                        {owner.player && <span className="font-semibold text-cream">{owner.player.split('|')[0].trim()}</span>}
+                        {owner.build && <BuildChip name={owner.build} icons={icons} className="text-cream/90" />}
+                      </span>
+                    </>
                   )}
+                  {orphan && <span className="text-amber-300 text-xs">· sin asignar</span>}
                   {m.note && (
-                    <span className={`text-xs ${flagged ? 'text-danger' : 'text-silver'}`}>· {m.note}</span>
+                    <span className={`text-xs ${flagged ? 'text-amber-300' : 'text-silver'}`}>· <NotesText text={m.note} icons={icons} /></span>
                   )}
                 </div>
               )
             })}
-            {mechanics.length === 0 && <p className="text-sm text-silver/50 italic">Nada asignado todavía.</p>}
+            {notes.length === 0 && <p className="text-sm text-silver/50 italic">Sin notas todavía.</p>}
           </div>
         </Section>
       )}

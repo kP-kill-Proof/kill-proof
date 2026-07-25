@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-24",
+  "updated": "2026-07-25",
   "source": "Reunión 2026-07-24 (transcript). Términos marcados con (?) o \"confirm\" están sin validar.",
   "size": 6,
   "rules": [
@@ -7,7 +7,8 @@
     "No dependemos de jugadores ausentes: \"somos los que somos\".",
     "Sin builds troll (no llegues con Mech de rifle).",
     "El icono de Vulnerability se mantiene visible aunque sea redundante, para no olvidarlo si cambia la comp.",
-    "Etiquetas de posición: soportar números (1-2-3-4) Y brújula (North/East/West)."
+    "Roles: los normales (Heal / Support / DPS). El \"rol 2\" es texto libre por persona (Tank, Kiter, lo que sea) porque cambia mucho por pelea.",
+    "Las asignaciones tipo \"Agony 1 y 4 → healer\" son NOTAS de la pelea, editables, no mecánicas fijas."
   ],
   "rejectedGlobal": [
     {
@@ -38,7 +39,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -50,7 +52,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "\"vibran\" en el transcript"
+          "note": "\"vibran\" en el transcript",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -62,7 +65,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS1 = condi"
+          "note": "DPS1 = condi",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -74,7 +78,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS2 = Vuln"
+          "note": "DPS2 = Vuln",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -84,37 +89,19 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        },
-        {
-          "sub": 2,
-          "role": "DPS",
-          "build": "P DPS (generic)",
-          "player": "",
-          "duties": [],
-          "gear": "",
-          "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Pre-event: TODO Condi",
-          "slot": -1,
-          "note": "Se cambia a la comp normal después del pre-evento",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 3,
           "note": "",
-          "altLabel": ""
+          "role2": ""
         },
         {
-          "label": "Boonstrip Prevent",
-          "slot": -1,
-          "note": "Todos deben traerlo",
-          "altLabel": ""
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "",
+          "role2": ""
         }
       ],
       "steps": [],
@@ -134,6 +121,23 @@
       "rejected": [],
       "gaps": [
         "Spirit Woods se salta por ahora"
+      ],
+      "notes": [
+        {
+          "label": "Pre-event: TODO Condi",
+          "slot": -1,
+          "note": "Se cambia a la comp normal después del pre-evento"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 3,
+          "note": ""
+        },
+        {
+          "label": "Boonstrip Prevent",
+          "slot": -1,
+          "note": "Todos deben traerlo"
+        }
       ]
     },
     "gorseval": {
@@ -149,7 +153,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "va con arrow + heart"
+          "note": "va con arrow + heart",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -163,7 +168,8 @@
           ],
           "gear": "",
           "alt": "Quick Catalyst",
-          "note": "Strick siempre juega Ritu acá. Alternativa: Quick Catalyst"
+          "note": "Strick siempre juega Ritu acá. Alternativa: Quick Catalyst",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -175,7 +181,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "el stab 2 lo cubre un DPS"
+          "note": "el stab 2 lo cubre un DPS",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -187,7 +194,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -197,7 +205,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -207,63 +216,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Split arrow: Alac + 2 DPS",
-          "slot": 0,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Split circle: Quickness + 2 DPS",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Markers: circle + square",
-          "slot": 1,
-          "note": "Support DPS",
-          "altLabel": ""
-        },
-        {
-          "label": "Markers: circle + heart",
-          "slot": 2,
-          "note": "DPS1",
-          "altLabel": ""
-        },
-        {
-          "label": "Markers: arrow + square",
-          "slot": 3,
-          "note": "DPS2",
-          "altLabel": ""
-        },
-        {
-          "label": "Markers: arrow + heart",
-          "slot": 0,
-          "note": "Vexio (heal/alac)",
-          "altLabel": ""
-        },
-        {
-          "label": "Stab 1",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Stab 2",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [
@@ -297,6 +251,53 @@
       "gaps": [
         "Necesita día de tutorial + log",
         "La notación de cruce de boons hay que expresarla de otra forma (Lolwar)"
+      ],
+      "notes": [
+        {
+          "label": "Split arrow: Alac + 2 DPS",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Split circle: Quickness + 2 DPS",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Markers: circle + square",
+          "slot": 1,
+          "note": "Support DPS"
+        },
+        {
+          "label": "Markers: circle + heart",
+          "slot": 2,
+          "note": "DPS1"
+        },
+        {
+          "label": "Markers: arrow + square",
+          "slot": 3,
+          "note": "DPS2"
+        },
+        {
+          "label": "Markers: arrow + heart",
+          "slot": 0,
+          "note": "Vexio (heal/alac)"
+        },
+        {
+          "label": "Stab 1",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Stab 2",
+          "slot": 2,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 3,
+          "note": ""
+        }
       ]
     },
     "sabetha": {
@@ -314,7 +315,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -328,7 +330,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -340,7 +343,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -350,7 +354,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -360,7 +365,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -370,39 +376,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Cañón 3",
-          "slot": 1,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Cañón 1",
-          "slot": 1,
-          "note": "después del 3",
-          "altLabel": ""
-        },
-        {
-          "label": "Cañón 4",
-          "slot": 3,
-          "note": "primero el 4",
-          "altLabel": ""
-        },
-        {
-          "label": "Cañón 2",
-          "slot": 3,
-          "note": "salteando el primer 2",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [
@@ -424,6 +399,33 @@
       "rejected": [],
       "gaps": [
         "SIN RESOLVER: nombrar el cañón North (se hace 2 veces) vs numerar 1-2-3-4"
+      ],
+      "notes": [
+        {
+          "label": "Cañón 3",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Cañón 1",
+          "slot": 1,
+          "note": "después del 3"
+        },
+        {
+          "label": "Cañón 4",
+          "slot": 3,
+          "note": "primero el 4"
+        },
+        {
+          "label": "Cañón 2",
+          "slot": 3,
+          "note": "salteando el primer 2"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": ""
+        }
       ]
     },
     "slothasor": {
@@ -441,7 +443,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -455,7 +458,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -467,7 +471,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS2"
+          "note": "DPS2",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -477,7 +482,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "DPS3"
+          "note": "DPS3",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -487,7 +493,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -497,45 +504,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Mushroom 1",
-          "slot": 0,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Pull 1",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Mushroom 2",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Pull 2",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Mushroom 3",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [],
@@ -551,12 +521,43 @@
         }
       ],
       "rejected": [],
-      "gaps": []
+      "gaps": [],
+      "notes": [
+        {
+          "label": "Mushroom 1",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Pull 1",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Mushroom 2",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Pull 2",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Mushroom 3",
+          "slot": 3,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": ""
+        }
+      ]
     },
     "trio": {
       "status": "draft",
       "comp": [],
-      "mechanics": [],
       "steps": [],
       "requires": [],
       "decisions": [],
@@ -566,7 +567,8 @@
           "why": "Ya no se hace (se podría bugueando)"
         }
       ],
-      "gaps": []
+      "gaps": [],
+      "notes": []
     },
     "matthias": {
       "status": "confirmed",
@@ -583,7 +585,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "El main CC es quien se lleva el Sacrifice"
+          "note": "El main CC es quien se lleva el Sacrifice",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -596,7 +599,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -609,7 +613,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS1"
+          "note": "DPS1",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -621,7 +626,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -633,7 +639,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -645,33 +652,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Sacrifice",
-          "slot": 0,
-          "note": "se lo lleva el main CC",
-          "altLabel": ""
-        },
-        {
-          "label": "CC del domo/jaula (Sanctuary)",
-          "slot": 1,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Jaulas: abrir todas a 5:10",
-          "slot": -1,
-          "note": "timers reales 5:10 / 5:07 / ~5:00",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [
@@ -695,6 +677,28 @@
       "rejected": [],
       "gaps": [
         "Estrategia de jaulas en 6-man sin verificar"
+      ],
+      "notes": [
+        {
+          "label": "Sacrifice",
+          "slot": 0,
+          "note": "se lo lleva el main CC"
+        },
+        {
+          "label": "CC del domo/jaula (Sanctuary)",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": ""
+        },
+        {
+          "label": "Jaulas: abrir todas a 5:10",
+          "slot": -1,
+          "note": "timers reales 5:10 / 5:07 / ~5:00"
+        }
       ]
     },
     "escort": {
@@ -710,7 +714,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "arriba"
+          "note": "arriba",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -722,7 +727,8 @@
           ],
           "gear": "",
           "alt": "Condi Mirage",
-          "note": "arriba. Alternativa: Mirage (además las daña)"
+          "note": "arriba. Alternativa: Mirage (además las daña)",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -734,7 +740,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "el tercero que sube"
+          "note": "el tercero que sube",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -748,7 +755,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -760,7 +768,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "Legendary Dwarf"
+          "note": "Legendary Dwarf",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -773,7 +782,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "nadie más lo va a tomar"
+          "note": "nadie más lo va a tomar",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -785,33 +795,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "fuente muy fuerte de blind; se queda abajo si el Reaper sube"
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Torres (2 arriba)",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Primer portal",
-          "slot": 5,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Super Speed para Glenna",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Blind",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
+          "note": "fuente muy fuerte de blind; se queda abajo si el Reaper sube",
+          "role2": ""
         }
       ],
       "steps": [
@@ -836,6 +821,28 @@
       "rejected": [],
       "gaps": [
         "Vexio debe armar build nueva de torre y testearla"
+      ],
+      "notes": [
+        {
+          "label": "Torres (2 arriba)",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Primer portal",
+          "slot": 5,
+          "note": ""
+        },
+        {
+          "label": "Super Speed para Glenna",
+          "slot": 3,
+          "note": ""
+        },
+        {
+          "label": "Blind",
+          "slot": 3,
+          "note": ""
+        }
       ]
     },
     "keep_construct": {
@@ -849,7 +856,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "buen daño sostenido"
+          "note": "buen daño sostenido",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -860,7 +868,8 @@
           "gear": "",
           "alt": "",
           "note": "",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 1,
@@ -870,10 +879,10 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "\"Power Rain\" (?) ~44k"
+          "note": "\"Power Rain\" (?) ~44k",
+          "role2": ""
         }
       ],
-      "mechanics": [],
       "steps": [],
       "requires": [
         "Vulnerability"
@@ -889,7 +898,8 @@
         }
       ],
       "rejected": [],
-      "gaps": []
+      "gaps": [],
+      "notes": []
     },
     "xera": {
       "status": "testing",
@@ -908,7 +918,8 @@
           "gear": "",
           "alt": "",
           "note": "trae \"Slamanito\"(?) / Spectral Armor(?) en vez de Spectral Sanctuary(?)",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 1,
@@ -920,7 +931,8 @@
           ],
           "gear": "1 infusión de toughness",
           "alt": "",
-          "note": "segundo tank, cubre si muere el primero y evita el bug del 10%"
+          "note": "segundo tank, cubre si muere el primero y evita el bug del 10%",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -929,13 +941,13 @@
           "player": "",
           "duties": [
             "Alacrity",
-            "Portal para volver a la plataforma",
-            "Tank"
+            "Portal para volver a la plataforma"
           ],
           "gear": "se da Toughness a sí mismo → prioridad de tank",
           "alt": "",
           "note": "",
-          "unsure": true
+          "unsure": true,
+          "role2": "Tank"
         },
         {
           "sub": 2,
@@ -948,7 +960,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -961,7 +974,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -974,27 +988,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Portal de vuelta a la plataforma",
-          "slot": 2,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Main tank: 2 infusiones de toughness",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Segundo tank: 1 infusión",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [
@@ -1019,6 +1014,23 @@
       "gaps": [
         "Origen de la comp desconocido, nunca se usó, puede ser de un parche viejo",
         "Alternativa: Celestial Ritualist con Plaguelands (castea 1s, retrasa la quickness)"
+      ],
+      "notes": [
+        {
+          "label": "Portal de vuelta a la plataforma",
+          "slot": 2,
+          "note": ""
+        },
+        {
+          "label": "Main tank: 2 infusiones de toughness",
+          "slot": 2,
+          "note": ""
+        },
+        {
+          "label": "Segundo tank: 1 infusión",
+          "slot": 1,
+          "note": ""
+        }
       ]
     },
     "cairn": {
@@ -1035,7 +1047,8 @@
           ],
           "gear": "",
           "alt": "Celestial Scourge (para Mursaat)",
-          "note": "el grupo se dispersa, necesita heal partido"
+          "note": "el grupo se dispersa, necesita heal partido",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1048,7 +1061,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "se mantiene específicamente para los portales de Twisted Castle después"
+          "note": "se mantiene específicamente para los portales de Twisted Castle después",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1058,7 +1072,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "DPS1"
+          "note": "DPS1",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1068,7 +1083,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "DPS2"
+          "note": "DPS2",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1080,7 +1096,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS3 / el de Vuln"
+          "note": "DPS3 / el de Vuln",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1090,39 +1107,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "Strick: 46.5k bench, 50+ stacks de confusión"
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Agony 1",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Agony 2",
-          "slot": 2,
-          "note": "un DPS",
-          "altLabel": ""
-        },
-        {
-          "label": "Agony 3",
-          "slot": 4,
-          "note": "AMBIGÜEDAD PENDIENTE: ¿el de Vuln o DPS3? Causa de los wipes",
-          "altLabel": ""
-        },
-        {
-          "label": "Agony 4",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 4,
-          "note": "",
-          "altLabel": ""
+          "note": "Strick: 46.5k bench, 50+ stacks de confusión",
+          "role2": ""
         }
       ],
       "steps": [
@@ -1164,6 +1150,33 @@
       ],
       "gaps": [
         "Las últimas 3–4 ventas no había orden fijo de DPS1/2/3 → Agony 3 se agarraba al azar → wipes"
+      ],
+      "notes": [
+        {
+          "label": "Agony 1",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Agony 2",
+          "slot": 2,
+          "note": "un DPS"
+        },
+        {
+          "label": "Agony 3",
+          "slot": 4,
+          "note": "AMBIGÜEDAD PENDIENTE: ¿el de Vuln o DPS3? Causa de los wipes"
+        },
+        {
+          "label": "Agony 4",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 4,
+          "note": ""
+        }
       ]
     },
     "mursaat": {
@@ -1176,12 +1189,12 @@
           "player": "Vexio",
           "duties": [
             "Dispel",
-            "Tank",
             "Condi clear"
           ],
           "gear": "",
           "alt": "Heal Alac Specter",
-          "note": "Celestial Scourge. Vexio también puede pasar a Heal Spectre acá \"para abrir la puerta\""
+          "note": "Celestial Scourge. Vexio también puede pasar a Heal Spectre acá \"para abrir la puerta\"",
+          "role2": "Tank"
         },
         {
           "sub": 1,
@@ -1194,7 +1207,8 @@
           ],
           "gear": "",
           "alt": "Boon Ritualist",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1204,7 +1218,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "DPS1 fijo"
+          "note": "DPS1 fijo",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1216,7 +1231,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS2 fijo"
+          "note": "DPS2 fijo",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1228,7 +1244,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1238,33 +1255,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Dispel",
-          "slot": 0,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Claim",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Protect",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 4,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [],
@@ -1273,7 +1265,29 @@
       ],
       "decisions": [],
       "rejected": [],
-      "gaps": []
+      "gaps": [],
+      "notes": [
+        {
+          "label": "Dispel",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Claim",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Protect",
+          "slot": 3,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 4,
+          "note": ""
+        }
+      ]
     },
     "samarog": {
       "status": "draft",
@@ -1288,7 +1302,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1302,20 +1317,20 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "el pull hay que cubrirlo siempre. Alternativas de push: Ritualist Greatsword 5 (timing justo) o Virtuoso con Greatsword"
+          "note": "el pull hay que cubrirlo siempre. Alternativas de push: Ritualist Greatsword 5 (timing justo) o Virtuoso con Greatsword",
+          "role2": ""
         },
         {
           "sub": 1,
           "role": "DPS",
           "build": "P DPS (generic)",
           "player": "",
-          "duties": [
-            "Tank"
-          ],
+          "duties": [],
           "gear": "",
           "alt": "",
           "note": "TANK SIN DECIDIR: Berserker, Luminary(?), Amalgam(?) o Scrapper",
-          "unsure": true
+          "unsure": true,
+          "role2": "Tank"
         },
         {
           "sub": 1,
@@ -1327,7 +1342,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1337,7 +1353,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1347,27 +1364,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "El pull (o push)",
-          "slot": 1,
-          "note": "push o pull, cualquiera sirve",
-          "altLabel": ""
-        },
-        {
-          "label": "Tank",
-          "slot": 2,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [],
@@ -1389,6 +1387,18 @@
       ],
       "gaps": [
         "Tank sin decidir: solo candidatos"
+      ],
+      "notes": [
+        {
+          "label": "El pull (o push)",
+          "slot": 1,
+          "note": "push o pull, cualquiera sirve"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 3,
+          "note": ""
+        }
       ]
     },
     "deimos": {
@@ -1400,12 +1410,12 @@
           "build": "Heal Catalyst",
           "player": "",
           "duties": [
-            "Kiter",
             "Quickness"
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": "Kiter"
         },
         {
           "sub": 1,
@@ -1413,7 +1423,6 @@
           "build": "Heal Scourge",
           "player": "",
           "duties": [
-            "Tank Deimos",
             "Vulnerability",
             "Aegis",
             "Slams",
@@ -1421,7 +1430,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "Celestial Scourge"
+          "note": "Celestial Scourge",
+          "role2": "Tank"
         },
         {
           "sub": 1,
@@ -1433,7 +1443,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS1"
+          "note": "DPS1",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1445,7 +1456,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS3"
+          "note": "DPS3",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1457,7 +1469,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "Pure DPS"
+          "note": "Pure DPS",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1467,51 +1480,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Kiter",
-          "slot": 0,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Tank",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Slams",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "North",
-          "slot": 2,
-          "note": "",
-          "altLabel": "1"
-        },
-        {
-          "label": "West",
-          "slot": 3,
-          "note": "",
-          "altLabel": "3"
-        },
-        {
-          "label": "East",
-          "slot": 4,
-          "note": "",
-          "altLabel": "2"
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [],
@@ -1526,7 +1496,34 @@
         }
       ],
       "rejected": [],
-      "gaps": []
+      "gaps": [],
+      "notes": [
+        {
+          "label": "Slams",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "North",
+          "slot": 2,
+          "note": "alias: 1"
+        },
+        {
+          "label": "West",
+          "slot": 3,
+          "note": "alias: 3"
+        },
+        {
+          "label": "East",
+          "slot": 4,
+          "note": "alias: 2"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 1,
+          "note": ""
+        }
+      ]
     },
     "soulless_horror": {
       "status": "confirmed",
@@ -1542,7 +1539,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "Opcional: Storm Spirit + trampa de cleanse para mucho más CC"
+          "note": "Opcional: Storm Spirit + trampa de cleanse para mucho más CC",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1550,7 +1548,6 @@
           "build": "Condi Chrono",
           "player": "Vexio",
           "duties": [
-            "Tank",
             "Push toda la pelea",
             "Hold de las guadañas",
             "Quickness",
@@ -1558,7 +1555,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "Al tankear como DPS hay que estar DENTRO del hitbox de Desmina"
+          "note": "Al tankear como DPS hay que estar DENTRO del hitbox de Desmina",
+          "role2": "Tank"
         },
         {
           "sub": 1,
@@ -1570,7 +1568,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "ya carga el CC"
+          "note": "ya carga el CC",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1580,7 +1579,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1591,7 +1591,8 @@
           "gear": "",
           "alt": "",
           "note": "ideal pero difícil: solo Exa o quizá Kai",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1603,33 +1604,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Push (toda la pelea)",
-          "slot": 1,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Hold de guadañas",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "CC",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 5,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [],
@@ -1660,6 +1636,28 @@
       "gaps": [
         "FALTA un engineer condi (ideal Condi Amalgam)",
         "No dependemos de Piero ni de nadie que vuelva"
+      ],
+      "notes": [
+        {
+          "label": "Push (toda la pelea)",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Hold de guadañas",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "CC",
+          "slot": 2,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": ""
+        }
       ]
     },
     "river": {
@@ -1679,7 +1677,8 @@
           "gear": "Relic of the Rivers(?) — debe traer arco",
           "alt": "",
           "note": "si no, Gyros para Super Speed",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1692,7 +1691,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "tiene el marker pack con los spawns numerados de Enervators"
+          "note": "tiene el marker pack con los spawns numerados de Enervators",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1706,7 +1706,8 @@
           "gear": "",
           "alt": "",
           "note": "segundo healer sugerido",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1716,7 +1717,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "daño a rango"
+          "note": "daño a rango",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1726,7 +1728,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -1738,27 +1741,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Activar el encuentro / quedarse con Desmina",
-          "slot": 0,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Todos los portales",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 5,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [
@@ -1839,6 +1823,23 @@
         "FALTA imagen de la ruta completa (solo hay un pedazo del final) — Herman la va a armar",
         "Hueco sin healer después del portal largo → traer sustain o Protection/Regen fuerte",
         "Herman debe practicar los portales"
+      ],
+      "notes": [
+        {
+          "label": "Activar el encuentro / quedarse con Desmina",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Todos los portales",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": ""
+        }
       ]
     },
     "dhuum": {
@@ -1855,7 +1856,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "los dos viables son Heal Chrono o Druid"
+          "note": "los dos viables son Heal Chrono o Druid",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1867,7 +1869,8 @@
           ],
           "gear": "",
           "alt": "Condi Alac Evoker",
-          "note": "35k. Alternativa: Alac Evoker (extiende boons 3s). OJO radio de boons 300 vs hitbox de Dhuum 400 de diámetro"
+          "note": "35k. Alternativa: Alac Evoker (extiende boons 3s). OJO radio de boons 300 vs hitbox de Dhuum 400 de diámetro",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1879,7 +1882,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS1"
+          "note": "DPS1",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -1889,65 +1893,30 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "DPS2"
-        },
-        {
-          "sub": 2,
-          "role": "DPS",
-          "build": "P DPS (generic)",
-          "player": "",
-          "duties": [],
-          "gear": "",
-          "alt": "",
-          "note": "DPS3"
-        },
-        {
-          "sub": 2,
-          "role": "DPS",
-          "build": "P DPS (generic)",
-          "player": "",
-          "duties": [],
-          "gear": "",
-          "alt": "",
-          "note": "Pure DPS: sin green"
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Green 1 (G1)",
-          "slot": 3,
           "note": "DPS2",
-          "altLabel": ""
+          "role2": ""
         },
         {
-          "label": "Green 2 (G2) — el primero",
-          "slot": 2,
-          "note": "DPS1, el de Vuln",
-          "altLabel": ""
-        },
-        {
-          "label": "Green 3 (G3) — primero/segundo",
-          "slot": 4,
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
           "note": "DPS3",
-          "altLabel": ""
+          "role2": ""
         },
         {
-          "label": "G3 después del Soul Split",
-          "slot": 1,
-          "note": "el tank",
-          "altLabel": ""
-        },
-        {
-          "label": "Sin green",
-          "slot": 5,
-          "note": "Pure DPS",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
+          "sub": 2,
+          "role": "DPS",
+          "build": "P DPS (generic)",
+          "player": "",
+          "duties": [],
+          "gear": "",
+          "alt": "",
+          "note": "Pure DPS: sin green",
+          "role2": ""
         }
       ],
       "steps": [
@@ -1976,12 +1945,43 @@
       ],
       "gaps": [
         "No siempre se hace: depende de dailies"
+      ],
+      "notes": [
+        {
+          "label": "Green 1 (G1)",
+          "slot": 3,
+          "note": "DPS2"
+        },
+        {
+          "label": "Green 2 (G2) — el primero",
+          "slot": 2,
+          "note": "DPS1, el de Vuln"
+        },
+        {
+          "label": "Green 3 (G3) — primero/segundo",
+          "slot": 4,
+          "note": "DPS3"
+        },
+        {
+          "label": "G3 después del Soul Split",
+          "slot": 1,
+          "note": "el tank"
+        },
+        {
+          "label": "Sin green",
+          "slot": 5,
+          "note": "Pure DPS"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": ""
+        }
       ]
     },
     "eyes": {
       "status": "draft",
       "comp": [],
-      "mechanics": [],
       "steps": [],
       "requires": [
         "Vulnerability"
@@ -1990,12 +1990,12 @@
       "rejected": [],
       "gaps": [
         "No se discutió en la reunión (saltaron de River a Dhuum)"
-      ]
+      ],
+      "notes": []
     },
     "eater": {
       "status": "draft",
       "comp": [],
-      "mechanics": [],
       "steps": [],
       "requires": [
         "Vulnerability"
@@ -2004,12 +2004,12 @@
       "rejected": [],
       "gaps": [
         "No se discutió en la reunión (saltaron de River a Dhuum)"
-      ]
+      ],
+      "notes": []
     },
     "broken_king": {
       "status": "draft",
       "comp": [],
-      "mechanics": [],
       "steps": [],
       "requires": [
         "Vulnerability"
@@ -2018,7 +2018,8 @@
       "rejected": [],
       "gaps": [
         "No se discutió en la reunión (saltaron de River a Dhuum)"
-      ]
+      ],
+      "notes": []
     },
     "ca": {
       "status": "confirmed",
@@ -2029,13 +2030,13 @@
           "build": "Heal Boon Chrono",
           "player": "Vexio",
           "duties": [
-            "Tank",
             "Alacrity (pulse)",
             "CS + Time Warp en la fase de espadas"
           ],
           "gear": "",
           "alt": "",
-          "note": "Pirate rune / Pirate Queen relic. Libera el slot de quickness a cualquier clase"
+          "note": "Pirate rune / Pirate Queen relic. Libera el slot de quickness a cualquier clase",
+          "role2": "Tank"
         },
         {
           "sub": 1,
@@ -2047,7 +2048,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "\"dejemos el cata\""
+          "note": "\"dejemos el cata\"",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2059,7 +2061,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2069,7 +2072,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2079,7 +2083,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2089,27 +2094,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Time Warp en la fase de espadas",
-          "slot": 0,
-          "note": "Time Warp 120s, fase ~80s (60–90) → con CS cubre las dos",
-          "altLabel": ""
-        },
-        {
-          "label": "Tank",
-          "slot": 0,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [],
@@ -2129,7 +2115,19 @@
           "why": "Los ataques de los espíritus fallan si está mal posicionado (Conjured Greatsword solo proca con 3 y 5)"
         }
       ],
-      "gaps": []
+      "gaps": [],
+      "notes": [
+        {
+          "label": "Time Warp en la fase de espadas",
+          "slot": 0,
+          "note": "Time Warp 120s, fase ~80s (60–90) → con CS cubre las dos"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": ""
+        }
+      ]
     },
     "largos": {
       "status": "confirmed",
@@ -2140,13 +2138,13 @@
           "build": "Heal Boon Chrono",
           "player": "",
           "duties": [
-            "Tank",
             "Heal",
             "MOA (CC)"
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": "Tank"
         },
         {
           "sub": 1,
@@ -2159,7 +2157,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2171,7 +2170,8 @@
           ],
           "gear": "",
           "alt": "Condi Chrono",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2181,7 +2181,8 @@
           "duties": [],
           "gear": "",
           "alt": "Condi Chrono",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2191,7 +2192,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2201,27 +2203,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Tank",
-          "slot": 0,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "MOA para CC",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [
@@ -2241,7 +2224,19 @@
         }
       ],
       "rejected": [],
-      "gaps": []
+      "gaps": [],
+      "notes": [
+        {
+          "label": "MOA para CC",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": ""
+        }
+      ]
     },
     "qadim": {
       "status": "testing",
@@ -2252,12 +2247,12 @@
           "build": "Heal Boon Chrono",
           "player": "",
           "duties": [
-            "Tank",
             "Alacrity (pulse)"
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": "Tank"
         },
         {
           "sub": 1,
@@ -2270,19 +2265,19 @@
           "gear": "",
           "alt": "Power Alac Luminary",
           "note": "Alac power: Luminary(?) o Alac Amalgam. Luminary tiene mucho CC y es mejor >50% y en la Matriarch. MARCADO TEST",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 1,
           "role": "DPS",
           "build": "P DPS (generic)",
           "player": "",
-          "duties": [
-            "Kite"
-          ],
+          "duties": [],
           "gear": "",
           "alt": "",
-          "note": "DPS1"
+          "note": "DPS1",
+          "role2": "Kiter"
         },
         {
           "sub": 1,
@@ -2295,7 +2290,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS2 — Kai hace el boonstrip mientras hace la lámpara"
+          "note": "DPS2 — Kai hace el boonstrip mientras hace la lámpara",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2307,7 +2303,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS3"
+          "note": "DPS3",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2320,45 +2317,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "DPS4"
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Kite",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Lámpara",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Pylon",
-          "slot": 4,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Pylon",
-          "slot": 5,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Boonstrip",
-          "slot": 3,
-          "note": "lo hace el de la lámpara",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 5,
-          "note": "",
-          "altLabel": ""
+          "note": "DPS4",
+          "role2": ""
         }
       ],
       "steps": [
@@ -2383,6 +2343,33 @@
       "rejected": [],
       "gaps": [
         "Boon slot marcado TEST"
+      ],
+      "notes": [
+        {
+          "label": "Lámpara",
+          "slot": 3,
+          "note": ""
+        },
+        {
+          "label": "Pylon",
+          "slot": 4,
+          "note": ""
+        },
+        {
+          "label": "Pylon",
+          "slot": 5,
+          "note": ""
+        },
+        {
+          "label": "Boonstrip",
+          "slot": 3,
+          "note": "lo hace el de la lámpara"
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": ""
+        }
       ]
     },
     "sabir": {
@@ -2400,7 +2387,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "Se movió a subgrupo 2 en esta reunión (el Excel estaba stale). Idea: Troubadour(?) heal para tener una fuente de Rebound de cada tipo"
+          "note": "Se movió a subgrupo 2 en esta reunión (el Excel estaba stale). Idea: Troubadour(?) heal para tener una fuente de Rebound de cada tipo",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2416,7 +2404,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "Feedback para la parte final"
+          "note": "Feedback para la parte final",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2429,7 +2418,8 @@
           "gear": "",
           "alt": "",
           "note": "\"Amalgama\" en el transcript",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2439,7 +2429,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "o cualquier cosa con buen ramp"
+          "note": "o cualquier cosa con buen ramp",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2451,7 +2442,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "segundo Rebound: Distort cubre solo 5 y el Chrono puede irse"
+          "note": "segundo Rebound: Distort cubre solo 5 y el Chrono puede irse",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2461,51 +2453,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": ""
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Portal 1",
-          "slot": 1,
           "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Portal 2",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Big CC",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "MOA",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Feedback",
-          "slot": 1,
-          "note": "parte final",
-          "altLabel": ""
-        },
-        {
-          "label": "Rebound",
-          "slot": 4,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
+          "role2": ""
         }
       ],
       "steps": [],
@@ -2530,7 +2479,44 @@
           "why": "31.7–32.7k vs ~34–35k del Chrono, y necesita support específico. El Chrono mantiene portal + MOA + Feedback + Elite"
         }
       ],
-      "gaps": []
+      "gaps": [],
+      "notes": [
+        {
+          "label": "Portal 1",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Portal 2",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "Big CC",
+          "slot": 0,
+          "note": ""
+        },
+        {
+          "label": "MOA",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Feedback",
+          "slot": 1,
+          "note": "parte final"
+        },
+        {
+          "label": "Rebound",
+          "slot": 4,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 2,
+          "note": ""
+        }
+      ]
     },
     "adina": {
       "status": "confirmed",
@@ -2541,12 +2527,12 @@
           "build": "Power Quick Ritualist",
           "player": "",
           "duties": [
-            "Quickness",
-            "Tank"
+            "Quickness"
           ],
           "gear": "1050 de toughness (casco + espaldar, o una infusión)",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": "Tank"
         },
         {
           "sub": 2,
@@ -2562,7 +2548,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "NO se cambia, es lo mejor"
+          "note": "NO se cambia, es lo mejor",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2573,7 +2560,8 @@
           "gear": "",
           "alt": "",
           "note": "\"Blaze War\" en el transcript",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2584,7 +2572,8 @@
           "gear": "",
           "alt": "",
           "note": "",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2595,7 +2584,8 @@
           "gear": "",
           "alt": "",
           "note": "",
-          "unsure": true
+          "unsure": true,
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2607,39 +2597,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "SIEMPRE al menos un Tempest: Vuln al boss y Vuln inmediata a las manos"
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Tank (1050 toughness)",
-          "slot": 0,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Feedback",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Portal",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Boonstrip",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 5,
-          "note": "",
-          "altLabel": ""
+          "note": "SIEMPRE al menos un Tempest: Vuln al boss y Vuln inmediata a las manos",
+          "role2": ""
         }
       ],
       "steps": [],
@@ -2668,7 +2627,29 @@
           "why": "No extiende boons, encerrado en Fire"
         }
       ],
-      "gaps": []
+      "gaps": [],
+      "notes": [
+        {
+          "label": "Feedback",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Portal",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Boonstrip",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 5,
+          "note": ""
+        }
+      ]
     },
     "qtp": {
       "status": "confirmed",
@@ -2684,7 +2665,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "elegido sobre Heal Chrono tanky: el Chrono tiene más CC pero el Druid healea mejor al final"
+          "note": "elegido sobre Heal Chrono tanky: el Chrono tiene más CC pero el Druid healea mejor al final",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2698,7 +2680,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": "slot abierto: \"lo que más pegue\", preferencia Ritualist. Debe traer su summon"
+          "note": "slot abierto: \"lo que más pegue\", preferencia Ritualist. Debe traer su summon",
+          "role2": ""
         },
         {
           "sub": 1,
@@ -2706,12 +2689,12 @@
           "build": "Condi Scourge",
           "player": "",
           "duties": [
-            "Kite",
             "CC completo de su pylon"
           ],
           "gear": "",
           "alt": "",
-          "note": "el Scourge puede CCear su pylon solo"
+          "note": "el Scourge puede CCear su pylon solo",
+          "role2": "Kiter"
         },
         {
           "sub": 1,
@@ -2723,7 +2706,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2735,7 +2719,8 @@
           ],
           "gear": "",
           "alt": "",
-          "note": ""
+          "note": "",
+          "role2": ""
         },
         {
           "sub": 2,
@@ -2745,33 +2730,8 @@
           "duties": [],
           "gear": "",
           "alt": "",
-          "note": "el tank mata todo / 3 targets"
-        }
-      ],
-      "mechanics": [
-        {
-          "label": "Kiter: CC completo de su propio pylon",
-          "slot": 2,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Pylon pump (condi DPS)",
-          "slot": 3,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Pylon pump (quickness)",
-          "slot": 1,
-          "note": "",
-          "altLabel": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 4,
-          "note": "",
-          "altLabel": ""
+          "note": "el tank mata todo / 3 targets",
+          "role2": ""
         }
       ],
       "steps": [],
@@ -2805,12 +2765,33 @@
       ],
       "gaps": [
         "Etiquetado por brújula (\"go east\") es un problema para varios: usar números también"
+      ],
+      "notes": [
+        {
+          "label": "Kiter: CC completo de su propio pylon",
+          "slot": 2,
+          "note": ""
+        },
+        {
+          "label": "Pylon pump (condi DPS)",
+          "slot": 3,
+          "note": ""
+        },
+        {
+          "label": "Pylon pump (quickness)",
+          "slot": 1,
+          "note": ""
+        },
+        {
+          "label": "Vulnerability",
+          "slot": 4,
+          "note": ""
+        }
       ]
     },
     "twisted_castle": {
       "status": "draft",
       "comp": [],
-      "mechanics": [],
       "steps": [],
       "requires": [],
       "decisions": [
@@ -2822,7 +2803,8 @@
       "rejected": [],
       "gaps": [
         "No se cubrió en la reunión"
-      ]
+      ],
+      "notes": []
     }
   }
 }

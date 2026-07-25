@@ -12,7 +12,7 @@ const savePlanOv = (ov) => {
   try { localStorage.setItem(PLANS_KEY, JSON.stringify(ov)); return true } catch { return false }
 }
 
-const EMPTY_PLAN = { status: 'draft', comp: [], mechanics: [], steps: [], maps: [], requires: ['Vulnerability'], decisions: [], rejected: [], gaps: [] }
+const EMPTY_PLAN = { status: 'draft', comp: [], notes: [], steps: [], maps: [], requires: ['Vulnerability'], decisions: [], rejected: [], gaps: [] }
 
 function BossPage({ wing, boss, onBack }) {
   const { comps, icons, builds, players, plans } = useData()
@@ -156,7 +156,7 @@ function BossPage({ wing, boss, onBack }) {
       <div className="pt-2">
         <h2 className="font-display text-2xl text-cream mb-1">Nuestro plan</h2>
         <p className="text-xs text-silver/60 mb-3">
-          Comp, dueño de cada mecánica, ruta y decisiones del equipo. Today's Sale muestra esto mismo al abrir la pelea.
+          Comp con rol secundario libre, notas de la pelea, ruta y decisiones del equipo. Todo editable. Today's Sale muestra esto mismo al abrir la pelea.
         </p>
       </div>
       <datalist id="kp-roster-names">

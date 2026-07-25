@@ -98,12 +98,12 @@ function rowLabel(r) {
 
 export function CoveragePanel({ cov, compact = false }) {
   const hard = [
-    ...cov.missingReq.map((r) => `${r} sin cubrir`),
-    ...(cov.missingBoons[1].length ? [`Subgrupo 1 sin ${cov.missingBoons[1].join(' ni ')}`] : []),
-    ...(cov.missingBoons[2].length ? [`Subgrupo 2 sin ${cov.missingBoons[2].join(' ni ')}`] : []),
+    ...cov.missingReq.map((r) => `Nobody covers ${r}`),
+    ...(cov.missingBoons[1].length ? [`Subgroup 1 has no ${cov.missingBoons[1].join(' or ')}`] : []),
+    ...(cov.missingBoons[2].length ? [`Subgroup 2 has no ${cov.missingBoons[2].join(' or ')}`] : []),
   ]
   const soft = [
-    ...cov.unassigned.map((m) => `"${m.label}" quedó sin asignar`),
+    ...cov.unassigned.map((m) => `"${m.label}" lost its owner`),
     ...cov.flagged.map((m) => `${m.label}${m.note ? `: ${m.note}` : ''}`),
   ]
   const warn = [...hard, ...soft]
@@ -145,33 +145,43 @@ export function CoveragePanel({ cov, compact = false }) {
 // ---------------------------------------------------------------- comp
 function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) {
   if (!editing) {
+    const icon = resolveBuildIcon(r.build, icons)
     return (
-      <div className="py-1">
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          <RoleChip role={r.role} />
-          {r.role2 && (
-            <span className="px-1.5 py-0.5 rounded-md bg-cream/10 border border-cream/25 text-cream/90 text-[11px] font-semibold">
-              {r.role2}
-            </span>
-          )}
-          {r.player && <span className="font-semibold text-cream shrink-0">{r.player.split('|')[0].trim()}</span>}
-          {r.build && <BuildChip name={r.build} icons={icons} className="text-cream/90" />}
-          {r.unsure && (
-            <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Nombre sacado del transcript — confirmar">
-              confirmar
-            </span>
-          )}
-          {(r.duties || []).map((d, j) => (
-            <DutyChip key={j} duty={d} icons={icons} />
-          ))}
+      <div className="flex gap-3 py-2.5 border-b border-teal-deep/15 last:border-0">
+        <div className="w-11 h-11 shrink-0 rounded-lg bg-ink/60 border border-teal-deep/30 flex items-center justify-center overflow-hidden">
+          {icon ? <img src={icon} alt="" className="w-full h-full object-cover" /> : <span className="text-silver/30 text-xs">—</span>}
         </div>
-        {(r.gear || r.alt || r.note) && (
-          <div className="ml-[5rem] mt-0.5 space-y-0.5 text-xs">
-            {r.gear && <div className="text-amber-300/90">⚙ {r.gear}</div>}
-            {r.alt && <div className="text-silver">alt: {r.alt}</div>}
-            {r.note && <div className="text-silver/80"><NotesText text={r.note} icons={icons} /></div>}
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+            <RoleChip role={r.role} />
+            {r.role2 && (
+              <span className="px-2 py-0.5 rounded-md bg-cream/10 border border-cream/25 text-cream text-[11px] font-bold uppercase tracking-wide">
+                {r.role2}
+              </span>
+            )}
+            {r.player && <span className="font-bold text-cream text-[15px]">{r.player.split('|')[0].trim()}</span>}
+            {r.build && <span className="text-cream/90 text-[15px]">{r.build}</span>}
+            {r.unsure && (
+              <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Taken from the meeting transcript — needs confirming">
+                confirm
+              </span>
+            )}
           </div>
-        )}
+          {(r.duties || []).length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-1.5">
+              {r.duties.map((d, j) => (
+                <DutyChip key={j} duty={d} icons={icons} />
+              ))}
+            </div>
+          )}
+          {(r.gear || r.alt || r.note) && (
+            <div className="mt-1.5 space-y-0.5 text-xs">
+              {r.gear && <div className="text-amber-300/90">⚙ {r.gear}</div>}
+              {r.alt && <div className="text-silver">alt: {r.alt}</div>}
+              {r.note && <div className="text-silver/80"><NotesText text={r.note} icons={icons} /></div>}
+            </div>
+          )}
+        </div>
       </div>
     )
   }
@@ -180,23 +190,23 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
     <div className="rounded-xl border border-teal-deep/20 bg-ink/30 p-2 space-y-1.5">
       <div className="flex items-center gap-1.5">
         <RoleChip role={r.role} onClick={cycle} />
-        <Field value={r.role2} placeholder="rol 2 (tank, kiter…)" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, role2: v })} />
+        <Field value={r.role2} placeholder="2nd role (tank, kiter…)" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, role2: v })} />
         <Field value={r.player} placeholder="player" list="kp-roster-names" className="w-28 shrink-0" onCommit={(v) => onChange({ ...r, player: v })} />
         {r.build && resolveBuildIcon(r.build, icons) && <img src={resolveBuildIcon(r.build, icons)} alt="" className="w-8 h-8 rounded-md shrink-0" />}
         <Field value={r.build} placeholder="class/build" list="kp-build-names" className="flex-1 min-w-0" onCommit={(v) => onChange({ ...r, build: v })} />
-        <button className="px-1 text-danger/70 hover:text-danger shrink-0" title="Quitar slot" onClick={onDelete}>✕</button>
+        <button className="px-1 text-danger/70 hover:text-danger shrink-0" title="Remove slot" onClick={onDelete}>✕</button>
       </div>
       <Field
         value={(r.duties || []).join(', ')}
-        placeholder="duties separadas por coma — Portal 1, MOA, Vulnerability…"
+        placeholder="duties, comma separated — Portal 1, MOA, Vulnerability…"
         className="w-full"
         onCommit={(v) => onChange({ ...r, duties: v.split(',').map((x) => x.trim()).filter(Boolean) })}
       />
       <div className="flex gap-1.5">
         <Field value={r.gear} placeholder="gear (1050 toughness…)" className="flex-1" onCommit={(v) => onChange({ ...r, gear: v })} />
-        <Field value={r.alt} placeholder="build alternativa" className="flex-1" onCommit={(v) => onChange({ ...r, alt: v })} />
+        <Field value={r.alt} placeholder="alternative build" className="flex-1" onCommit={(v) => onChange({ ...r, alt: v })} />
       </div>
-      <Field value={r.note} placeholder="nota" className="w-full" onCommit={(v) => onChange({ ...r, note: v })} />
+      <Field value={r.note} placeholder="note" className="w-full" onCommit={(v) => onChange({ ...r, note: v })} />
     </div>
   )
 }
@@ -260,7 +270,7 @@ export default function PlanView({
           ) : (
             <span className={`px-2 py-0.5 rounded-md border text-[10px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
           )}
-          <span className="text-xs text-silver/60">6-man · el comprador nunca cuenta</span>
+          <span className="text-xs text-silver/60">6-man · the buyer never counts</span>
         </div>
       )}
 
@@ -281,18 +291,19 @@ export default function PlanView({
         }
       >
         {comp.length === 0 ? (
-          <p className="text-sm text-silver/50 italic">Sin comp definida todavía.</p>
+          <p className="text-sm text-silver/50 italic">No comp defined yet.</p>
         ) : (
-          <div className="grid md:grid-cols-2 gap-3">
+          <div className={`grid gap-3 ${editing ? 'xl:grid-cols-2' : ''}`}>
             {[1, 2].map((g) => (
-              <div key={g} className="bg-ink/40 border border-teal-deep/25 rounded-xl p-3">
-                <div className="text-[11px] uppercase tracking-wider text-teal-light/80 mb-2">
-                  Subgroup {g}
+              <div key={g} className="bg-ink/40 border border-teal-deep/25 rounded-xl px-4 py-3">
+                <div className="flex items-baseline gap-3 mb-1 pb-2 border-b border-teal-deep/25">
+                  <span className="text-xs uppercase tracking-widest text-teal-light font-bold">Subgroup {g}</span>
                   {cov.bySub[g].size > 0 && (
-                    <span className="ml-2 normal-case text-silver/60">{[...cov.bySub[g]].join(' · ')}</span>
+                    <span className="text-xs text-silver/60">{[...cov.bySub[g]].join(' · ')}</span>
                   )}
+                  <span className="ml-auto text-xs text-silver/40">{comp.filter((r) => r.sub === g).length} players</span>
                 </div>
-                <div className={editing ? 'space-y-2' : 'space-y-1'}>
+                <div className={editing ? 'space-y-2 pt-1' : ''}>
                   {comp.map((r, i) =>
                     r.sub === g ? (
                       <CompRow
@@ -314,7 +325,7 @@ export default function PlanView({
                     className="btn btn-ghost text-[11px] mt-2"
                     onClick={() => set({ comp: [...comp, { sub: g, role: 'DPS', build: '', player: '', duties: [] }] })}
                   >
-                    + slot en subgroup {g}
+                    + slot in subgroup {g}
                   </button>
                 )}
               </div>
@@ -326,18 +337,18 @@ export default function PlanView({
       {/* ---- fight notes ---- */}
       {(notes.length > 0 || editing) && (
         <Section
-          title="Notas de la pelea"
+          title="Fight notes"
           right={
             editing && (
               <button className="btn btn-ghost text-xs" onClick={() => setNotes([...notes, { label: '', slot: -1, note: '' }])}>
-                + nota
+                + note
               </button>
             )
           }
         >
           {!compact && editing && (
             <p className="text-xs text-silver/60 mb-2">
-              Texto libre. Ej: "Agony 1 y 4" → el healer · "Agony 3" → un DPS dedicado. Asignar a alguien es opcional.
+              Free text — anything worth remembering for this fight. Assigning it to someone is optional.
             </p>
           )}
           <div className={editing ? 'space-y-2' : 'space-y-1'}>
@@ -348,49 +359,53 @@ export default function PlanView({
               if (editing) {
                 return (
                   <div key={i} className="flex flex-wrap items-center gap-1.5 rounded-xl border border-teal-deep/20 bg-ink/30 p-2">
-                    <Field value={m.label} placeholder="nota — Agony 1 y 4, Green 1, cañón 3 luego 1…" className="flex-1 min-w-[180px]" onCommit={(v) => setNote(i, { ...m, label: v })} />
+                    <Field value={m.label} placeholder="note — Agony 1 and 4, Green 1, cannon 3 then 1…" className="flex-1 min-w-[180px]" onCommit={(v) => setNote(i, { ...m, label: v })} />
                     <select className={selCls} value={m.slot} onChange={(e) => setNote(i, { ...m, slot: parseInt(e.target.value, 10) })}>
-                      <option value={-1}>— sin asignar —</option>
+                      <option value={-1}>— nobody in particular —</option>
                       {comp.map((r, j) => (
                         <option key={j} value={j}>
                           {rowLabel(r)}
                         </option>
                       ))}
                     </select>
-                    <Field value={m.note} placeholder="detalle" className="flex-1 min-w-[120px]" onCommit={(v) => setNote(i, { ...m, note: v })} />
+                    <Field value={m.note} placeholder="detail" className="flex-1 min-w-[120px]" onCommit={(v) => setNote(i, { ...m, note: v })} />
                     <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === 0} onClick={() => moveNote(i, -1)}>↑</button>
                     <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === notes.length - 1} onClick={() => moveNote(i, 1)}>↓</button>
                     <button className="px-1 text-danger/70 hover:text-danger" onClick={() => setNotes(notes.filter((_, j) => j !== i))}>✕</button>
                   </div>
                 )
               }
+              const who = owner ? (owner.player ? owner.player.split('|')[0].trim() : owner.build) : null
+              const whoSub = owner ? [owner.role2 || owner.role, owner.player && owner.build ? owner.build : null].filter(Boolean).join(' · ') : null
               return (
                 <div
                   key={i}
-                  className={`flex flex-wrap items-center gap-2 text-sm rounded-lg px-2 py-1 ${flagged ? 'bg-amber-400/10 border border-amber-400/30' : ''}`}
+                  className={`sm:grid sm:grid-cols-[1fr_auto] sm:items-start gap-x-4 gap-y-0.5 py-2 border-b border-teal-deep/15 last:border-0 ${flagged ? 'bg-amber-400/5' : ''}`}
                 >
-                  <span className="font-semibold text-cream">
-                    <NotesText text={m.label} icons={icons} />
-                  </span>
-                  {owner && (
-                    <>
-                      <span className="text-teal-light">→</span>
-                      <span className="flex items-center gap-1.5">
-                        <RoleChip role={owner.role} />
-                        {owner.role2 && <span className="text-cream/80 text-xs font-semibold">{owner.role2}</span>}
-                        {owner.player && <span className="font-semibold text-cream">{owner.player.split('|')[0].trim()}</span>}
-                        {owner.build && <BuildChip name={owner.build} icons={icons} className="text-cream/90" />}
-                      </span>
-                    </>
-                  )}
-                  {orphan && <span className="text-amber-300 text-xs">· sin asignar</span>}
-                  {m.note && (
-                    <span className={`text-xs ${flagged ? 'text-amber-300' : 'text-silver'}`}>· <NotesText text={m.note} icons={icons} /></span>
-                  )}
+                  <div>
+                    <div className="text-[15px] text-cream font-semibold">
+                      <NotesText text={m.label} icons={icons} />
+                    </div>
+                    {m.note && (
+                      <div className={`text-xs mt-0.5 ${flagged ? 'text-amber-300' : 'text-silver'}`}>
+                        <NotesText text={m.note} icons={icons} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-right shrink-0 mt-1 sm:mt-0">
+                    {who ? (
+                      <>
+                        <div className="text-[15px] font-bold text-teal-light">{who}</div>
+                        <div className="text-[11px] text-silver/70">{whoSub}</div>
+                      </>
+                    ) : (
+                      <span className="text-xs text-silver/40">{orphan ? 'owner removed' : 'everyone'}</span>
+                    )}
+                  </div>
                 </div>
               )
             })}
-            {notes.length === 0 && <p className="text-sm text-silver/50 italic">Sin notas todavía.</p>}
+            {notes.length === 0 && <p className="text-sm text-silver/50 italic">No notes yet.</p>}
           </div>
         </Section>
       )}
@@ -398,18 +413,18 @@ export default function PlanView({
       {/* ---- route / steps ---- */}
       {(steps.length > 0 || maps.length > 0 || editing) && (
         <Section
-          title="Ruta y estrategia"
+          title={compact ? `Route & strategy${steps.length ? ` · ${steps.length} steps` : ''}${maps.length ? ` · ${maps.length} map${maps.length > 1 ? 's' : ''}` : ''}` : 'Route & strategy'}
           right={
             <div className="flex items-center gap-2">
               {editing && (
                 <>
-                  <button className="btn btn-ghost text-xs" onClick={() => set({ steps: [...steps, { text: '' }] })}>+ paso</button>
-                  <button className="btn btn-ghost text-xs" onClick={() => set({ maps: [...maps, { name: 'Mapa', image: null, pins: [], draw: [], imgSize: 'md' }] })}>+ mapa</button>
+                  <button className="btn btn-ghost text-xs" onClick={() => set({ steps: [...steps, { text: '' }] })}>+ step</button>
+                  <button className="btn btn-ghost text-xs" onClick={() => set({ maps: [...maps, { name: 'Map', image: null, pins: [], draw: [], imgSize: 'md' }] })}>+ map</button>
                 </>
               )}
               {compact && (steps.length > 0 || maps.length > 0) && (
                 <button className="btn btn-ghost text-xs" onClick={() => setShowRoute(!showRoute)}>
-                  {showRoute ? 'ocultar' : `ver (${steps.length} pasos${maps.length ? ` · ${maps.length} mapa${maps.length > 1 ? 's' : ''}` : ''})`}
+                  {showRoute ? 'Collapse' : 'Open'}
                 </button>
               )}
             </div>
@@ -426,7 +441,7 @@ export default function PlanView({
                       </span>
                       {editing ? (
                         <>
-                          <Field textarea value={s.text} placeholder="paso…" className="flex-1 min-h-[42px]" onCommit={(v) => set({ steps: steps.map((x, j) => (j === i ? { ...x, text: v } : x)) })} />
+                          <Field textarea value={s.text} placeholder="step…" className="flex-1 min-h-[42px]" onCommit={(v) => set({ steps: steps.map((x, j) => (j === i ? { ...x, text: v } : x)) })} />
                           <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === 0} onClick={() => move(steps, 'steps', i, -1)}>↑</button>
                           <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === steps.length - 1} onClick={() => move(steps, 'steps', i, 1)}>↓</button>
                           <button className="px-1 text-danger/70 hover:text-danger" onClick={() => set({ steps: steps.filter((_, j) => j !== i) })}>✕</button>
@@ -446,13 +461,13 @@ export default function PlanView({
                   <div className="flex items-center gap-2 mb-2">
                     {editing ? (
                       <>
-                        <Field value={mp.name} placeholder="nombre del mapa" className="w-56" onCommit={(v) => set({ maps: maps.map((x, j) => (j === i ? { ...x, name: v } : x)) })} />
+                        <Field value={mp.name} placeholder="map name" className="w-56" onCommit={(v) => set({ maps: maps.map((x, j) => (j === i ? { ...x, name: v } : x)) })} />
                         <button className="px-1 text-danger/70 hover:text-danger ml-auto" onClick={() => set({ maps: maps.filter((_, j) => j !== i) })}>✕</button>
                       </>
                     ) : (
                       <button className="text-sm font-semibold text-cream flex items-center gap-2" onClick={() => setOpenMap(openMap === i ? null : i)}>
                         <span className="text-teal-light">{openMap === i ? '▾' : '▸'}</span>
-                        {mp.name || `Mapa ${i + 1}`}
+                        {mp.name || `Map ${i + 1}`}
                       </button>
                     )}
                   </div>
@@ -474,14 +489,14 @@ export default function PlanView({
       {!compact && (
         <div className="grid md:grid-cols-2 gap-4">
           <ListSection
-            title="Decidido y por qué"
+            title="Decided, and why"
             items={plan?.decisions || []}
             editing={editing}
             tone="ok"
             onChange={(v) => set({ decisions: v })}
           />
           <ListSection
-            title="Descartado y por qué"
+            title="Ruled out, and why"
             items={plan?.rejected || []}
             editing={editing}
             tone="bad"
@@ -492,8 +507,8 @@ export default function PlanView({
 
       {!compact && ((plan?.gaps || []).length > 0 || editing) && (
         <Section
-          title="Pendientes"
-          right={editing && <button className="btn btn-ghost text-xs" onClick={() => set({ gaps: [...(plan?.gaps || []), ''] })}>+ pendiente</button>}
+          title="Open items"
+          right={editing && <button className="btn btn-ghost text-xs" onClick={() => set({ gaps: [...(plan?.gaps || []), ''] })}>+ item</button>}
         >
           <ul className="space-y-1.5">
             {(plan?.gaps || []).map((g, i) => (
@@ -517,7 +532,7 @@ export default function PlanView({
         <div className="text-xs text-silver/50">
           {editing ? (
             <label className="flex items-center gap-2">
-              Debe cubrir:
+              Must cover:
               <Field
                 value={(plan.requires || []).join(', ')}
                 className="flex-1"
@@ -526,7 +541,7 @@ export default function PlanView({
               />
             </label>
           ) : (
-            <>Debe cubrir: {plan.requires.join(' · ') || '—'}</>
+            <>Must cover: {plan.requires.join(' · ') || '—'}</>
           )}
         </div>
       )}
@@ -551,8 +566,8 @@ function ListSection({ title, items, editing, tone, onChange }) {
         {items.map((it, i) =>
           editing ? (
             <li key={i} className="flex items-center gap-1.5">
-              <Field value={it.what} placeholder="qué" className="flex-1" onCommit={(v) => onChange(items.map((x, j) => (j === i ? { ...x, what: v } : x)))} />
-              <Field value={it.why} placeholder="por qué" className="flex-1" onCommit={(v) => onChange(items.map((x, j) => (j === i ? { ...x, why: v } : x)))} />
+              <Field value={it.what} placeholder="what" className="flex-1" onCommit={(v) => onChange(items.map((x, j) => (j === i ? { ...x, what: v } : x)))} />
+              <Field value={it.why} placeholder="why" className="flex-1" onCommit={(v) => onChange(items.map((x, j) => (j === i ? { ...x, why: v } : x)))} />
               <button className="px-1 text-danger/70 hover:text-danger" onClick={() => onChange(items.filter((_, j) => j !== i))}>✕</button>
             </li>
           ) : (

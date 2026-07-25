@@ -28,7 +28,7 @@ function BossPage({ wing, boss, onBack }) {
   const writePlan = (next) => {
     const all = loadPlanOv()
     all[boss.id] = next
-    if (!savePlanOv(all)) { setMsg({ ok: false, text: 'No se pudo guardar: el almacenamiento del navegador está lleno (usa imágenes más chicas).' }); return }
+    if (!savePlanOv(all)) { setMsg({ ok: false, text: 'Could not save — browser storage is full (use smaller map images).' }); return }
     setOvv((v) => v + 1)
   }
   const resetPlan = () => {
@@ -49,8 +49,8 @@ function BossPage({ wing, boss, onBack }) {
         const incoming = data.bosses?.[boss.id] || (data.comp ? data : null)
         if (!incoming) throw new Error('shape')
         writePlan(incoming)
-        setMsg({ ok: true, text: 'Plan importado en este dispositivo.' })
-      } catch { setMsg({ ok: false, text: 'Ese archivo no parece un plan de KP.' }) }
+        setMsg({ ok: true, text: 'Plan imported on this device.' })
+      } catch { setMsg({ ok: false, text: 'That file does not look like a KP plan export.' }) }
       setTimeout(() => setMsg(null), 6000)
     }
     r.readAsText(file)
@@ -61,18 +61,18 @@ function BossPage({ wing, boss, onBack }) {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <button className="btn btn-ghost text-sm" onClick={onBack}>← {wing.short} · {wing.name}</button>
         <div className="flex items-center gap-2">
-          <label className="btn btn-ghost text-xs cursor-pointer" title="Cargar un plan exportado por un compañero">
+          <label className="btn btn-ghost text-xs cursor-pointer" title="Load a plan exported by a teammate">
             ⬆ Import
             <input type="file" accept=".json,application/json" className="hidden" onChange={importPlan} />
           </label>
           {override && (
             <>
-              <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Descargar tu plan local para publicarlo">⬇ Export</button>
-              <button className="btn btn-ghost text-xs" onClick={resetPlan}>Reset al publicado</button>
+              <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download your local plan so it can be published">⬇ Export</button>
+              <button className="btn btn-ghost text-xs" onClick={resetPlan}>Reset to published</button>
             </>
           )}
           <button className={`btn text-sm ${editing ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setEditing(!editing)}>
-            {editing ? '✓ Listo' : '✎ Editar plan'}
+            {editing ? '✓ Done' : '✎ Edit plan'}
           </button>
         </div>
       </div>
@@ -81,7 +81,7 @@ function BossPage({ wing, boss, onBack }) {
       )}
       {override && (
         <div className="text-xs px-3 py-2 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-200">
-          Este plan tiene ediciones locales guardadas <b>solo en este dispositivo</b>. Usá <b>Export</b> para publicarlo al squad.
+          This plan has local edits saved on <b>this device only</b>. Use <b>Export</b> and send the file to publish it for the squad.
         </div>
       )}
 
@@ -113,19 +113,6 @@ function BossPage({ wing, boss, onBack }) {
       </div>
 
       <div className="card p-5">
-        <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold mb-3">Mechanics to cover</h2>
-        <ul className="space-y-1.5 text-sm">
-          {(k.mechanics || []).map((m, i) => (
-            <li key={i} className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-light shrink-0" />
-              <NotesText text={m} icons={icons} />
-            </li>
-          ))}
-          {(k.mechanics || []).length === 0 && <li className="text-silver/50">None documented yet.</li>}
-        </ul>
-      </div>
-
-      <div className="card p-5">
         <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold mb-3">Strategy</h2>
         <p className="text-sm"><NotesText text={k.strategy || '—'} icons={icons} /></p>
       </div>
@@ -154,9 +141,9 @@ function BossPage({ wing, boss, onBack }) {
       </div>
 
       <div className="pt-2">
-        <h2 className="font-display text-2xl text-cream mb-1">Nuestro plan</h2>
+        <h2 className="font-display text-2xl text-cream mb-1">Our plan</h2>
         <p className="text-xs text-silver/60 mb-3">
-          Comp con rol secundario libre, notas de la pelea, ruta y decisiones del equipo. Todo editable. Today's Sale muestra esto mismo al abrir la pelea.
+          Comp, fight notes, route and the decisions behind them — all editable. Today's Sale shows this same plan when you open the encounter.
         </p>
       </div>
       <datalist id="kp-roster-names">
@@ -200,7 +187,7 @@ export default function Bible() {
       <div>
         <h1 className="font-display text-3xl text-cream mb-1">The Bible</h1>
         <p className="text-sm text-silver/60">
-          The team's knowledge base: times, damage profiles, mechanics and ideal comps per boss.
+          The team's knowledge base: times, damage profiles and our plan per encounter.
           Today's Sale follows these recommendations.
         </p>
       </div>
@@ -263,7 +250,7 @@ export default function Bible() {
                     {k?.profile && <span className="uppercase text-teal-light/80">{k.profile.dmg} · {k.profile.style}</span>}
                     {(() => {
                       const pl = planOverrides[b.id] || plans?.bosses?.[b.id]
-                      if (!pl || planIsEmpty(pl)) return <span className="text-silver/40">sin plan</span>
+                      if (!pl || planIsEmpty(pl)) return <span className="text-silver/40">no plan</span>
                       const st = PLAN_STATUS[pl.status] || PLAN_STATUS.draft
                       const c = planCoverage(pl, builds)
                       const warns = c.missingReq.length + c.unassigned.length + c.flagged.length
@@ -272,7 +259,7 @@ export default function Bible() {
                           <span className={`px-1.5 py-0.5 rounded border text-[10px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
                           <span>{pl.comp?.length || 0} slots</span>
                           {warns > 0 && <span className="text-danger/90 font-semibold">▲ {warns}</span>}
-                          {planOverrides[b.id] && <span className="text-amber-300/90">editado local</span>}
+                          {planOverrides[b.id] && <span className="text-amber-300/90">local edits</span>}
                         </>
                       )
                     })()}

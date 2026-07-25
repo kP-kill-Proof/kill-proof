@@ -253,20 +253,6 @@ function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMove
         <button onClick={onToggleDone} className="btn btn-primary text-sm">✓ Complete</button>
       </div>
 
-      {(k.mechanics || []).length > 0 && (
-        <div className="py-4 border-b border-teal-deep/30">
-          <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-2">Mechanics</h3>
-          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
-            {k.mechanics.map((m, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-light shrink-0" />
-                <NotesText text={m} icons={icons} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       {hasPlan && (
         <div className="py-4 border-b border-teal-deep/30 space-y-3">
           <div className="flex items-center justify-between">
@@ -277,7 +263,7 @@ function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMove
           </div>
           {swaps.length > 0 && (
             <div className="rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2">
-              <div className="text-[10px] uppercase tracking-wider text-amber-300/90 mb-1">Cambios de template desde {prevBoss.name}</div>
+              <div className="text-[10px] uppercase tracking-wider text-amber-300/90 mb-1">Template swaps coming from {prevBoss.name}</div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-amber-100/90">
                 {swaps.map((sw, i) => (
                   <span key={i}><b>{sw.who}</b>: {sw.from} → {sw.to}</span>

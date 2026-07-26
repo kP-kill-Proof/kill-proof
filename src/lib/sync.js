@@ -38,11 +38,18 @@ export async function fetchShared(key) {
 export async function saveShared(key, doc) {
   const b = await base()
   if (!b) throw new Error('Shared saving is not set up yet.')
-  const r = await fetch(`${b}/doc/${key}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(doc),
-  })
+  let r
+  try {
+    r = await fetch(`${b}/doc/${key}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(doc),
+    })
+  } catch {
+    throw new Error(
+      'Could not reach the shared storage. The most common cause is the worker missing its KV binding (variable name KP).'
+    )
+  }
   if (!r.ok) {
     const detail = await r.text().catch(() => '')
     throw new Error(`Could not save (${r.status}). ${detail.slice(0, 120)}`)

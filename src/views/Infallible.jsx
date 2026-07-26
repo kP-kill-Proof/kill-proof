@@ -295,6 +295,16 @@ function WingDetail({ pub, override, icons, builds, players, onBack, onSaveOverr
     return saveOverrides(all)
   }
 
+  const clearWing = () => {
+    update({
+      status: 'planning',
+      comp: emptyComp(),
+      segments: [],
+      notes: '',
+      timeLimit: w.timeLimit,
+    })
+  }
+
   const startEditing = () => {
     if (!override) {
       const seeded = { ...pub, comp: pub.comp?.length === 10 ? pub.comp : emptyComp() }
@@ -392,11 +402,10 @@ function WingDetail({ pub, override, icons, builds, players, onBack, onSaveOverr
                     return
                   }
                   setArmReset(false)
-                  onClearOverride(pub.id)
-                  setEditing(false)
+                  clearWing()
                 }}
               >
-                {armReset ? 'Sure? This deletes your local edits' : 'Reset to published'}
+                {armReset ? 'Sure? This wipes the whole plan' : '⌫ Clear plan'}
               </button>
             </>
           )}

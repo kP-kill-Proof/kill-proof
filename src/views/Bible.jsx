@@ -12,7 +12,8 @@ const savePlanOv = (ov) => {
   try { localStorage.setItem(PLANS_KEY, JSON.stringify(ov)); return true } catch { return false }
 }
 
-const EMPTY_PLAN = { status: 'draft', comp: [], notes: [], steps: [], maps: [], requires: ['Vulnerability'], decisions: [], rejected: [], gaps: [] }
+const EMPTY_PLAN = { status: 'draft', comp: [], notes: [], steps: [], maps: [], requires: [], decisions: [], rejected: [], gaps: [] }
+const blankPlan = () => JSON.parse(JSON.stringify(EMPTY_PLAN))
 
 function BossPage({ wing, boss, onBack }) {
   const { comps, icons, builds, players, plans } = useData()
@@ -20,6 +21,7 @@ function BossPage({ wing, boss, onBack }) {
   const [editing, setEditing] = useState(false)
   const [ovv, setOvv] = useState(0)
   const [msg, setMsg] = useState(null)
+  const [armClear, setArmClear] = useState(false)
   const overrides = useMemo(() => loadPlanOv(), [ovv])
   const published = plans?.bosses?.[boss.id] || null
   const override = overrides[boss.id] || null
@@ -31,8 +33,11 @@ function BossPage({ wing, boss, onBack }) {
     if (!savePlanOv(all)) { setMsg({ ok: false, text: 'Could not save — browser storage is full (use smaller map images).' }); return }
     setOvv((v) => v + 1)
   }
-  const resetPlan = () => {
-    const all = loadPlanOv(); delete all[boss.id]; savePlanOv(all); setOvv((v) => v + 1); setEditing(false)
+  // full wipe: nothing prefilled, saved so it stays empty on reload
+  const clearPlan = () => writePlan(blankPlan())
+  // escape hatch: bring back the shared version
+  const restorePlan = () => {
+    const all = loadPlanOv(); delete all[boss.id]; savePlanOv(all); setOvv((v) => v + 1)
   }
   const exportPlan = () => {
     const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), bosses: { [boss.id]: plan } }, null, 2)], { type: 'application/json' })
@@ -65,12 +70,22 @@ function BossPage({ wing, boss, onBack }) {
             ⬆ Import
             <input type="file" accept=".json,application/json" className="hidden" onChange={importPlan} />
           </label>
-          {override && (
-            <>
-              <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download your local plan so it can be published">⬇ Export</button>
-              <button className="btn btn-ghost text-xs" onClick={resetPlan}>Reset to published</button>
-            </>
+          <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download this plan so it can be published for the squad">⬇ Export</button>
+          {override && published && (
+            <button className="btn btn-ghost text-xs" onClick={restorePlan} title="Bring back the version published for the squad">
+              ↺ Restore published
+            </button>
           )}
+          <button
+            className={`btn text-xs ${armClear ? 'bg-danger/20 border border-danger text-danger font-semibold' : 'btn-ghost'}`}
+            title="Wipe this plan completely — nothing prefilled"
+            onClick={() => {
+              if (!armClear) { setArmClear(true); setTimeout(() => setArmClear(false), 3500); return }
+              setArmClear(false); clearPlan()
+            }}
+          >
+            {armClear ? 'Sure? This wipes the whole plan' : '⌫ Clear plan'}
+          </button>
           <button className={`btn text-sm ${editing ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setEditing(!editing)}>
             {editing ? '✓ Done' : '✎ Edit plan'}
           </button>
@@ -120,9 +135,6 @@ function BossPage({ wing, boss, onBack }) {
       </div>
       <datalist id="kp-roster-names">
         {(players?.players || []).map((p) => (<option key={p.id} value={p.name.split('|')[0].trim()} />))}
-      </datalist>
-      <datalist id="kp-build-names">
-        {[...(builds?.builds || [])].sort((a, b) => a.name.localeCompare(b.name)).map((b) => (<option key={b.id} value={b.name} />))}
       </datalist>
       <PlanView
         plan={plan}

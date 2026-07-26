@@ -411,7 +411,7 @@ export default function PlanView({
               {editing && (
                 <>
                   <button className="btn btn-ghost text-xs" onClick={() => set({ steps: [...steps, { text: '' }] })}>+ step</button>
-                  <button className="btn btn-ghost text-xs" onClick={() => set({ maps: [...maps, { name: 'Map', image: null, pins: [], draw: [], imgSize: 'md' }] })}>+ map</button>
+                  <button className="btn btn-ghost text-xs" onClick={() => set({ maps: [...maps, { name: '', image: null, pins: [], draw: [], imgSize: 'md' }] })}>+ map</button>
                 </>
               )}
             </div>

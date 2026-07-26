@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useData } from '../App.jsx'
 import { BuildChip, NotesText, resolveBuildIcon } from '../lib/icons.jsx'
 import { ROLES, ROLE_STYLE, RoleChip, Field, TimeField, BuildCombo, selCls } from '../lib/ui.jsx'
 import { StrategyImage } from '../lib/mapedit.jsx'
+import { saveShared, syncEnabled } from '../lib/sync.js'
 
 const LS_KEY = 'kp_infallible_plan_v1'
 
@@ -271,11 +272,14 @@ function SegmentBlock({ seg, i, count, left, editing, icons, comp, open, onToggl
   )
 }
 
-function WingDetail({ pub, override, icons, builds, players, onBack, onSaveOverride, onClearOverride }) {
+function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSaveOverride, onClearOverride }) {
   const [editing, setEditing] = useState(false)
   const [open, setOpen] = useState(null)
   const [armReset, setArmReset] = useState(false)
   const [saveError, setSaveError] = useState(false)
+  const [canShare, setCanShare] = useState(false)
+  const [saving, setSaving] = useState(false)
+  useEffect(() => { syncEnabled().then(setCanShare) }, [])
   const [importMsg, setImportMsg] = useState(null)
   const w = override || pub
 
@@ -390,7 +394,7 @@ function WingDetail({ pub, override, icons, builds, players, onBack, onSaveOverr
           </label>
           {override && (
             <>
-              <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download your local plan as JSON — send it to a teammate or to Claude to publish it">
+              <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download this plan as a file">
                 ⬇ Export plan
               </button>
               <button
@@ -408,6 +412,28 @@ function WingDetail({ pub, override, icons, builds, players, onBack, onSaveOverr
                 {armReset ? 'Sure? This wipes the whole plan' : '⌫ Clear plan'}
               </button>
             </>
+          )}
+          {canShare && (
+            <button
+              className="btn btn-primary text-xs"
+              disabled={saving}
+              title="Save this wing for everyone — they see it when they reload"
+              onClick={async () => {
+                setSaving(true)
+                try {
+                  const doc = JSON.parse(JSON.stringify(inf))
+                  doc.wings = (doc.wings || []).map((x) => (x.id === pub.id ? w : x))
+                  await saveShared('infallible', doc)
+                  onClearOverride(pub.id)
+                  setEditing(false)
+                } catch (e) {
+                  alert(String(e.message || e))
+                }
+                setSaving(false)
+              }}
+            >
+              {saving ? 'Saving…' : '☁ Save to squad'}
+            </button>
           )}
           <button className={`btn text-sm ${editing ? 'btn-primary' : 'btn-ghost'}`} onClick={() => (editing ? setEditing(false) : startEditing())}>
             {editing ? '✓ Done editing' : '✎ Edit plan'}
@@ -575,6 +601,7 @@ export default function Infallible() {
     return (
       <WingDetail
         pub={pub}
+        inf={inf}
         override={overrides[pub.id] || null}
         icons={data.icons}
         builds={data.builds?.builds || []}

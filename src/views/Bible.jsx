@@ -3,6 +3,7 @@ import { useData } from '../App.jsx'
 import { fmtTime } from '../lib/gw2.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
 import PlanView, { PLAN_STATUS, planCoverage, planIsEmpty } from '../lib/plan.jsx'
+import { saveShared, syncEnabled } from '../lib/sync.js'
 
 const PLANS_KEY = 'kp_plans_v1'
 const loadPlanOv = () => {
@@ -22,6 +23,9 @@ function BossPage({ wing, boss, onBack }) {
   const [ovv, setOvv] = useState(0)
   const [msg, setMsg] = useState(null)
   const [armClear, setArmClear] = useState(false)
+  const [canShare, setCanShare] = useState(false)
+  const [saving, setSaving] = useState(false)
+  useEffect(() => { syncEnabled().then(setCanShare) }, [])
   const overrides = useMemo(() => loadPlanOv(), [ovv])
   const published = plans?.bosses?.[boss.id] || null
   const override = overrides[boss.id] || null
@@ -70,7 +74,31 @@ function BossPage({ wing, boss, onBack }) {
             ⬆ Import
             <input type="file" accept=".json,application/json" className="hidden" onChange={importPlan} />
           </label>
-          <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download this plan so it can be published for the squad">⬇ Export</button>
+          {canShare && (
+            <button
+              className="btn btn-primary text-xs"
+              disabled={saving}
+              title="Save this plan for everyone — they see it when they reload"
+              onClick={async () => {
+                setSaving(true)
+                try {
+                  const doc = JSON.parse(JSON.stringify(plans || { bosses: {} }))
+                  doc.bosses = { ...(doc.bosses || {}), [boss.id]: plan }
+                  doc.updated = new Date().toISOString().slice(0, 10)
+                  await saveShared('plans', doc)
+                  restorePlan()
+                  setMsg({ ok: true, text: 'Saved for the squad. Everyone sees it after a reload.' })
+                } catch (e) {
+                  setMsg({ ok: false, text: String(e.message || e) })
+                }
+                setSaving(false)
+                setTimeout(() => setMsg(null), 6000)
+              }}
+            >
+              {saving ? 'Saving…' : '☁ Save to squad'}
+            </button>
+          )}
+          <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download this plan as a file">⬇ Export</button>
           {override && published && (
             <button className="btn btn-ghost text-xs" onClick={restorePlan} title="Bring back the version published for the squad">
               ↺ Restore published

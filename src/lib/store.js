@@ -28,7 +28,15 @@ export function purgeLegacyLocal() {
   }
 }
 
+import { fetchShared } from './sync.js'
+
+// Repo JSON is the baseline; anything the squad saved to the shared store wins.
 export async function loadData(name) {
+  const [base, shared] = await Promise.all([loadRepoData(name), fetchShared(name)])
+  return shared ?? base
+}
+
+async function loadRepoData(name) {
   return fetch(`${import.meta.env.BASE_URL}${DATA_FILES[name]}`, { cache: 'no-store' })
     .then((r) => (r.ok ? r.json() : null))
     .catch(() => null)

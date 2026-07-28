@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-25",
-  "note": "Build catalog aligned to Snow Crows raid builds (Jul 2026). Boon lists on heal/support builds were filled in from general knowledge so the coverage checker works — correct any entry that is wrong. DPS builds intentionally list no boons: dedicated duties like Vulnerability are tracked per encounter, not per build.",
+  "updated": "2026-07-28",
+  "note": "Build catalog aligned to Snow Crows raid builds (Jul 2026). Boon lists on heal/support builds were filled in from general knowledge so the coverage checker works — correct any entry that is wrong. DPS builds intentionally list no boons: dedicated duties like Vulnerability are tracked per encounter, not per build. Entries flagged confirmBoons need their real boon confirmed in game (new elite specs).",
   "source": "https://snowcrows.com/builds/raids",
   "builds": [
     {
@@ -1928,6 +1928,174 @@
       "boons": [],
       "condis": [],
       "profession": "Engineer"
+    },
+    {
+      "id": "power_antiquary",
+      "name": "Power Antiquary",
+      "aliases": [
+        "power antiquary",
+        "pantiq"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Thief"
+    },
+    {
+      "id": "condi_antiquary",
+      "name": "Condi Antiquary",
+      "aliases": [
+        "condi antiquary",
+        "cantiq",
+        "condition antiquary"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Thief"
+    },
+    {
+      "id": "heal_antiquary",
+      "name": "Heal Antiquary",
+      "aliases": [
+        "heal antiquary",
+        "hantiq"
+      ],
+      "type": "heal",
+      "boons": [
+        "Might",
+        "Fury",
+        "Regeneration",
+        "Protection",
+        "Swiftness"
+      ],
+      "condis": [],
+      "profession": "Thief",
+      "confirmBoons": true
+    },
+    {
+      "id": "boon_antiquary",
+      "name": "Boon Antiquary",
+      "aliases": [
+        "boon antiquary",
+        "antiquary"
+      ],
+      "type": "support",
+      "boons": [
+        "Might",
+        "Fury",
+        "Regeneration",
+        "Protection",
+        "Swiftness"
+      ],
+      "condis": [],
+      "profession": "Thief",
+      "confirmBoons": true
+    },
+    {
+      "id": "power_conduit",
+      "name": "Power Conduit",
+      "aliases": [
+        "power conduit",
+        "pconduit"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Revenant"
+    },
+    {
+      "id": "condi_conduit",
+      "name": "Condi Conduit",
+      "aliases": [
+        "condi conduit",
+        "cconduit"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Revenant"
+    },
+    {
+      "id": "boon_conduit",
+      "name": "Boon Conduit",
+      "aliases": [
+        "boon conduit",
+        "conduit"
+      ],
+      "type": "support",
+      "boons": [
+        "Might",
+        "Fury",
+        "Regeneration",
+        "Protection",
+        "Swiftness"
+      ],
+      "condis": [],
+      "profession": "Revenant",
+      "confirmBoons": true
+    },
+    {
+      "id": "power_paragon",
+      "name": "Power Paragon",
+      "aliases": [
+        "power paragon",
+        "ppara"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Warrior"
+    },
+    {
+      "id": "condi_paragon",
+      "name": "Condi Paragon",
+      "aliases": [
+        "condi paragon",
+        "cpara"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Warrior"
+    },
+    {
+      "id": "heal_paragon",
+      "name": "Heal Paragon",
+      "aliases": [
+        "heal paragon",
+        "hpara"
+      ],
+      "type": "heal",
+      "boons": [
+        "Might",
+        "Fury",
+        "Regeneration",
+        "Protection",
+        "Swiftness"
+      ],
+      "condis": [],
+      "profession": "Warrior",
+      "confirmBoons": true
+    },
+    {
+      "id": "boon_paragon",
+      "name": "Boon Paragon",
+      "aliases": [
+        "boon paragon",
+        "paragon"
+      ],
+      "type": "support",
+      "boons": [
+        "Might",
+        "Fury",
+        "Regeneration",
+        "Protection",
+        "Swiftness"
+      ],
+      "condis": [],
+      "profession": "Warrior",
+      "confirmBoons": true
     }
   ]
 }

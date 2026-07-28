@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useData } from '../App.jsx'
+import { useData, useNav } from '../App.jsx'
 import { fmtTime } from '../lib/gw2.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
 import PlanView, { PLAN_STATUS, planCoverage, planIsEmpty } from '../lib/plan.jsx'
-import { saveShared, syncEnabled } from '../lib/sync.js'
+import { fetchHistory, saveShared, syncEnabled } from '../lib/sync.js'
+import HistoryPanel from '../lib/history.jsx'
 
 const PLANS_KEY = 'kp_plans_v1'
 const loadPlanOv = () => {
@@ -18,12 +19,14 @@ const blankPlan = () => JSON.parse(JSON.stringify(EMPTY_PLAN))
 
 function BossPage({ wing, boss, onBack }) {
   const { comps, icons, builds, players, plans } = useData()
+  const { setDoc } = useNav()
   const k = comps.bosses?.[boss.id] || {}
   const [editing, setEditing] = useState(false)
   const [ovv, setOvv] = useState(0)
   const [msg, setMsg] = useState(null)
   const [armClear, setArmClear] = useState(false)
   const [canShare, setCanShare] = useState(false)
+  const [showHistory, setShowHistory] = useState(false)
   const [saving, setSaving] = useState(false)
   useEffect(() => { syncEnabled().then(setCanShare) }, [])
   const overrides = useMemo(() => loadPlanOv(), [ovv])
@@ -85,17 +88,38 @@ function BossPage({ wing, boss, onBack }) {
                   const doc = JSON.parse(JSON.stringify(plans || { bosses: {} }))
                   doc.bosses = { ...(doc.bosses || {}), [boss.id]: plan }
                   doc.updated = new Date().toISOString().slice(0, 10)
+
+                  // guard against publishing something much smaller than what is
+                  // already stored, which is what an accidental wipe looks like
+                  const size = JSON.stringify(doc).length
+                  const hist = await fetchHistory('plans')
+                  if (hist[0] && size < hist[0].bytes * 0.6) {
+                    const ok = window.confirm(
+                      `This would replace the squad plans with a much smaller file (${Math.round(size / 1024)} KB vs ${Math.round(hist[0].bytes / 1024)} KB). Save anyway?`
+                    )
+                    if (!ok) {
+                      setSaving(false)
+                      return
+                    }
+                  }
+
                   await saveShared('plans', doc)
+                  setDoc('plans', doc) // keep the screen showing exactly what we saved
                   restorePlan()
                   setMsg({ ok: true, text: 'Saved for the squad. Everyone sees it after a reload.' })
                 } catch (e) {
                   setMsg({ ok: false, text: String(e.message || e) })
                 }
                 setSaving(false)
-                setTimeout(() => setMsg(null), 6000)
+                setTimeout(() => setMsg(null), 8000)
               }}
             >
               {saving ? 'Saving…' : '☁ Save to squad'}
+            </button>
+          )}
+          {canShare && (
+            <button className="btn btn-ghost text-xs" onClick={() => setShowHistory(!showHistory)} title="Saved versions of the squad plans">
+              ⟲ History
             </button>
           )}
           <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download this plan as a file">⬇ Export</button>
@@ -119,6 +143,19 @@ function BossPage({ wing, boss, onBack }) {
           </button>
         </div>
       </div>
+      {showHistory && (
+        <HistoryPanel
+          docKey="plans"
+          onClose={() => setShowHistory(false)}
+          onRestored={(doc) => {
+            setDoc('plans', doc)
+            restorePlan()
+            setShowHistory(false)
+            setMsg({ ok: true, text: 'Version restored for the whole squad.' })
+            setTimeout(() => setMsg(null), 8000)
+          }}
+        />
+      )}
       {msg && (
         <div className={`text-xs px-3 py-2 rounded-xl border ${msg.ok ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300' : 'border-danger/40 bg-danger/10 text-danger'}`}>{msg.text}</div>
       )}

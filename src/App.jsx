@@ -47,6 +47,9 @@ export default function App() {
   const [store, setStore] = useState(null)
   const [bibleTarget, setBibleTarget] = useState(null)
   const nav = {
+    // after publishing we already know the exact document, so put it straight
+    // into memory instead of re-reading it (KV is only eventually consistent)
+    setDoc: (name, doc) => setStore((prev) => ({ ...prev, [name]: doc })),
     openBible: (wingId, bossId) => {
       setBibleTarget({ wingId, bossId, at: Date.now() })
       setTab('bible')

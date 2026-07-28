@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useData } from '../App.jsx'
+import { useData, useNav } from '../App.jsx'
 import { BuildChip, NotesText, resolveBuildIcon } from '../lib/icons.jsx'
 import { ROLES, ROLE_STYLE, RoleChip, Field, TimeField, BuildCombo, selCls } from '../lib/ui.jsx'
 import { StrategyImage } from '../lib/mapedit.jsx'
-import { saveShared, syncEnabled } from '../lib/sync.js'
+import { fetchHistory, saveShared, syncEnabled } from '../lib/sync.js'
+import HistoryPanel from '../lib/history.jsx'
 
 const LS_KEY = 'kp_infallible_plan_v1'
 
@@ -273,11 +274,13 @@ function SegmentBlock({ seg, i, count, left, editing, icons, comp, open, onToggl
 }
 
 function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSaveOverride, onClearOverride }) {
+  const { setDoc } = useNav()
   const [editing, setEditing] = useState(false)
   const [open, setOpen] = useState(null)
   const [armReset, setArmReset] = useState(false)
   const [saveError, setSaveError] = useState(false)
   const [canShare, setCanShare] = useState(false)
+  const [showHistory, setShowHistory] = useState(false)
   const [saving, setSaving] = useState(false)
   useEffect(() => { syncEnabled().then(setCanShare) }, [])
   const [importMsg, setImportMsg] = useState(null)
@@ -414,6 +417,11 @@ function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSave
             </>
           )}
           {canShare && (
+            <button className="btn btn-ghost text-xs" onClick={() => setShowHistory(!showHistory)} title="Saved versions">
+              ⟲ History
+            </button>
+          )}
+          {canShare && (
             <button
               className="btn btn-primary text-xs"
               disabled={saving}
@@ -423,7 +431,21 @@ function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSave
                 try {
                   const doc = JSON.parse(JSON.stringify(inf))
                   doc.wings = (doc.wings || []).map((x) => (x.id === pub.id ? w : x))
+
+                  const size = JSON.stringify(doc).length
+                  const hist = await fetchHistory('infallible')
+                  if (hist[0] && size < hist[0].bytes * 0.6) {
+                    const ok = window.confirm(
+                      `This would replace the squad plans with a much smaller file (${Math.round(size / 1024)} KB vs ${Math.round(hist[0].bytes / 1024)} KB). Save anyway?`
+                    )
+                    if (!ok) {
+                      setSaving(false)
+                      return
+                    }
+                  }
+
                   await saveShared('infallible', doc)
+                  setDoc('infallible', doc) // screen keeps showing what we just saved
                   onClearOverride(pub.id)
                   setEditing(false)
                 } catch (e) {
@@ -445,6 +467,18 @@ function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSave
         <div className={`text-xs px-3 py-2 rounded-xl border ${importMsg.ok ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300' : 'border-danger/40 bg-danger/10 text-danger'}`}>
           {importMsg.text}
         </div>
+      )}
+      {showHistory && (
+        <HistoryPanel
+          docKey="infallible"
+          onClose={() => setShowHistory(false)}
+          onRestored={(doc) => {
+            setDoc('infallible', doc)
+            onClearOverride(pub.id)
+            setShowHistory(false)
+            setEditing(false)
+          }}
+        />
       )}
       {saveError && (
         <div className="text-xs px-3 py-2 rounded-xl border border-danger/40 bg-danger/10 text-danger">

@@ -56,3 +56,23 @@ export async function saveShared(key, doc) {
   }
   return r.json().catch(() => ({ ok: true }))
 }
+
+// ---- version history (the worker keeps the last 20 saves of each document) ----
+export async function fetchHistory(key) {
+  const b = await base()
+  if (!b) return []
+  try {
+    const r = await fetch(`${b}/history/${key}`, { cache: 'no-store' })
+    return r.ok ? await r.json() : []
+  } catch {
+    return []
+  }
+}
+
+export async function fetchVersion(key, index) {
+  const b = await base()
+  if (!b) throw new Error('Shared saving is not set up yet.')
+  const r = await fetch(`${b}/history/${key}/${index}`, { cache: 'no-store' })
+  if (!r.ok) throw new Error(`Could not read that version (${r.status}).`)
+  return r.json()
+}

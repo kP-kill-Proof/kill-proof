@@ -15,7 +15,7 @@ const ALIASES = [
   ['troubadour', 'Troubadour'], ['paragon', 'Paragon'], ['antiquary', 'Antiquary'], ['galeshot', 'Galeshot'],
   ['conduit', 'Conduit'], ['luminary', 'Luminary'], ['spellbreaker', 'Spellbreaker'],
   // professions as fallback
-  ['ele', '@Elementalist'], ['necro', '@Necromancer'], ['guardian', '@Guardian'], ['guard', '@Guardian'],
+  ['elementalist', '@Elementalist'], ['ele', '@Elementalist'], ['necromancer', '@Necromancer'], ['necro', '@Necromancer'], ['guardian', '@Guardian'], ['guard', '@Guardian'],
   ['engineer', '@Engineer'], ['engi', '@Engineer'], ['thief', '@Thief'], ['ranger', '@Ranger'],
   ['revenant', '@Revenant'], ['rev', '@Revenant'], ['mesmer', '@Mesmer'], ['warrior', '@Warrior'],
 ]

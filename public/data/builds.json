@@ -2096,6 +2096,114 @@
       "condis": [],
       "profession": "Warrior",
       "confirmBoons": true
+    },
+    {
+      "id": "core_guardian",
+      "name": "Core Guardian",
+      "aliases": [
+        "core guardian",
+        "core guar"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Guardian"
+    },
+    {
+      "id": "core_warrior",
+      "name": "Core Warrior",
+      "aliases": [
+        "core warrior",
+        "core warr"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Warrior"
+    },
+    {
+      "id": "core_revenant",
+      "name": "Core Revenant",
+      "aliases": [
+        "core revenant",
+        "core reve"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Revenant"
+    },
+    {
+      "id": "core_ranger",
+      "name": "Core Ranger",
+      "aliases": [
+        "core ranger",
+        "core rang"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Ranger"
+    },
+    {
+      "id": "core_thief",
+      "name": "Core Thief",
+      "aliases": [
+        "core thief",
+        "core thie"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Thief"
+    },
+    {
+      "id": "core_engineer",
+      "name": "Core Engineer",
+      "aliases": [
+        "core engineer",
+        "core engi"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Engineer"
+    },
+    {
+      "id": "core_necromancer",
+      "name": "Core Necromancer",
+      "aliases": [
+        "core necromancer",
+        "core necr"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Necromancer"
+    },
+    {
+      "id": "core_elementalist",
+      "name": "Core Elementalist",
+      "aliases": [
+        "core elementalist",
+        "core elem"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Elementalist"
+    },
+    {
+      "id": "core_mesmer",
+      "name": "Core Mesmer",
+      "aliases": [
+        "core mesmer",
+        "core mesm"
+      ],
+      "type": "dps",
+      "boons": [],
+      "condis": [],
+      "profession": "Mesmer"
     }
   ]
 }

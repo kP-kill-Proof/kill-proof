@@ -46,6 +46,8 @@ function BossPage({ wing, boss, onBack }) {
   const restorePlan = () => {
     const all = loadPlanOv(); delete all[boss.id]; savePlanOv(all); setOvv((v) => v + 1)
   }
+  // restoring a whole document makes every local copy obsolete
+  const dropAllLocal = () => { savePlanOv({}); setOvv((v) => v + 1) }
   const exportPlan = () => {
     const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), bosses: { [boss.id]: plan } }, null, 2)], { type: 'application/json' })
     const a = document.createElement('a')
@@ -149,7 +151,7 @@ function BossPage({ wing, boss, onBack }) {
           onClose={() => setShowHistory(false)}
           onRestored={(doc) => {
             setDoc('plans', doc)
-            restorePlan()
+            dropAllLocal()
             setShowHistory(false)
             setMsg({ ok: true, text: 'Version restored for the whole squad.' })
             setTimeout(() => setMsg(null), 8000)
@@ -161,7 +163,8 @@ function BossPage({ wing, boss, onBack }) {
       )}
       {override && (
         <div className="text-xs px-3 py-2 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-200">
-          This plan has local edits saved on <b>this device only</b>. Use <b>Export</b> and send the file to publish it for the squad.
+          <span>This plan has local edits saved on <b>this device only</b>.</span>
+          <button className="btn btn-ghost text-xs ml-2" onClick={restorePlan}>Use the squad version</button>
         </div>
       )}
 

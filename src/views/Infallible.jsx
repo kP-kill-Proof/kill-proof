@@ -273,7 +273,7 @@ function SegmentBlock({ seg, i, count, left, editing, icons, comp, open, onToggl
   )
 }
 
-function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSaveOverride, onClearOverride }) {
+function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSaveOverride, onClearOverride, onClearAllOverrides }) {
   const { setDoc } = useNav()
   const [editing, setEditing] = useState(false)
   const [open, setOpen] = useState(null)
@@ -474,7 +474,7 @@ function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSave
           onClose={() => setShowHistory(false)}
           onRestored={(doc) => {
             setDoc('infallible', doc)
-            onClearOverride(pub.id)
+            onClearAllOverrides()
             setShowHistory(false)
             setEditing(false)
           }}
@@ -487,7 +487,10 @@ function WingDetail({ pub, inf, override, icons, builds, players, onBack, onSave
       )}
       {override && (
         <div className="text-xs px-3 py-2 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-200">
-          This plan has local edits saved on <b>this device only</b>. Use <b>Export plan</b> and send the file to publish it for the whole squad.
+          <span>This plan has local edits saved on <b>this device only</b>.</span>
+          <button className="btn btn-ghost text-xs ml-2" onClick={() => onClearOverride(pub.id)}>
+            Use the squad version
+          </button>
         </div>
       )}
 
@@ -629,6 +632,11 @@ export default function Infallible() {
     saveOverrides(all)
     setOvVersion((v) => v + 1)
   }
+  // restoring a whole document makes every local copy obsolete
+  const clearAllOv = () => {
+    saveOverrides({})
+    setOvVersion((v) => v + 1)
+  }
 
   const pub = inf.wings.find((w) => w.id === wingId)
   if (pub)
@@ -643,6 +651,7 @@ export default function Infallible() {
         onBack={() => setWingId(null)}
         onSaveOverride={saveOv}
         onClearOverride={clearOv}
+        onClearAllOverrides={clearAllOv}
       />
     )
 

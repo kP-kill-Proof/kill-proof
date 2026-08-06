@@ -36,7 +36,9 @@ function Logo() {
         <div className="font-display text-2xl text-cream tracking-wide drop-shadow-[0_2px_8px_rgba(79,179,212,0.35)]">
           KILL PROOF
         </div>
-        <div className="text-[11px] uppercase tracking-[0.25em] text-teal-light/80 -mt-0.5">Sales Tool</div>
+        <div className="text-[11px] uppercase tracking-[0.25em] text-teal-light/80 -mt-0.5">
+          Sales Tool <span className="text-silver/30 tracking-normal normal-case ml-1" title="Build currently loaded — hard-refresh if this looks old">{__BUILD_ID__}</span>
+        </div>
       </div>
     </div>
   )

@@ -78,6 +78,15 @@ export const IMG_SIZES = [
   { id: 'full', label: 'Full', px: null },
 ]
 
+// Each colour keeps its own numbering: reds are 1,2,3 and blues start at 1 again.
+const DEFAULT_PIN_COLOR = '#4fb3d4'
+const pinNumber = (pins, i) => {
+  const c = pins[i].c || DEFAULT_PIN_COLOR
+  let n = 0
+  for (let j = 0; j <= i; j++) if ((pins[j].c || DEFAULT_PIN_COLOR) === c) n++
+  return n
+}
+
 export function StrategyImage({ seg, editing, onChange }) {
   const [tool, setTool] = useState('pin')
   const [color, setColor] = useState(DRAW_COLORS[0])
@@ -420,9 +429,9 @@ export function StrategyImage({ seg, editing, onChange }) {
               >
                 <span
                   className={`w-8 h-8 rounded-full text-ink font-bold text-base flex items-center justify-center border-2 border-cream shadow-lg select-none ${editing && tool === 'erase' ? 'cursor-pointer ring-2 ring-danger' : ''} ${editing && tool === 'move' ? 'cursor-move ring-2 ring-teal-light' : ''}`}
-                  style={{ background: p.c || '#4fb3d4' }}
+                  style={{ background: p.c || DEFAULT_PIN_COLOR }}
                 >
-                  {i + 1}
+                  {pinNumber(pins, i)}
                 </span>
                 {p.text && (
                   <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 w-max max-w-[240px] px-2.5 py-1.5 rounded-lg bg-ink border border-teal/50 text-cream text-xs leading-snug shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
@@ -461,9 +470,9 @@ export function StrategyImage({ seg, editing, onChange }) {
             <div key={i} className="flex items-center gap-2 text-sm">
               <span
                 className="w-5 h-5 rounded-full text-ink font-bold text-[11px] flex items-center justify-center shrink-0"
-                style={{ background: p.c || '#4fb3d4' }}
+                style={{ background: p.c || DEFAULT_PIN_COLOR }}
               >
-                {i + 1}
+                {pinNumber(pins, i)}
               </span>
               {editing ? (
                 <>

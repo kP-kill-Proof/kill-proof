@@ -1,6 +1,6 @@
 # KILL PROOF — Sales Tool
 
-App del equipo para organizar sales de GW2: dailies, orden óptimo de bosses, roster, eventos.
+App del equipo para organizar sales de GW2: dailies, orden óptimo de bosses, roster, eventos, infallible y mas.
 
 ## Correr local (desarrollo)
 

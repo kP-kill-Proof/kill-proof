@@ -93,6 +93,7 @@ export function StrategyImage({ seg, editing, onChange }) {
   const [dashed, setDashed] = useState(false)
   const [temp, setTemp] = useState(null)
   const [armClear, setArmClear] = useState(false)
+  const [noteOpen, setNoteOpen] = useState([])
   const [textDraft, setTextDraft] = useState(null) // { i: existing index | null, x, y, value }
   const [drag, setDrag] = useState(null)
   const [mapIcon, setMapIcon] = useState(MAP_ICONS[0])
@@ -464,28 +465,45 @@ export function StrategyImage({ seg, editing, onChange }) {
           )}
         </div>
       )}
-      {pins.length > 0 && (
+      {pins.some((p, i) => editing || p.text) && (
         <div className="space-y-1">
-          {pins.map((p, i) => (
-            <div key={i} className="flex items-center gap-2 text-sm">
-              <span
-                className="w-5 h-5 rounded-full text-ink font-bold text-[11px] flex items-center justify-center shrink-0"
-                style={{ background: p.c || DEFAULT_PIN_COLOR }}
-              >
-                {pinNumber(pins, i)}
-              </span>
-              {editing ? (
-                <>
-                  <Field value={p.text} placeholder="what happens here…" className="flex-1" onCommit={(v) => setPin(i, v)} />
-                  <button className="text-danger/80 hover:text-danger px-1" onClick={() => delPin(i)}>
-                    ✕
-                  </button>
-                </>
-              ) : (
-                <span className="text-cream/90">{p.text || <span className="text-silver/50 italic">…</span>}</span>
-              )}
-            </div>
-          ))}
+          {pins.map((p, i) => {
+            // a marker only gets a note when someone asks for one
+            const wantsNote = !!p.text || noteOpen.includes(i)
+            if (!editing && !p.text) return null
+            return (
+              <div key={i} className="flex items-center gap-2 text-sm">
+                <span
+                  className="w-5 h-5 rounded-full text-ink font-bold text-[11px] flex items-center justify-center shrink-0"
+                  style={{ background: p.c || DEFAULT_PIN_COLOR }}
+                >
+                  {pinNumber(pins, i)}
+                </span>
+                {!editing ? (
+                  <span className="text-cream/90">{p.text}</span>
+                ) : wantsNote ? (
+                  <>
+                    <Field value={p.text} placeholder="what happens here…" className="flex-1" onCommit={(v) => setPin(i, v)} />
+                    <button className="text-danger/80 hover:text-danger px-1" title="Remove this marker" onClick={() => delPin(i)}>
+                      ✕
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="text-xs text-silver/70 hover:text-cream border border-teal-deep/40 rounded-md px-2 py-0.5"
+                      onClick={() => setNoteOpen([...noteOpen, i])}
+                    >
+                      + note
+                    </button>
+                    <button className="text-danger/80 hover:text-danger px-1 ml-auto" title="Remove this marker" onClick={() => delPin(i)}>
+                      ✕
+                    </button>
+                  </>
+                )}
+              </div>
+            )
+          })}
         </div>
       )}
     </div>

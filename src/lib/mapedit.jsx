@@ -108,7 +108,7 @@ export function StrategyImage({ seg, editing, onChange }) {
     if (!editing || tool === 'erase' || tool === 'move') return
     const { x, y, rect } = norm(e)
     if (tool === 'pin') {
-      onChange({ ...seg, pins: [...pins, { x, y, text: '' }] })
+      onChange({ ...seg, pins: [...pins, { x, y, text: '', c: color }] })
       return
     }
     if (tool === 'text') {
@@ -418,7 +418,10 @@ export function StrategyImage({ seg, editing, onChange }) {
                   else if (tool === 'move') setDrag({ kind: 'pin', i, x: p.x, y: p.y })
                 }}
               >
-                <span className={`w-8 h-8 rounded-full bg-teal text-ink font-bold text-base flex items-center justify-center border-2 border-cream shadow-lg select-none ${editing && tool === 'erase' ? 'cursor-pointer ring-2 ring-danger' : ''} ${editing && tool === 'move' ? 'cursor-move ring-2 ring-teal-light' : ''}`}>
+                <span
+                  className={`w-8 h-8 rounded-full text-ink font-bold text-base flex items-center justify-center border-2 border-cream shadow-lg select-none ${editing && tool === 'erase' ? 'cursor-pointer ring-2 ring-danger' : ''} ${editing && tool === 'move' ? 'cursor-move ring-2 ring-teal-light' : ''}`}
+                  style={{ background: p.c || '#4fb3d4' }}
+                >
                   {i + 1}
                 </span>
                 {p.text && (
@@ -456,7 +459,10 @@ export function StrategyImage({ seg, editing, onChange }) {
         <div className="space-y-1">
           {pins.map((p, i) => (
             <div key={i} className="flex items-center gap-2 text-sm">
-              <span className="w-5 h-5 rounded-full bg-teal text-ink font-bold text-[11px] flex items-center justify-center shrink-0">
+              <span
+                className="w-5 h-5 rounded-full text-ink font-bold text-[11px] flex items-center justify-center shrink-0"
+                style={{ background: p.c || '#4fb3d4' }}
+              >
                 {i + 1}
               </span>
               {editing ? (

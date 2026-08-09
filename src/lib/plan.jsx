@@ -164,19 +164,19 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
   if (!editing) {
     const icon = resolveBuildIcon(r.build, icons)
     return (
-      <div className="flex gap-2.5 py-2 border-b border-teal-deep/15 last:border-0">
-        <div className="w-9 h-9 shrink-0 rounded-lg bg-ink/60 border border-teal-deep/30 flex items-center justify-center overflow-hidden">
+      <div className="flex gap-3 py-3 border-b border-teal-deep/15 last:border-0 last:pb-1">
+        <div className="w-10 h-10 shrink-0 rounded-lg bg-ink/60 border border-teal-deep/30 flex items-center justify-center overflow-hidden">
           {icon ? <img src={icon} alt="" className="w-full h-full object-cover" /> : <span className="text-silver/30 text-xs">—</span>}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
             <RoleChip role={r.role} />
             {r.role2 && (
               <span className="px-2 py-0.5 rounded-md bg-cream/10 border border-cream/25 text-cream text-[11px] font-bold uppercase tracking-wide">
                 {r.role2}
               </span>
             )}
-            {r.build && <span className="text-cream/90 text-sm font-semibold">{r.build}</span>}
+            {r.build && <span className="text-cream text-[15px] font-semibold leading-tight">{r.build}</span>}
             {r.unsure && (
               <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Taken from the meeting transcript — needs confirming">
                 confirm
@@ -184,14 +184,17 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
             )}
           </div>
           {chips.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-1">
+            <div className="flex flex-wrap gap-1.5 mt-1.5">
               {chips.map((d, j) => (
                 <DutyChip key={j} duty={d} icons={icons} />
               ))}
             </div>
           )}
           {lines.map((t, j) => (
-            <div key={j} className={`mt-1 text-xs ${t.includes('⚙') ? 'text-amber-300/90' : 'text-silver/80'}`}>
+            <div
+              key={j}
+              className={`mt-1.5 text-[13px] leading-relaxed ${t.includes('⚙') ? 'text-amber-300/90' : 'text-silver/75'}`}
+            >
               <NotesText text={t} icons={icons} />
             </div>
           ))}
@@ -294,12 +297,29 @@ export default function PlanView({
           <div className="grid lg:grid-cols-2 gap-3">
             {[1, 2].map((g) => (
               <div key={g} className="bg-ink/40 border border-teal-deep/25 rounded-xl px-4 py-3">
-                <div className="flex items-baseline gap-3 mb-1 pb-2 border-b border-teal-deep/25">
-                  <span className="text-xs uppercase tracking-widest text-teal-light font-bold">Subgroup {g}</span>
+                <div className="mb-2 pb-2.5 border-b border-teal-deep/25">
+                  {/* Title and count stay on their own line so neither can be
+                      squeezed into wrapping by the boon list. */}
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-sm uppercase tracking-[0.15em] text-teal-light font-bold whitespace-nowrap">
+                      Subgroup {g}
+                    </span>
+                    <span className="ml-auto text-xs text-silver/50 whitespace-nowrap shrink-0">
+                      {comp.filter((r) => r.sub === g).length} players
+                    </span>
+                  </div>
                   {cov.bySub[g].size > 0 && (
-                    <span className="text-xs text-silver/60">{[...cov.bySub[g]].join(' · ')}</span>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {[...cov.bySub[g]].map((b) => (
+                        <span
+                          key={b}
+                          className="px-1.5 py-0.5 rounded bg-teal-deep/25 text-[11px] text-silver/85 leading-tight"
+                        >
+                          {b}
+                        </span>
+                      ))}
+                    </div>
                   )}
-                  <span className="ml-auto text-xs text-silver/40">{comp.filter((r) => r.sub === g).length} players</span>
                 </div>
                 <div className={editing ? 'space-y-2 pt-1' : ''}>
                   {comp.map((r, i) =>

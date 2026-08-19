@@ -49,9 +49,9 @@ function Stat({ label, value, sub }) {
 
 // Magnetite shards for the day. Two things are easy to get wrong and both are
 // spelled out here: a daily encounter pays double LI but the SAME shards, and
-// the 300/week account cap only applies to normal-mode shards — challenge mode
-// shards land on top of it.
-function ShardStat({ total = 0, cm = 0, cap = 300 }) {
+// the weekly account cap (800) only applies to normal-mode shards — challenge
+// mode shards land on top of it.
+function ShardStat({ total = 0, cm = 0, cap = 800 }) {
   const over = total > cap
   return (
     <div className="card px-4 py-3">
@@ -559,7 +559,7 @@ export default function SaleDay() {
           )}
         </div>
         <Stat label="Est. total" value={fmtTime(sale.totalTime)} sub={sale.hasUnknownTimes ? '+ unknown times' : null} />
-        <ShardStat total={sale.totalShards} cm={sale.shardsCM} cap={wings?.shardsWeeklyCap ?? 300} />
+        <ShardStat total={sale.totalShards} cm={sale.shardsCM} cap={wings?.shardsWeeklyCap ?? 800} />
         <Stat
           label="Wings"
           value={sale.wingCount}

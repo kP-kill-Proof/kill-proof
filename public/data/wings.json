@@ -116,7 +116,7 @@
           ],
           "time": 140,
           "li": 0,
-          "shards": 0
+          "shardsUnknown": true
         },
         {
           "id": "xera",
@@ -433,6 +433,18 @@
           "shards": 3
         },
         {
+          "id": "forging_steel",
+          "name": "Forging Steel",
+          "aliases": [
+            "Forging Steel",
+            "Forja de Acero"
+          ],
+          "li": 1,
+          "shards": 35,
+          "shardsApprox": true,
+          "note": "Longest strike by far. ~14 from the encounter, 5-10 from the Stone Summit chest, 1 per each of up to 20 events. Needs timing before the optimizer can use it."
+        },
+        {
           "id": "whisper",
           "name": "Whisper of Jormag",
           "aliases": [
@@ -562,6 +574,6 @@
       ]
     }
   ],
-  "shardsNote": "Magnetite Shards per encounter, from the official wiki (per-boss pages). A daily encounter does NOT award extra shards, only double LI. Challenge mode adds 10 and those are exempt from the weekly cap. The weekly cap is 300 shards per account.",
-  "shardsWeeklyCap": 300
+  "shardsNote": "Magnetite Shards per encounter, from the official wiki. A daily encounter does NOT award extra shards, only double LI. Challenge mode adds 10 per encounter. Weekly cap is 800 per account. On top of the per-encounter shards, the weekly raid achievements pay 156 more (+60 with every CM): 10 for each full wing and 20 for clearing every raid encounter. Statues of Grenth pay 10 for the three statues together, split here across the three rows.",
+  "shardsWeeklyCap": 800
 }

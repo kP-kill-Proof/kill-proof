@@ -1,4 +1,4 @@
 {
-  "build": "2026-08-09 19:35 UTC",
-  "includes": "magnetite shards per encounter, day total with the 300/week cap, readable subgroup header"
+  "build": "2026-08-09 22:35 UTC",
+  "includes": "magnetite shards verified against the Spanish wiki: weekly cap is 800 not 300, Forging Steel added, Twisted Castle marked unknown"
 }

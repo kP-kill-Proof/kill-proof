@@ -14,7 +14,8 @@
             "VG"
           ],
           "time": 180,
-          "li": 1
+          "li": 1,
+          "shards": 10
         },
         {
           "id": "gorseval",
@@ -24,7 +25,8 @@
           ],
           "time": 175,
           "li": 1,
-          "directFromPrev": false
+          "directFromPrev": false,
+          "shards": 8
         },
         {
           "id": "sabetha",
@@ -34,7 +36,8 @@
           ],
           "time": 258,
           "li": 1,
-          "preEvent": true
+          "preEvent": true,
+          "shards": 10
         }
       ]
     },
@@ -51,7 +54,8 @@
             "Sloth"
           ],
           "time": 160,
-          "li": 1
+          "li": 1,
+          "shards": 12
         },
         {
           "id": "trio",
@@ -61,7 +65,8 @@
             "Protect the caged prisoners"
           ],
           "time": 397,
-          "li": 1
+          "li": 1,
+          "shards": 8
         },
         {
           "id": "matthias",
@@ -71,7 +76,8 @@
           ],
           "time": 132,
           "li": 1,
-          "preEvent": true
+          "preEvent": true,
+          "shards": 12
         }
       ]
     },
@@ -88,7 +94,8 @@
             "Siege the Stronghold"
           ],
           "time": 180,
-          "li": 1
+          "li": 1,
+          "shards": 0
         },
         {
           "id": "keep_construct",
@@ -97,7 +104,9 @@
             "KC"
           ],
           "time": 361,
-          "li": 1
+          "li": 1,
+          "shards": 12,
+          "shardsCM": 10
         },
         {
           "id": "twisted_castle",
@@ -106,14 +115,16 @@
             "TC"
           ],
           "time": 140,
-          "li": 0
+          "li": 0,
+          "shards": 0
         },
         {
           "id": "xera",
           "name": "Xera",
           "aliases": [],
           "time": 180,
-          "li": 1
+          "li": 1,
+          "shards": 12
         }
       ]
     },
@@ -130,7 +141,9 @@
             "Cairn the Indomitable"
           ],
           "time": 113,
-          "li": 1
+          "li": 1,
+          "shards": 8,
+          "shardsCM": 10
         },
         {
           "id": "mursaat",
@@ -139,21 +152,27 @@
             "MO"
           ],
           "time": 115,
-          "li": 1
+          "li": 1,
+          "shards": 8,
+          "shardsCM": 10
         },
         {
           "id": "samarog",
           "name": "Samarog",
           "aliases": [],
           "time": 326,
-          "li": 1
+          "li": 1,
+          "shards": 12,
+          "shardsCM": 10
         },
         {
           "id": "deimos",
           "name": "Deimos",
           "aliases": [],
           "time": 267,
-          "li": 1
+          "li": 1,
+          "shards": 14,
+          "shardsCM": 10
         }
       ]
     },
@@ -171,7 +190,9 @@
             "Desmina"
           ],
           "time": 220,
-          "li": 1
+          "li": 1,
+          "shards": 14,
+          "shardsCM": 10
         },
         {
           "id": "river",
@@ -180,7 +201,8 @@
             "River"
           ],
           "time": 126,
-          "li": 1
+          "li": 1,
+          "shards": 8
         },
         {
           "id": "eyes",
@@ -189,7 +211,8 @@
             "Statue of Darkness"
           ],
           "time": null,
-          "li": 1
+          "li": 1,
+          "shards": 4
         },
         {
           "id": "eater",
@@ -199,7 +222,8 @@
             "Eater"
           ],
           "time": null,
-          "li": 1
+          "li": 1,
+          "shards": 3
         },
         {
           "id": "broken_king",
@@ -208,14 +232,17 @@
             "Statue of Ice"
           ],
           "time": null,
-          "li": 1
+          "li": 1,
+          "shards": 3
         },
         {
           "id": "dhuum",
           "name": "Dhuum",
           "aliases": [],
           "time": 404,
-          "li": 1
+          "li": 1,
+          "shards": 16,
+          "shardsCM": 10
         }
       ]
     },
@@ -232,7 +259,9 @@
             "CA"
           ],
           "time": 177,
-          "li": 1
+          "li": 1,
+          "shards": 12,
+          "shardsCM": 10
         },
         {
           "id": "largos",
@@ -244,7 +273,9 @@
           ],
           "time": 438,
           "li": 1,
-          "preEvent": true
+          "preEvent": true,
+          "shards": 12,
+          "shardsCM": 10
         },
         {
           "id": "qadim",
@@ -253,7 +284,9 @@
             "Q1"
           ],
           "time": 420,
-          "li": 1
+          "li": 1,
+          "shards": 16,
+          "shardsCM": 10
         }
       ]
     },
@@ -270,7 +303,9 @@
             "Cardinal Sabir"
           ],
           "time": 267,
-          "li": 1
+          "li": 1,
+          "shards": 8,
+          "shardsCM": 10
         },
         {
           "id": "adina",
@@ -279,7 +314,9 @@
             "Cardinal Adina"
           ],
           "time": 256,
-          "li": 1
+          "li": 1,
+          "shards": 14,
+          "shardsCM": 10
         },
         {
           "id": "qtp",
@@ -289,7 +326,9 @@
             "Q2"
           ],
           "time": 319,
-          "li": 1
+          "li": 1,
+          "shards": 14,
+          "shardsCM": 10
         }
       ]
     },
@@ -307,7 +346,9 @@
           ],
           "time": null,
           "li": 1,
-          "preEvent": true
+          "preEvent": true,
+          "shards": 16,
+          "shardsCM": 10
         },
         {
           "id": "decima",
@@ -317,7 +358,9 @@
           ],
           "time": null,
           "li": 1,
-          "preEvent": true
+          "preEvent": true,
+          "shards": 14,
+          "shardsCM": 10
         },
         {
           "id": "ura",
@@ -326,7 +369,9 @@
             "Ura, the Steamshrieker"
           ],
           "time": null,
-          "li": 1
+          "li": 1,
+          "shards": 14,
+          "shardsCM": 10
         }
       ]
     },
@@ -343,7 +388,8 @@
             "Shiverpeaks Pass"
           ],
           "time": 96,
-          "li": 1
+          "li": 1,
+          "shards": 8
         },
         {
           "id": "voice_claw",
@@ -355,7 +401,8 @@
             "Voice and Claw"
           ],
           "time": 66,
-          "li": 1
+          "li": 1,
+          "shards": 9
         },
         {
           "id": "fraenir",
@@ -364,14 +411,16 @@
             "Fraenir"
           ],
           "time": 109,
-          "li": 1
+          "li": 1,
+          "shards": 8
         },
         {
           "id": "boneskinner",
           "name": "Boneskinner",
           "aliases": [],
           "time": 121,
-          "li": 1
+          "li": 1,
+          "shards": 10
         },
         {
           "id": "cold_war",
@@ -380,7 +429,8 @@
             "Varinia Stormsounder"
           ],
           "time": null,
-          "li": 1
+          "li": 1,
+          "shards": 3
         },
         {
           "id": "whisper",
@@ -389,7 +439,8 @@
             "Whisper"
           ],
           "time": 203,
-          "li": 1
+          "li": 1,
+          "shards": 10
         }
       ]
     },
@@ -407,7 +458,9 @@
             "Mai Trin"
           ],
           "time": 270,
-          "li": 1
+          "li": 1,
+          "shards": 8,
+          "shardsCM": 10
         },
         {
           "id": "junkyard",
@@ -417,7 +470,9 @@
             "Ankka"
           ],
           "time": 240,
-          "li": 1
+          "li": 1,
+          "shards": 12,
+          "shardsCM": 10
         },
         {
           "id": "kaineng",
@@ -427,7 +482,9 @@
             "Minister Li"
           ],
           "time": 540,
-          "li": 1
+          "li": 1,
+          "shards": 14,
+          "shardsCM": 10
         },
         {
           "id": "harvest_temple",
@@ -438,7 +495,9 @@
             "The Dragonvoid"
           ],
           "time": 420,
-          "li": 1
+          "li": 1,
+          "shards": 16,
+          "shardsCM": 10
         },
         {
           "id": "olc",
@@ -447,7 +506,8 @@
             "OLC"
           ],
           "time": 480,
-          "li": 1
+          "li": 1,
+          "shards": 14
         }
       ]
     },
@@ -465,7 +525,9 @@
             "Dagda"
           ],
           "time": 360,
-          "li": 1
+          "li": 1,
+          "shards": 10,
+          "shardsCM": 10
         },
         {
           "id": "temple_of_febe",
@@ -475,7 +537,9 @@
             "Cerus"
           ],
           "time": 390,
-          "li": 1
+          "li": 1,
+          "shards": 12,
+          "shardsCM": 10
         }
       ]
     },
@@ -490,9 +554,14 @@
           "name": "Guardian's Glade",
           "aliases": [],
           "time": null,
-          "li": 1
+          "li": 1,
+          "shards": 14,
+          "shardsCM": 10,
+          "shardsUnsure": true
         }
       ]
     }
-  ]
+  ],
+  "shardsNote": "Magnetite Shards per encounter, from the official wiki (per-boss pages). A daily encounter does NOT award extra shards, only double LI. Challenge mode adds 10 and those are exempt from the weekly cap. The weekly cap is 300 shards per account.",
+  "shardsWeeklyCap": 300
 }

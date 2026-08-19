@@ -47,6 +47,28 @@ function Stat({ label, value, sub }) {
   )
 }
 
+// Magnetite shards for the day. Two things are easy to get wrong and both are
+// spelled out here: a daily encounter pays double LI but the SAME shards, and
+// the 300/week account cap only applies to normal-mode shards — challenge mode
+// shards land on top of it.
+function ShardStat({ total = 0, cm = 0, cap = 300 }) {
+  const over = total > cap
+  return (
+    <div className="card px-4 py-3">
+      <div className="text-[11px] uppercase tracking-wider text-silver/50">Magnetite shards</div>
+      <div className={`text-xl font-bold mt-0.5 ${over ? 'text-amber-300' : 'text-cream'}`}>
+        {over ? cap : total}
+        {cm > 0 && <span className="text-silver/50 font-normal text-base"> +{cm} CM</span>}
+      </div>
+      <div className={`text-xs ${over ? 'text-amber-300/90' : 'text-silver/50'}`}>
+        {over
+          ? `${total} earned, capped at ${cap}/week`
+          : `per player · ${cap - total} left before the weekly cap`}
+      </div>
+    </div>
+  )
+}
+
 const DAY_ROLES = ['Heal', 'Support', 'DPS']
 const ROLE_CHIP = {
   Heal: 'bg-teal/25 text-teal-light border-teal/50',
@@ -241,6 +263,12 @@ function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMove
             <span>{boss.wing.short} · {boss.wing.name}</span>
             <span className="text-cream font-bold tabular-nums">{fmtTime(boss.time)}</span>
             <span className="text-teal-light font-bold">+{boss.effLi} LI</span>
+            {boss.shards > 0 && (
+              <span className="text-silver/70" title="Daily does not add shards, only LI">
+                +{boss.shards} shards
+                {boss.shardsCM ? <span className="text-silver/45"> (+{boss.shardsCM} CM)</span> : null}
+              </span>
+            )}
             {boss.preEvent && (
               <span className="chip bg-danger/15 border border-danger/40 text-danger/90" title="Mandatory pre-event — time already included">
                 pre-event
@@ -515,7 +543,7 @@ export default function SaleDay() {
         <p className="text-xs text-danger/80">{unmatched.length} bounty(ies) with no match in the Bible.</p>
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 anim-in anim-in-1">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 anim-in anim-in-1">
         <div className="card px-4 py-3">
           <div className="text-[11px] uppercase tracking-wider text-silver/50">LI progress</div>
           <div className="text-xl font-bold text-cream mt-0.5">
@@ -531,6 +559,7 @@ export default function SaleDay() {
           )}
         </div>
         <Stat label="Est. total" value={fmtTime(sale.totalTime)} sub={sale.hasUnknownTimes ? '+ unknown times' : null} />
+        <ShardStat total={sale.totalShards} cm={sale.shardsCM} cap={wings?.shardsWeeklyCap ?? 300} />
         <Stat
           label="Wings"
           value={sale.wingCount}

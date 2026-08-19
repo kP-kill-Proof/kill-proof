@@ -116,5 +116,20 @@ export function buildSaleList({ wings, dailyIds, discarded, liTarget }) {
   const totalTime = list.reduce((s, b) => s + (b.time ?? 0), 0)
   const hasUnknownTimes = list.some((b) => b.time == null)
   const wingCount = byWing.size
-  return { list, totalLi, totalTime, hasUnknownTimes, wingCount, visits: runs.length, reached }
+  // Magnetite shards. A daily encounter does NOT pay extra shards — only the LI
+  // doubles — so this is a plain sum. Challenge mode adds 10 per encounter and
+  // those are exempt from the weekly cap, so they are counted separately.
+  const totalShards = list.reduce((s, b) => s + (b.shards ?? 0), 0)
+  const shardsCM = list.reduce((s, b) => s + (b.shardsCM ?? 0), 0)
+  return {
+    list,
+    totalLi,
+    totalTime,
+    hasUnknownTimes,
+    wingCount,
+    visits: runs.length,
+    reached,
+    totalShards,
+    shardsCM,
+  }
 }

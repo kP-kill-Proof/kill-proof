@@ -19,7 +19,24 @@ export function flattenBosses(wings) {
   return out
 }
 
-export function buildSaleList({ wings, dailyIds, discarded, liTarget }) {
+// Cheapest set of encounters worth exactly `target` LI, or null when the target
+// cannot be hit with what is on offer.
+function cheapestSet(pool, target) {
+  if (target <= 0) return { t: 0, items: [] }
+  const dp = new Array(target + 1).fill(null)
+  dp[0] = { t: 0, items: [] }
+  for (const c of pool) {
+    for (let j = target; j >= 1; j--) {
+      const prev = dp[Math.max(0, j - c.effLi)]
+      if (prev && (!dp[j] || prev.t + c.cost < dp[j].t)) {
+        dp[j] = { t: prev.t + c.cost, items: [...prev.items, c] }
+      }
+    }
+  }
+  return dp[target]
+}
+
+export function buildSaleList({ wings, dailyIds, discarded, liTarget, pinned = [] }) {
   const all = flattenBosses(wings)
   const isDiscarded = (id) => discarded.includes(id)
 
@@ -37,22 +54,36 @@ export function buildSaleList({ wings, dailyIds, discarded, liTarget }) {
   let reached = T === 0
 
   if (T > 0) {
-    const dp = new Array(T + 1).fill(null)
-    dp[0] = { t: 0, items: [] }
-    for (const c of candidates) {
-      for (let j = T; j >= 1; j--) {
-        const prev = dp[Math.max(0, j - c.effLi)]
-        if (prev && (!dp[j] || prev.t + c.cost < dp[j].t)) {
-          dp[j] = { t: prev.t + c.cost, items: [...prev.items, c] }
-        }
-      }
+    // Skipping a fight is a SWAP, not a replan: every encounter the commander
+    // already accepted is pinned, and only the LI left behind by the skipped one
+    // gets re-solved. Without this, dropping one boss reshuffles the whole day.
+    const keep = new Set(pinned.filter((id) => !isDiscarded(id)))
+    let kept = candidates.filter((c) => keep.has(c.id))
+    let keptLi = kept.reduce((s, c) => s + c.effLi, 0)
+    // The target moved below what is already pinned — the pins no longer make
+    // sense, so fall back to planning the day from scratch.
+    if (keptLi > T) {
+      kept = []
+      keptLi = 0
     }
-    if (dp[T]) {
-      selected = dp[T].items
+
+    const solved = kept.length
+      ? cheapestSet(candidates.filter((c) => !keep.has(c.id)), T - keptLi)
+      : cheapestSet(candidates, T)
+
+    if (solved) {
+      selected = [...kept, ...solved.items]
       reached = true
     } else {
-      selected = candidates
-      reached = false
+      // Nothing fits around the pins: drop them and try the whole day again.
+      const free = cheapestSet(candidates, T)
+      if (free) {
+        selected = free.items
+        reached = true
+      } else {
+        selected = candidates
+        reached = false
+      }
     }
   }
 

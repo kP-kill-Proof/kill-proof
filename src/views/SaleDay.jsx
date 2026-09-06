@@ -424,6 +424,9 @@ export default function SaleDay() {
   }
   const [liTargetStr, setLiTargetStr] = useState(run0.liTargetStr ?? '10')
   const [discarded, setDiscarded] = useState(run0.discarded ?? [])
+  // Encounters the commander has already accepted. Skipping one pins the rest so
+  // only the gap it leaves gets re-solved.
+  const [pinned, setPinned] = useState(run0.pinned ?? [])
   const [completed, setCompleted] = useState(run0.completed ?? [])
   const [roster, setRoster] = useState(() => slotify(run0.roster))
   const [selected, setSelected] = useState(null)
@@ -445,14 +448,14 @@ export default function SaleDay() {
   }, [wings])
 
   useEffect(() => {
-    localStorage.setItem(dayKey(), JSON.stringify({ liTargetStr, discarded, completed, roster }))
-  }, [liTargetStr, discarded, completed, roster])
+    localStorage.setItem(dayKey(), JSON.stringify({ liTargetStr, discarded, completed, roster, pinned }))
+  }, [liTargetStr, discarded, completed, roster, pinned])
 
   const dailyIds = (dailies || []).map((d) => d.bossId).filter(Boolean)
 
   const sale = useMemo(
-    () => buildSaleList({ wings: wings.wings, dailyIds, discarded, liTarget }),
-    [wings, dailies, discarded, liTarget]
+    () => buildSaleList({ wings: wings.wings, dailyIds, discarded, liTarget, pinned }),
+    [wings, dailies, discarded, liTarget, pinned]
   )
 
   const presentPlayers = roster
@@ -468,12 +471,27 @@ export default function SaleDay() {
   const visibleList = sale.list.filter((b) => !completed.includes(b.id))
   const selectedBoss = visibleList.find((b) => b.id === selected) || visibleList[0]
 
+  // Whatever is in the run but not pinned is what the solver just swapped in to
+  // cover the LI left behind by a skipped fight.
+  const swappedIn = pinned.length ? sale.list.filter((b) => !pinned.includes(b.id)) : []
+
   const toggleDone = (id) => setCompleted((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
-  const discard = (id) => setDiscarded((d) => [...d, id])
-  const restore = (id) => setDiscarded((d) => d.filter((x) => x !== id))
+  const skip = (id) => {
+    // Pin everything else first, so only this fight's LI gets re-solved.
+    setPinned(sale.list.filter((b) => b.id !== id).map((b) => b.id))
+    setDiscarded((d) => [...d, id])
+  }
+  // Bringing a fight back means the day is worth planning again from scratch,
+  // otherwise the pins would keep it out of the run forever.
+  const restore = (id) => {
+    setDiscarded((d) => d.filter((x) => x !== id))
+    setPinned([])
+  }
+  const replan = () => setPinned([])
   const resetDay = () => {
     setCompleted([])
     setDiscarded([])
+    setPinned([])
   }
   const slotIndexOf = (id) => roster.findIndex((r) => r && r.id === id)
   const dropOnSlot = (id, i) => {
@@ -617,11 +635,11 @@ export default function SaleDay() {
                     <div className="text-[11px] text-teal-light font-bold">+{b.effLi}</div>
                   </div>
                   <button
-                    onClick={(e) => { e.stopPropagation(); discard(b.id) }}
-                    title="Discard — next best boss takes its place"
-                    className="text-danger/60 hover:text-danger text-sm font-black shrink-0 px-1 cursor-pointer"
+                    onClick={(e) => { e.stopPropagation(); skip(b.id) }}
+                    title="Skip this fight — the next best one takes its place, the rest of the day stays as it is"
+                    className="shrink-0 px-2 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide border border-danger/40 text-danger/80 hover:text-cream hover:bg-danger/25 hover:border-danger cursor-pointer transition-colors"
                   >
-                    ✕
+                    Skip
                   </button>
                 </div>
               </div>
@@ -649,9 +667,19 @@ export default function SaleDay() {
             </div>
           )}
 
+          {discarded.length > 0 && swappedIn.length > 0 && (
+            <div className="pt-3 text-xs text-teal-light/90">
+              Swapped in to cover the skipped {discarded.length === 1 ? 'fight' : 'fights'}:{' '}
+              <span className="font-bold text-cream">{swappedIn.map((b) => b.name).join(', ')}</span>
+              <button onClick={replan} className="ml-2 underline text-silver/50 hover:text-cream cursor-pointer">
+                re-plan the whole day instead
+              </button>
+            </div>
+          )}
+
           {discarded.length > 0 && (
             <div className="pt-3">
-              <h3 className="text-[10px] uppercase tracking-widest text-silver/50 font-bold mb-1.5">Discarded</h3>
+              <h3 className="text-[10px] uppercase tracking-widest text-silver/50 font-bold mb-1.5">Skipped</h3>
               <div className="flex flex-wrap gap-1.5">
                 {discarded.map((id) => {
                   const b = wings.wings.flatMap((w) => w.bosses).find((x) => x.id === id)
@@ -660,7 +688,7 @@ export default function SaleDay() {
                       key={id}
                       onClick={() => restore(id)}
                       className="chip border border-silver/30 text-silver/60 hover:text-cream hover:border-teal cursor-pointer"
-                      title="Click to restore"
+                      title="Bring it back — the day gets planned again from scratch"
                     >
                       ↩ {b?.name || id}
                     </button>

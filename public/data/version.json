@@ -1,4 +1,4 @@
 {
-  "build": "2026-08-09 22:35 UTC",
-  "includes": "magnetite shards verified against the Spanish wiki: weekly cap is 800 not 300, Forging Steel added, Twisted Castle marked unknown"
+  "build": "2026-08-09 23:05 UTC",
+  "includes": "Skip button on every fight: swaps in the next best one and leaves the rest of the day untouched"
 }

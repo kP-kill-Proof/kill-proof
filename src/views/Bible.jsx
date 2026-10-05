@@ -1,216 +1,56 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useData, useNav } from '../App.jsx'
+import { useEffect, useState } from 'react'
+import { useData } from '../App.jsx'
 import { fmtTime } from '../lib/gw2.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
 import PlanView, { PLAN_STATUS, planCoverage, planIsEmpty } from '../lib/plan.jsx'
-import { fetchHistory, saveShared, syncEnabled } from '../lib/sync.js'
-import HistoryPanel from '../lib/history.jsx'
-
-const PLANS_KEY = 'kp_plans_v1'
-const loadPlanOv = () => {
-  try { return JSON.parse(localStorage.getItem(PLANS_KEY)) || {} } catch { return {} }
-}
-const savePlanOv = (ov) => {
-  try { localStorage.setItem(PLANS_KEY, JSON.stringify(ov)); return true } catch { return false }
-}
 
 const EMPTY_PLAN = { status: 'draft', comp: [], notes: [], steps: [], maps: [], requires: [], decisions: [], rejected: [], gaps: [] }
-const blankPlan = () => JSON.parse(JSON.stringify(EMPTY_PLAN))
 
 function BossPage({ wing, boss, onBack }) {
   const { comps, icons, builds, players, plans } = useData()
-  const { setDoc } = useNav()
   const k = comps.bosses?.[boss.id] || {}
-  const [editing, setEditing] = useState(false)
-  const [ovv, setOvv] = useState(0)
-  const [msg, setMsg] = useState(null)
-  const [armClear, setArmClear] = useState(false)
-  const [canShare, setCanShare] = useState(false)
-  const [showHistory, setShowHistory] = useState(false)
-  const [saving, setSaving] = useState(false)
-  useEffect(() => { syncEnabled().then(setCanShare) }, [])
-  const overrides = useMemo(() => loadPlanOv(), [ovv])
-  const published = plans?.bosses?.[boss.id] || null
-  const override = overrides[boss.id] || null
-  const plan = override || published || EMPTY_PLAN
-
-  const writePlan = (next) => {
-    const all = loadPlanOv()
-    all[boss.id] = next
-    if (!savePlanOv(all)) { setMsg({ ok: false, text: 'Could not save — browser storage is full (use smaller map images).' }); return }
-    setOvv((v) => v + 1)
-  }
-  // full wipe: nothing prefilled, saved so it stays empty on reload
-  const clearPlan = () => writePlan(blankPlan())
-  // escape hatch: bring back the shared version
-  const restorePlan = () => {
-    const all = loadPlanOv(); delete all[boss.id]; savePlanOv(all); setOvv((v) => v + 1)
-  }
-  // restoring a whole document makes every local copy obsolete
-  const dropAllLocal = () => { savePlanOv({}); setOvv((v) => v + 1) }
-  const exportPlan = () => {
-    const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), bosses: { [boss.id]: plan } }, null, 2)], { type: 'application/json' })
-    const a = document.createElement('a')
-    a.href = URL.createObjectURL(blob); a.download = `kp-plan-${boss.id}.json`; a.click(); URL.revokeObjectURL(a.href)
-  }
-  const importPlan = (e) => {
-    const file = e.target.files?.[0]; e.target.value = ''
-    if (!file) return
-    const r = new FileReader()
-    r.onload = () => {
-      try {
-        const data = JSON.parse(r.result)
-        const incoming = data.bosses?.[boss.id] || (data.comp ? data : null)
-        if (!incoming) throw new Error('shape')
-        writePlan(incoming)
-        setMsg({ ok: true, text: 'Plan imported on this device.' })
-      } catch { setMsg({ ok: false, text: 'That file does not look like a KP plan export.' }) }
-      setTimeout(() => setMsg(null), 6000)
-    }
-    r.readAsText(file)
-  }
+  // Read-only, straight from the repo: every edit goes through Claude, so the
+  // whole squad opens the same Bible with nobody pressing save and no local
+  // copy quietly shadowing a newer deploy.
+  const plan = plans?.bosses?.[boss.id] || EMPTY_PLAN
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <button className="btn btn-ghost text-sm" onClick={onBack}>← {wing.short} · {wing.name}</button>
-        <div className="flex items-center gap-2">
-          <label className="btn btn-ghost text-xs cursor-pointer" title="Load a plan exported by a teammate">
-            ⬆ Import
-            <input type="file" accept=".json,application/json" className="hidden" onChange={importPlan} />
-          </label>
-          {canShare && (
-            <button
-              className="btn btn-primary text-xs"
-              disabled={saving}
-              title="Save this plan for everyone — they see it when they reload"
-              onClick={async () => {
-                setSaving(true)
-                try {
-                  const doc = JSON.parse(JSON.stringify(plans || { bosses: {} }))
-                  doc.bosses = { ...(doc.bosses || {}), [boss.id]: plan }
-                  doc.updated = new Date().toISOString().slice(0, 10)
+      <button className="btn btn-ghost text-sm" onClick={onBack}>← {wing.short} · {wing.name}</button>
 
-                  // guard against publishing something much smaller than what is
-                  // already stored, which is what an accidental wipe looks like
-                  const size = JSON.stringify(doc).length
-                  const hist = await fetchHistory('plans')
-                  if (hist[0] && size < hist[0].bytes * 0.6) {
-                    const ok = window.confirm(
-                      `This would replace the squad plans with a much smaller file (${Math.round(size / 1024)} KB vs ${Math.round(hist[0].bytes / 1024)} KB). Save anyway?`
-                    )
-                    if (!ok) {
-                      setSaving(false)
-                      return
-                    }
-                  }
-
-                  await saveShared('plans', doc)
-                  setDoc('plans', doc) // keep the screen showing exactly what we saved
-                  restorePlan()
-                  setMsg({ ok: true, text: 'Saved for the squad. Everyone sees it after a reload.' })
-                } catch (e) {
-                  setMsg({ ok: false, text: String(e.message || e) })
-                }
-                setSaving(false)
-                setTimeout(() => setMsg(null), 8000)
-              }}
-            >
-              {saving ? 'Saving…' : '☁ Save to squad'}
-            </button>
-          )}
-          {canShare && (
-            <button className="btn btn-ghost text-xs" onClick={() => setShowHistory(!showHistory)} title="Saved versions of the squad plans">
-              ⟲ History
-            </button>
-          )}
-          <button className="btn btn-ghost text-xs" onClick={exportPlan} title="Download this plan as a file">⬇ Export</button>
-          {override && published && (
-            <button className="btn btn-ghost text-xs" onClick={restorePlan} title="Bring back the version published for the squad">
-              ↺ Restore published
-            </button>
-          )}
-          <button
-            className={`btn text-xs ${armClear ? 'bg-danger/20 border border-danger text-danger font-semibold' : 'btn-ghost'}`}
-            title="Wipe this plan completely — nothing prefilled"
-            onClick={() => {
-              if (!armClear) { setArmClear(true); setTimeout(() => setArmClear(false), 3500); return }
-              setArmClear(false); clearPlan()
-            }}
-          >
-            {armClear ? 'Sure? This wipes the whole plan' : '⌫ Clear plan'}
-          </button>
-          <button className={`btn text-sm ${editing ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setEditing(!editing)}>
-            {editing ? '✓ Done' : '✎ Edit plan'}
-          </button>
-        </div>
-      </div>
-      {showHistory && (
-        <HistoryPanel
-          docKey="plans"
-          onClose={() => setShowHistory(false)}
-          onRestored={(doc) => {
-            setDoc('plans', doc)
-            dropAllLocal()
-            setShowHistory(false)
-            setMsg({ ok: true, text: 'Version restored for the whole squad.' })
-            setTimeout(() => setMsg(null), 8000)
-          }}
-        />
-      )}
-      {msg && (
-        <div className={`text-xs px-3 py-2 rounded-xl border ${msg.ok ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300' : 'border-danger/40 bg-danger/10 text-danger'}`}>{msg.text}</div>
-      )}
-      {override && (
-        <div className="text-xs px-3 py-2 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-200">
-          <span>This plan has local edits saved on <b>this device only</b>.</span>
-          <button className="btn btn-ghost text-xs ml-2" onClick={restorePlan}>Use the squad version</button>
-        </div>
-      )}
-
-      <div className="card p-5 flex flex-wrap items-center justify-between gap-4">
-        <div>
+      {/* Title, damage profile and kill time in one block: they answer the same
+          question — what is this fight and how do we hit it. LI belongs to
+          Today's Sale; the Bible is about how we play, not what it pays. */}
+      <div className="card p-5 flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
           <h1 className="font-display text-3xl text-cream">{boss.name}</h1>
           <div className="text-sm text-silver/60 mt-1 flex flex-wrap gap-2 items-center">
             <span>{wing.name}</span>
-            <span>{boss.li > 0 ? `${boss.li} LI` : 'no LI'}</span>
             {boss.preEvent && (
               <span className="chip bg-danger/15 border border-danger/40 text-danger/90" title="Mandatory pre-event — time already included">pre-event</span>
             )}
           </div>
+          <div className="flex flex-wrap gap-2 mt-3">
+            <span className="chip bg-teal-deep/40 text-teal-light uppercase">{k.profile?.dmg || 'any'}</span>
+            <span className="chip bg-silver/10 text-silver uppercase">{k.profile?.style || 'sustained'}</span>
+          </div>
+          {k.profile?.note && (
+            <p className="text-[13px] text-silver/65 mt-2 max-w-2xl leading-relaxed">{k.profile.note}</p>
+          )}
         </div>
-        <div className="text-right">
+        <div className="text-right shrink-0">
           <div className="text-xs text-silver/50 uppercase tracking-wider">kill time</div>
           <div className={`font-bold tabular-nums text-xl ${boss.time == null ? 'text-danger/80' : 'text-cream'}`}>
             {boss.time == null ? 'pending' : fmtTime(boss.time)}
           </div>
         </div>
       </div>
-
-      <div className="card p-5">
-        <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold mb-3">Damage profile</h2>
-        <div className="flex gap-2">
-          <span className="chip bg-teal-deep/40 text-teal-light uppercase">{k.profile?.dmg || 'any'}</span>
-          <span className="chip bg-silver/10 text-silver uppercase">{k.profile?.style || 'sustained'}</span>
-        </div>
-      </div>
-
-      <div className="pt-2">
-        <h2 className="font-display text-2xl text-cream mb-1">Our plan</h2>
-        <p className="text-xs text-silver/60 mb-3">
-          Comp, fight notes, route and the decisions behind them — all editable. Today's Sale shows this same plan when you open the encounter.
-        </p>
-      </div>
-      <datalist id="kp-roster-names">
-        {(players?.players || []).map((p) => (<option key={p.id} value={p.name.split('|')[0].trim()} />))}
-      </datalist>
       <PlanView
         plan={plan}
         icons={icons}
         builds={builds}
         players={players?.players || []}
-        editing={editing}
-        onChange={writePlan}
+        editing={false}
       />
 
     </div>
@@ -219,7 +59,6 @@ function BossPage({ wing, boss, onBack }) {
 
 export default function Bible({ target }) {
   const { wings, comps, plans, builds } = useData()
-  const planOverrides = loadPlanOv()
   const [nav, setNav] = useState({ section: 'raid', wingId: null, bossId: null })
 
   useEffect(() => {
@@ -307,7 +146,7 @@ export default function Bible({ target }) {
                   <div className="text-xs text-silver/50 mt-0.5 flex flex-wrap gap-2 items-center">
                     {k?.profile && <span className="uppercase text-teal-light/80">{k.profile.dmg} · {k.profile.style}</span>}
                     {(() => {
-                      const pl = planOverrides[b.id] || plans?.bosses?.[b.id]
+                      const pl = plans?.bosses?.[b.id]
                       if (!pl || planIsEmpty(pl)) return <span className="text-silver/40">no plan</span>
                       const st = PLAN_STATUS[pl.status] || PLAN_STATUS.draft
                       const c = planCoverage(pl, builds)
@@ -317,7 +156,6 @@ export default function Bible({ target }) {
                           <span className={`px-1.5 py-0.5 rounded border text-[10px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
                           <span>{pl.comp?.length || 0} slots</span>
                           {warns > 0 && <span className="text-danger/90 font-semibold">▲ {warns}</span>}
-                          {planOverrides[b.id] && <span className="text-amber-300/90">local edits</span>}
                         </>
                       )
                     })()}

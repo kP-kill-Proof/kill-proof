@@ -2,47 +2,501 @@
   "updated": "2026-07-15",
   "note": "Team knowledge base. Define each boss's ideal comp from the Bible (Edit). Slots are priority-ordered: with N players, the first N slots apply; extra players default to DPS.",
   "bosses": {
-    "vale_guardian": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Tank (highest toughness holds boss)", "Green circles — split between subgroups", "Breakbar CC on Blue Guardian"], "strategy": "", "slots": [] },
-    "gorseval": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Breakbar CC (big)", "Updrafts during egg phase", "Charged souls — kill or kite"], "strategy": "", "slots": [] },
-    "sabetha": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Cannon duty (assign before pull)", "Flame wall dodge", "Bomb kiting"], "strategy": "", "slots": [] },
-    "slothasor": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Mushroom eater order (assign 1-2-3)", "Breakbar CC at low HP", "{Poison} floor management"], "strategy": "", "slots": [] },
-    "trio": { "profile": { "dmg": "condi", "style": "sustained" }, "mechanics": ["Defend the cage", "Adds cleave", "Oils / mortars duty"], "strategy": "", "slots": [] },
-    "matthias": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Instant breakbar CC", "Sacrifice mechanic", "Reflect during bubble", "Corruption run-out"], "strategy": "", "slots": [] },
-    "escort": { "profile": { "dmg": "any", "style": "sustained" }, "mechanics": ["Tower duty (portal/blind)", "Wargs cleave", "Escort Glenna"], "strategy": "", "slots": [] },
-    "keep_construct": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Orb pushing", "Burst during exposed window", "Rift phase"], "strategy": "", "slots": [] },
-    "twisted_castle": { "profile": { "dmg": "any", "style": "sustained" }, "mechanics": ["No LI here — speed run", "{Stability} for haunting statues", "Button order"], "strategy": "", "slots": [] },
-    "xera": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Tank", "Island phase (buttons)", "Shard cleanse"], "strategy": "", "slots": [] },
-    "cairn": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Agony order (assign 1-4 before pull)", "Green teleport circles", "Displacement dodge"], "strategy": "", "slots": [] },
-    "mursaat": { "profile": { "dmg": "any", "style": "sustained" }, "mechanics": ["Claim / Dispel / Protect duties (assign before pull)", "Jade soldier spawns"], "strategy": "", "slots": [] },
-    "samarog": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Big breakbar CC — everyone brings CC", "Fixation tank", "Pull Rigom into boss", "Spear positions"], "strategy": "", "slots": [] },
-    "deimos": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Hand kiter", "Black oil kiter", "Tank (Saul side)", "10% burst finish"], "strategy": "", "slots": [] },
-    "soulless_horror": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Tank swap on Necrosis stacks", "Scythe dodge", "Shrinking arena walls"], "strategy": "", "slots": [] },
-    "river": { "profile": { "dmg": "any", "style": "sustained" }, "mechanics": ["Escort Desmina", "Bomb soak", "{Swiftness} helps a lot"], "strategy": "", "slots": [] },
-    "eyes": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Fixation swap", "Light orb ({Blind} immunity zones)"], "strategy": "", "slots": [] },
-    "eater": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Orb feeding duty", "Spirit adds"], "strategy": "", "slots": [] },
-    "broken_king": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Green ice circles — soak", "Frontal cone"], "strategy": "", "slots": [] },
-    "dhuum": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Green circles duty (assign G1/G2/G3)", "Tank (Deathmark)", "Messenger kiting", "Pre-event at 10%"], "strategy": "", "slots": [] },
-    "ca": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Sword & shield collection duty", "Arm pulls", "Burst body phase"], "strategy": "", "slots": [] },
-    "largos": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Split per platform", "Tidal pool soak", "Dash-through waves"], "strategy": "", "slots": [] },
-    "qadim": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Lamp duty", "Pyre kiting", "Wyvern/Patriarch phase"], "strategy": "", "slots": [] },
-    "sabir": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Tornado kiter", "Big breakbar CC", "Platform phases at 80%/60%"], "strategy": "", "slots": [] },
-    "adina": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Tank", "Pillar positions (assign directions)", "Look away at Radiance", "Hand spawns"], "strategy": "", "slots": [] },
-    "qtp": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Pylon duty ×3 (assign before pull)", "Solo CC on pylons", "Lightning dodges"], "strategy": "", "slots": [] },
-    "greer": { "profile": { "dmg": "condi", "style": "sustained" }, "mechanics": [], "strategy": "Pending team practice.", "slots": [] },
-    "decima": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "Pending team practice.", "slots": [] },
-    "ura": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "Pending team practice.", "slots": [] },
-    "icebrood_construct": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Breakbar CC"], "strategy": "", "slots": [] },
-    "voice_claw": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Kodan split phase"], "strategy": "", "slots": [] },
-    "fraenir": { "profile": { "dmg": "power", "style": "burst" }, "mechanics": ["Ice breakbar"], "strategy": "", "slots": [] },
-    "boneskinner": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Torch duty", "Grasp dodges"], "strategy": "", "slots": [] },
-    "whisper": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": ["Chain break", "Doom spread"], "strategy": "", "slots": [] },
-    "aetherblade": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] },
-    "junkyard": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] },
-    "kaineng": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] },
-    "harvest_temple": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] },
-    "olc": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] },
-    "cosmic_observatory": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] },
-    "temple_of_febe": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] },
-    "guardians_glade": { "profile": { "dmg": "power", "style": "sustained" }, "mechanics": [], "strategy": "", "slots": [] }
+    "vale_guardian": {
+      "profile": {
+        "dmg": "hybrid",
+        "style": "burst",
+        "note": "Power burst is the baseline, but condi builds belong here too: a good share of their damage is power, and Vale Guardian's armor is low enough that they benefit from it."
+      },
+      "mechanics": [
+        "Tank (highest toughness holds boss)",
+        "Green circles — split between subgroups",
+        "Breakbar CC on Blue Guardian"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "gorseval": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Breakbar CC (big)",
+        "Updrafts during egg phase",
+        "Charged souls — kill or kite"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "sabetha": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Cannon duty (assign before pull)",
+        "Flame wall dodge",
+        "Bomb kiting"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "slothasor": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Mushroom eater order (assign 1-2-3)",
+        "Breakbar CC at low HP",
+        "{Poison} floor management"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "trio": {
+      "profile": {
+        "dmg": "condi",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Defend the cage",
+        "Adds cleave",
+        "Oils / mortars duty"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "matthias": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Instant breakbar CC",
+        "Sacrifice mechanic",
+        "Reflect during bubble",
+        "Corruption run-out"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "escort": {
+      "profile": {
+        "dmg": "any",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Tower duty (portal/blind)",
+        "Wargs cleave",
+        "Escort Glenna"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "keep_construct": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Orb pushing",
+        "Burst during exposed window",
+        "Rift phase"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "twisted_castle": {
+      "profile": {
+        "dmg": "any",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "No LI here — speed run",
+        "{Stability} for haunting statues",
+        "Button order"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "xera": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Tank",
+        "Island phase (buttons)",
+        "Shard cleanse"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "cairn": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Agony order (assign 1-4 before pull)",
+        "Green teleport circles",
+        "Displacement dodge"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "mursaat": {
+      "profile": {
+        "dmg": "any",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Claim / Dispel / Protect duties (assign before pull)",
+        "Jade soldier spawns"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "samarog": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Big breakbar CC — everyone brings CC",
+        "Fixation tank",
+        "Pull Rigom into boss",
+        "Spear positions"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "deimos": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Hand kiter",
+        "Black oil kiter",
+        "Tank (Saul side)",
+        "10% burst finish"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "soulless_horror": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Tank swap on Necrosis stacks",
+        "Scythe dodge",
+        "Shrinking arena walls"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "river": {
+      "profile": {
+        "dmg": "any",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Escort Desmina",
+        "Bomb soak",
+        "{Swiftness} helps a lot"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "eyes": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Fixation swap",
+        "Light orb ({Blind} immunity zones)"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "eater": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Orb feeding duty",
+        "Spirit adds"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "broken_king": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Green ice circles — soak",
+        "Frontal cone"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "dhuum": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Green circles duty (assign G1/G2/G3)",
+        "Tank (Deathmark)",
+        "Messenger kiting",
+        "Pre-event at 10%"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "ca": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Sword & shield collection duty",
+        "Arm pulls",
+        "Burst body phase"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "largos": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Split per platform",
+        "Tidal pool soak",
+        "Dash-through waves"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "qadim": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Lamp duty",
+        "Pyre kiting",
+        "Wyvern/Patriarch phase"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "sabir": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Tornado kiter",
+        "Big breakbar CC",
+        "Platform phases at 80%/60%"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "adina": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Tank",
+        "Pillar positions (assign directions)",
+        "Look away at Radiance",
+        "Hand spawns"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "qtp": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Pylon duty ×3 (assign before pull)",
+        "Solo CC on pylons",
+        "Lightning dodges"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "greer": {
+      "profile": {
+        "dmg": "condi",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "Pending team practice.",
+      "slots": []
+    },
+    "decima": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "Pending team practice.",
+      "slots": []
+    },
+    "ura": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "Pending team practice.",
+      "slots": []
+    },
+    "icebrood_construct": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Breakbar CC"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "voice_claw": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Kodan split phase"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "fraenir": {
+      "profile": {
+        "dmg": "power",
+        "style": "burst"
+      },
+      "mechanics": [
+        "Ice breakbar"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "boneskinner": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Torch duty",
+        "Grasp dodges"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "whisper": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [
+        "Chain break",
+        "Doom spread"
+      ],
+      "strategy": "",
+      "slots": []
+    },
+    "aetherblade": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    },
+    "junkyard": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    },
+    "kaineng": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    },
+    "harvest_temple": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    },
+    "olc": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    },
+    "cosmic_observatory": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    },
+    "temple_of_febe": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    },
+    "guardians_glade": {
+      "profile": {
+        "dmg": "power",
+        "style": "sustained"
+      },
+      "mechanics": [],
+      "strategy": "",
+      "slots": []
+    }
   }
 }

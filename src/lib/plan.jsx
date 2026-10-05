@@ -160,36 +160,44 @@ export function CoveragePanel({ cov, compact = false }) {
   )
 }
 
-// What the comp actually puts out, in two columns: boons on the squad and
-// conditions on the boss. Derived from builds.json, so swapping a class updates
-// it without anyone editing the fight.
-function CoverageTable({ cov }) {
-  const cols = [
-    { title: 'Boons on the squad', map: cov.boons, cls: 'text-teal-light' },
-    { title: 'Conditions on the boss', map: cov.condis, cls: 'text-amber-300' },
-  ]
-  if (!cov.boons.size && !cov.condis.size) return null
+const BOON_NAMES = ['Might','Fury','Quickness','Alacrity','Protection','Regeneration','Swiftness','Vigor','Aegis','Stability','Resistance','Resolution']
+const CONDI_NAMES = ['Vulnerability','Bleeding','Burning','Poison','Confusion','Torment','Blind','Chilled','Crippled','Immobilize','Slow','Taunt','Weakness','Fear']
+const matches = (list, s) => list.find((x) => low(s) === low(x) || low(s).startsWith(low(x)))
+
+// Everything the comp covers, pooled across the whole squad. Deliberately NOT
+// split by subgroup: we run 6, so one player sits outside the party and boons
+// do not get delivered the traditional per-subgroup way.
+function squadCoverage(plan, cov) {
+  const boons = new Set()
+  const condis = new Set()
+  const jobs = new Set()
+  for (const [b] of cov.boons) boons.add(b)
+  for (const c of cov.condis) condis.add(c)
+  for (const r of plan?.comp || []) {
+    for (const d of r.duties || []) {
+      const b = matches(BOON_NAMES, d)
+      const c = matches(CONDI_NAMES, d)
+      if (b) boons.add(b)
+      else if (c) condis.add(c)
+      else jobs.add(d)
+    }
+  }
+  return { boons: [...boons], condis: [...condis], jobs: [...jobs] }
+}
+
+function Chips({ title, items, cls, empty }) {
   return (
-    <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
-      {cols.map((c) => (
-        <div key={c.title}>
-          <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1.5">{c.title}</div>
-          {c.map.size === 0 ? (
-            <p className="text-sm text-silver/40 italic">nothing yet</p>
-          ) : (
-            <table className="w-full text-sm">
-              <tbody>
-                {[...c.map.entries()].map(([name, who]) => (
-                  <tr key={name} className="border-b border-teal-deep/15 last:border-0">
-                    <td className={`py-1 pr-3 font-semibold ${c.cls}`}>{name}</td>
-                    <td className="py-1 text-right text-silver/60 text-[13px]">{who.join(' · ') || '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+    <div>
+      <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1.5">{title}</div>
+      {items.length === 0 ? (
+        <p className="text-sm text-silver/40 italic">{empty}</p>
+      ) : (
+        <div className="flex flex-wrap gap-1.5">
+          {items.map((x) => (
+            <span key={x} className={`px-2 py-1 rounded-md text-[12px] font-semibold ${cls}`}>{x}</span>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   )
 }
@@ -302,12 +310,8 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
   const chips = items.filter((x) => x.length <= 26)
   const lines = items.filter((x) => x.length > 26)
   if (!editing) {
-    const icon = resolveBuildIcon(r.build, icons)
     return (
-      <div className="flex gap-3 py-3 border-b border-teal-deep/15 last:border-0 last:pb-1">
-        <div className="w-10 h-10 shrink-0 rounded-lg bg-ink/60 border border-teal-deep/30 flex items-center justify-center overflow-hidden">
-          {icon ? <img src={icon} alt="" className="w-full h-full object-cover" /> : <span className="text-silver/30 text-xs">—</span>}
-        </div>
+      <div className="py-3 border-b border-teal-deep/15 last:border-0 last:pb-1">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
             <RoleChip role={r.role} />
@@ -316,7 +320,6 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
                 {r.role2}
               </span>
             )}
-            {r.build && <span className="text-cream text-[15px] font-semibold leading-tight">{r.build}</span>}
             {r.unsure && (
               <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Taken from the meeting transcript — needs confirming">
                 confirm
@@ -388,6 +391,7 @@ export default function PlanView({
   const steps = plan?.steps || []
   const maps = plan?.maps || []
   const phases = plan?.phases || []
+  const sq = squadCoverage(plan, cov)
   const st = PLAN_STATUS[plan?.status] || PLAN_STATUS.draft
 
   const set = (patch) => onChange?.({ ...plan, ...patch })
@@ -409,46 +413,10 @@ export default function PlanView({
 
   return (
     <div className={compact ? 'space-y-4' : 'space-y-5'}>
-      {!compact && (
-        <div className="flex flex-wrap items-center gap-2">
-          {editing ? (
-            <select className={selCls} value={plan?.status || 'draft'} onChange={(e) => set({ status: e.target.value })}>
-              <option value="draft">Draft</option>
-              <option value="testing">Testing</option>
-              <option value="confirmed">Confirmed</option>
-            </select>
-          ) : (
-            <span className={`px-2 py-0.5 rounded-md border text-[10px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
-          )}
-          <span className="text-xs text-silver/60">6-man · the buyer never counts</span>
-        </div>
-      )}
-
-      {/* ---- the goal ---- */}
-      {/* Kill time deliberately lives in wings.json and is shown in the page
-          header, so there is only ever one source for it. */}
-      {!compact && (editing || plan?.goal) && (
-        <div className="card p-5">
-          {editing ? (
-            <Field
-              textarea
-              value={plan?.goal}
-              placeholder="in one sentence: what has to happen for this to die?"
-              className="w-full min-h-[52px]"
-              onCommit={(v) => set({ goal: v })}
-            />
-          ) : (
-            <p className="text-lg text-cream leading-relaxed">{plan.goal}</p>
-          )}
-        </div>
-      )}
-
-      <CoveragePanel cov={cov} compact={compact} />
-
-      {/* ---- comp ---- */}
+      {/* ---- comp + what it covers, one single block ---- */}
       <Section
         compact={compact}
-        title="Comp"
+        title="Comp & coverage"
         right={
           editing && (
             <button
@@ -478,18 +446,6 @@ export default function PlanView({
                       {comp.filter((r) => r.sub === g).length === 1 ? 'player' : 'players'}
                     </span>
                   </div>
-                  {cov.bySub[g].size > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      {[...cov.bySub[g]].map((b) => (
-                        <span
-                          key={b}
-                          className="px-1.5 py-0.5 rounded bg-teal-deep/25 text-[11px] text-silver/85 leading-tight"
-                        >
-                          {b}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
                 <div className={editing ? 'space-y-2 pt-1' : ''}>
                   {comp.map((r, i) =>
@@ -520,14 +476,26 @@ export default function PlanView({
             ))}
           </div>
         )}
-      </Section>
 
-      {/* ---- what the comp puts out ---- */}
-      {!compact && (cov.boons.size > 0 || cov.condis.size > 0) && (
-        <Section compact={compact} title="What we cover">
-          <CoverageTable cov={cov} />
-        </Section>
-      )}
+        {!compact && (sq.boons.length > 0 || sq.condis.length > 0 || sq.jobs.length > 0) && (
+          <div className="mt-4 pt-4 border-t border-teal-deep/25 grid sm:grid-cols-3 gap-x-6 gap-y-4">
+            <Chips title="Boons on the squad" items={sq.boons} cls="bg-teal-deep/35 text-teal-light" empty="nothing yet" />
+            <Chips title="Conditions on the boss" items={sq.condis} cls="bg-amber-400/15 text-amber-300" empty="nothing yet" />
+            <Chips title="Responsibilities" items={sq.jobs} cls="bg-cream/10 text-cream/90" empty="nothing yet" />
+          </div>
+        )}
+
+        {cov.missingReq.length > 0 && (
+          <ul className="mt-3 space-y-1">
+            {cov.missingReq.map((r) => (
+              <li key={r} className="text-xs text-danger/90 flex items-start gap-1.5">
+                <span className="mt-[2px]">▲</span>
+                <span>Nobody covers {r}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Section>
 
       {/* ---- phases ---- */}
       {!compact && (phases.length > 0 || editing) && (

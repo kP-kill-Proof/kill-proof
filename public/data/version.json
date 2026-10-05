@@ -1,4 +1,4 @@
 {
-  "build": "2026-10-05 19:45 UTC",
-  "includes": "coverage table credits the build, singular player count, kill time only in the header"
+  "build": "2026-10-05 20:30 UTC",
+  "includes": "Bible fight page stripped down: no buttons, no classes, title+damage profile in one block, comp and coverage merged into one section with squad-wide coverage"
 }

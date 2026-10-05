@@ -30,8 +30,14 @@ export function purgeLegacyLocal() {
 
 import { fetchShared } from './sync.js'
 
+// The Bible's plans are maintained in the repo now that the fight page has no
+// editing or publishing controls. Reading the frozen shared copy would shadow
+// the repo forever, so these come straight from the deploy.
+const REPO_ONLY = new Set(['plans'])
+
 // Repo JSON is the baseline; anything the squad saved to the shared store wins.
 export async function loadData(name) {
+  if (REPO_ONLY.has(name)) return loadRepoData(name)
   const [base, shared] = await Promise.all([loadRepoData(name), fetchShared(name)])
   return shared ?? base
 }

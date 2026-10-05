@@ -36,7 +36,7 @@ function cheapestSet(pool, target) {
   return dp[target]
 }
 
-export function buildSaleList({ wings, dailyIds, discarded, liTarget, pinned = [] }) {
+export function buildSaleList({ wings, dailyIds, discarded, liTarget, pinned = [], forced = [] }) {
   const all = flattenBosses(wings)
   const isDiscarded = (id) => discarded.includes(id)
 
@@ -52,33 +52,41 @@ export function buildSaleList({ wings, dailyIds, discarded, liTarget, pinned = [
   const T = Math.max(0, liTarget)
   let selected = []
   let reached = T === 0
+  // No target yet: still show whatever was already killed today.
+  if (T === 0) selected = candidates.filter((c) => forced.includes(c.id))
 
   if (T > 0) {
     // Skipping a fight is a SWAP, not a replan: every encounter the commander
     // already accepted is pinned, and only the LI left behind by the skipped one
     // gets re-solved. Without this, dropping one boss reshuffles the whole day.
-    const keep = new Set(pinned.filter((id) => !isDiscarded(id)))
+    // Fights already killed today (planned or added by hand) are locked in: they
+    // count toward the target and can never be shuffled out of the day.
+    const mustIds = new Set(forced)
+    const must = candidates.filter((c) => mustIds.has(c.id))
+    const mustLi = must.reduce((s, c) => s + c.effLi, 0)
+    const keep = new Set([...mustIds, ...pinned.filter((id) => !isDiscarded(id))])
     let kept = candidates.filter((c) => keep.has(c.id))
     let keptLi = kept.reduce((s, c) => s + c.effLi, 0)
-    // The target moved below what is already pinned — the pins no longer make
-    // sense, so fall back to planning the day from scratch.
+    // Pins plus what is already done overshoot the target (the target moved, or
+    // an extra kill was added): keep only what is done and plan the rest again.
     if (keptLi > T) {
-      kept = []
-      keptLi = 0
+      kept = must
+      keptLi = mustLi
+      keep.clear()
+      for (const c of must) keep.add(c.id)
     }
-
     const solved = kept.length
-      ? cheapestSet(candidates.filter((c) => !keep.has(c.id)), T - keptLi)
+      ? cheapestSet(candidates.filter((c) => !keep.has(c.id)), Math.max(0, T - keptLi))
       : cheapestSet(candidates, T)
 
     if (solved) {
       selected = [...kept, ...solved.items]
       reached = true
     } else {
-      // Nothing fits around the pins: drop them and try the whole day again.
-      const free = cheapestSet(candidates, T)
+      // Nothing fits around the pins: keep only what is done and plan the rest.
+      const free = cheapestSet(candidates.filter((c) => !mustIds.has(c.id)), Math.max(0, T - mustLi))
       if (free) {
-        selected = free.items
+        selected = [...must, ...free.items]
         reached = true
       } else {
         selected = candidates

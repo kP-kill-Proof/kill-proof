@@ -1,4 +1,4 @@
 {
-  "build": "2026-10-05 23:00 UTC",
-  "includes": "every comp slot always shows Provides and Responsibilities"
+  "build": "2026-10-05 23:30 UTC",
+  "includes": "LI target defaults to 25; add a fight we killed off-plan, it counts toward the target and completed fights stay locked in the day"
 }

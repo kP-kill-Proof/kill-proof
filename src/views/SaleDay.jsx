@@ -422,12 +422,15 @@ export default function SaleDay() {
     })
     return out
   }
-  const [liTargetStr, setLiTargetStr] = useState(run0.liTargetStr ?? '10')
+  const [liTargetStr, setLiTargetStr] = useState(run0.liTargetStr ?? '25')
   const [discarded, setDiscarded] = useState(run0.discarded ?? [])
   // Encounters the commander has already accepted. Skipping one pins the rest so
   // only the gap it leaves gets re-solved.
   const [pinned, setPinned] = useState(run0.pinned ?? [])
   const [completed, setCompleted] = useState(run0.completed ?? [])
+  // Fights killed today that were not in the plan, added by hand.
+  const [extras, setExtras] = useState(run0.extras ?? [])
+  const [adding, setAdding] = useState(false)
   const [roster, setRoster] = useState(() => slotify(run0.roster))
   const [selected, setSelected] = useState(null)
   const [dailies, setDailies] = useState(null)
@@ -448,14 +451,14 @@ export default function SaleDay() {
   }, [wings])
 
   useEffect(() => {
-    localStorage.setItem(dayKey(), JSON.stringify({ liTargetStr, discarded, completed, roster, pinned }))
-  }, [liTargetStr, discarded, completed, roster, pinned])
+    localStorage.setItem(dayKey(), JSON.stringify({ liTargetStr, discarded, completed, roster, pinned, extras }))
+  }, [liTargetStr, discarded, completed, roster, pinned, extras])
 
   const dailyIds = (dailies || []).map((d) => d.bossId).filter(Boolean)
 
   const sale = useMemo(
-    () => buildSaleList({ wings: wings.wings, dailyIds, discarded, liTarget, pinned }),
-    [wings, dailies, discarded, liTarget, pinned]
+    () => buildSaleList({ wings: wings.wings, dailyIds, discarded, liTarget, pinned, forced: completed }),
+    [wings, dailies, discarded, liTarget, pinned, completed]
   )
 
   const presentPlayers = roster
@@ -475,7 +478,21 @@ export default function SaleDay() {
   // cover the LI left behind by a skipped fight.
   const swappedIn = pinned.length ? sale.list.filter((b) => !pinned.includes(b.id)) : []
 
-  const toggleDone = (id) => setCompleted((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
+  const toggleDone = (id) => {
+    if (completed.includes(id)) {
+      setCompleted((c) => c.filter((x) => x !== id))
+      setExtras((e) => e.filter((x) => x !== id)) // an added kill un-done simply goes away
+    } else setCompleted((c) => [...c, id])
+  }
+  // Log a fight we killed that the plan did not have. It counts toward the
+  // target, so the rest of the day shrinks to match.
+  const addKill = (id) => {
+    if (!id) return
+    setDiscarded((d) => d.filter((x) => x !== id))
+    setExtras((e) => (e.includes(id) ? e : [...e, id]))
+    setCompleted((c) => (c.includes(id) ? c : [...c, id]))
+    setAdding(false)
+  }
   const skip = (id) => {
     // Pin everything else first, so only this fight's LI gets re-solved.
     setPinned(sale.list.filter((b) => b.id !== id).map((b) => b.id))
@@ -492,6 +509,7 @@ export default function SaleDay() {
     setCompleted([])
     setDiscarded([])
     setPinned([])
+    setExtras([])
   }
   const slotIndexOf = (id) => roster.findIndex((r) => r && r.id === id)
   const dropOnSlot = (id, i) => {
@@ -646,6 +664,38 @@ export default function SaleDay() {
             )
           })}
 
+          <div className="pt-2">
+            {adding ? (
+              <select
+                autoFocus
+                className={`${'w-full rounded-xl bg-ink/70 border border-teal/50 px-3 py-2 text-sm text-cream'}`}
+                defaultValue=""
+                onChange={(e) => addKill(e.target.value)}
+                onBlur={() => setAdding(false)}
+              >
+                <option value="" disabled>Which fight did we kill?</option>
+                {wings.wings.map((w) => (
+                  <optgroup key={w.id} label={`${w.short} · ${w.name}`}>
+                    {w.bosses
+                      .filter((b) => (b.li ?? 1) > 0 && !completed.includes(b.id))
+                      .map((b) => (
+                        <option key={b.id} value={b.id}>
+                          {b.name}{dailyIds.includes(b.id) ? ' ★' : ''}
+                        </option>
+                      ))}
+                  </optgroup>
+                ))}
+              </select>
+            ) : (
+              <button
+                className="w-full rounded-xl border border-dashed border-teal/40 py-2.5 text-sm font-semibold text-teal-light/90 hover:text-cream hover:border-teal-light cursor-pointer"
+                onClick={() => setAdding(true)}
+              >
+                + Add a fight we killed
+              </button>
+            )}
+          </div>
+
           {completed.length > 0 && (
             <div className="pt-3">
               <h3 className="text-[10px] uppercase tracking-widest text-teal-light/60 font-bold mb-1.5">Completed ({completed.length})</h3>
@@ -659,7 +709,7 @@ export default function SaleDay() {
                       className="chip border border-teal/40 text-teal-light/80 hover:text-cream hover:border-teal-light cursor-pointer"
                       title="Click to move back to the run"
                     >
-                      ✓ {b?.name || id}
+                      ✓ {b?.name || id}{extras.includes(id) ? ' · added' : ''}
                     </button>
                   )
                 })}

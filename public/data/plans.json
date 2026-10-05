@@ -29,79 +29,85 @@
       "status": "draft",
       "comp": [
         {
-          "sub": 1,
+          "sub": 2,
           "role": "Heal",
           "role2": "Alacrity",
-          "build": "Heal Alac Druid",
-          "purpose": "Keeps the squad up and holds the fight together: controls the seekers, lands the main CC and pulls the greens.",
-          "duties": [
+          "title": "Heal Alacrity",
+          "build": "",
+          "provides": [
             "Alacrity",
-            "Seeker control",
-            "Main CC",
-            "Pull green",
+            "Might",
             "Fury",
             "Protection"
           ],
-          "note": ""
+          "duties": [
+            "Seeker control",
+            "Main CC",
+            "Pull green"
+          ]
         },
         {
           "sub": 1,
           "role": "Support",
           "role2": "Quickness",
+          "title": "Quick Power DPS",
           "build": "",
-          "purpose": "Quickness plus real damage: this slot is expected to burst, not just buff.",
-          "duties": [
+          "provides": [
             "Quickness",
-            "Burst",
-            "Might (8-10 stacks avg)"
+            {
+              "name": "Might",
+              "value": "8–10 stacks avg"
+            }
           ],
-          "note": ""
+          "duties": [
+            "Good burst"
+          ]
         },
         {
           "sub": 1,
           "role": "DPS",
           "role2": "Condi",
+          "title": "Condi DPS",
           "build": "",
-          "purpose": "Hybrid damage is ideal here to take advantage of Vale Guardian's low armor.",
-          "duties": [
-            "Condi",
+          "provides": [
             "Vulnerability"
           ],
-          "note": ""
+          "duties": [
+            "Hybrid dmg ideal to benefit from the low VG armor"
+          ]
         },
         {
-          "sub": 2,
+          "sub": 1,
           "role": "DPS",
           "role2": "Condi",
+          "title": "Condi DPS",
           "build": "",
-          "purpose": "Hybrid damage is ideal here to take advantage of Vale Guardian's low armor.",
-          "duties": [
-            "Condi",
+          "provides": [
             "Vulnerability"
           ],
-          "note": ""
+          "duties": [
+            "Hybrid dmg ideal to benefit from the low VG armor"
+          ]
         },
         {
-          "sub": 2,
+          "sub": 1,
           "role": "DPS",
           "role2": "Power",
+          "title": "Power DPS",
           "build": "",
-          "purpose": "Burst damage for the guardian phases and the split pushes.",
           "duties": [
-            "Burst"
-          ],
-          "note": ""
+            "Good burst"
+          ]
         },
         {
-          "sub": 2,
+          "sub": 1,
           "role": "DPS",
           "role2": "Power",
+          "title": "Power DPS",
           "build": "",
-          "purpose": "Burst damage for the guardian phases and the split pushes.",
           "duties": [
-            "Burst"
-          ],
-          "note": ""
+            "Good burst"
+          ]
         }
       ],
       "notes": [
@@ -136,11 +142,7 @@
         }
       ],
       "rejected": [],
-      "gaps": [
-        "Every phase still needs its goal, its steps and its arena image — Herman dictates, Claude structures.",
-        "The comp purposes come from the Vale Guardian slide; confirm they match how we actually run it."
-      ],
-      "goal": "Kill the three coloured guardians to drop the blue shield, then burn Vale Guardian while keeping the greens soaked and the seekers off the stack.",
+      "gaps": [],
       "phases": [
         {
           "label": "Phase 1",

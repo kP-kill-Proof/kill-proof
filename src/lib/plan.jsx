@@ -103,12 +103,12 @@ export function planIsEmpty(plan) {
 }
 
 // ---------------------------------------------------------------- small bits
-function DutyChip({ duty, icons }) {
+function DutyChip({ duty, label, icons }) {
   const url = lookupToken(duty, icons)
   return (
-    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-teal-deep/30 border border-teal/30 text-[11px] text-cream/90">
-      {url && <img src={url} alt="" className="w-3.5 h-3.5" />}
-      {duty}
+    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-teal-deep/30 border border-teal/30 text-[13px] text-cream/90">
+      {url && <img src={url} alt="" className="w-4 h-4" />}
+      {label || duty}
     </span>
   )
 }
@@ -160,44 +160,63 @@ export function CoveragePanel({ cov, compact = false }) {
   )
 }
 
-const BOON_NAMES = ['Might','Fury','Quickness','Alacrity','Protection','Regeneration','Swiftness','Vigor','Aegis','Stability','Resistance','Resolution']
-const CONDI_NAMES = ['Vulnerability','Bleeding','Burning','Poison','Confusion','Torment','Blind','Chilled','Crippled','Immobilize','Slow','Taunt','Weakness','Fear']
-const matches = (list, s) => list.find((x) => low(s) === low(x) || low(s).startsWith(low(x)))
+const canon = (keys, s) => keys.find((k) => low(s) === low(k) || low(s).startsWith(low(k)))
 
 // Everything the comp covers, pooled across the whole squad. Deliberately NOT
-// split by subgroup: we run 6, so one player sits outside the party and boons
-// do not get delivered the traditional per-subgroup way.
-function squadCoverage(plan, cov) {
+// split by subgroup: we run 6, so the healer sits apart and boons do not get
+// delivered the traditional per-subgroup way.
+function squadCoverage(plan, cov, icons) {
+  const BOONS = Object.keys(icons?.boons || {})
+  const CONDIS = Object.keys(icons?.conditions || {})
   const boons = new Set()
   const condis = new Set()
-  const jobs = new Set()
-  for (const [b] of cov.boons) boons.add(b)
-  for (const c of cov.condis) condis.add(c)
-  for (const r of plan?.comp || []) {
-    for (const d of r.duties || []) {
-      const b = matches(BOON_NAMES, d)
-      const c = matches(CONDI_NAMES, d)
-      if (b) boons.add(b)
-      else if (c) condis.add(c)
-      else jobs.add(d)
-    }
+  const add = (name) => {
+    const b = canon(BOONS, name)
+    const c = canon(CONDIS, name)
+    if (b) boons.add(b)
+    else if (c) condis.add(c)
   }
-  return { boons: [...boons], condis: [...condis], jobs: [...jobs] }
+  for (const [b] of cov.boons) add(b)
+  for (const [c] of cov.condis) add(c)
+  for (const r of plan?.comp || []) {
+    for (const d of r.duties || []) add(d)
+    for (const x of r.provides || []) add(typeof x === 'string' ? x : x.name)
+  }
+  return { BOONS, CONDIS, boons, condis }
 }
 
-function Chips({ title, items, cls, empty }) {
+// One icon per boon/condition, like an in-game buff bar. Dimmed means nobody in
+// the plan is assigned to it; a red ring means it is one of the must-haves.
+// A number only shows when the plan states one — never estimated.
+function CoverageGrid({ title, names, on, values = {}, must = [], icons, kind }) {
   return (
     <div>
-      <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1.5">{title}</div>
-      {items.length === 0 ? (
-        <p className="text-sm text-silver/40 italic">{empty}</p>
-      ) : (
-        <div className="flex flex-wrap gap-1.5">
-          {items.map((x) => (
-            <span key={x} className={`px-2 py-1 rounded-md text-[12px] font-semibold ${cls}`}>{x}</span>
-          ))}
-        </div>
-      )}
+      <div className="text-xs uppercase tracking-widest text-silver/60 font-bold mb-2">{title}</div>
+      <div className="flex flex-wrap gap-x-2 gap-y-3">
+        {names.map((n) => {
+          const active = on.has(n)
+          const missing = !active && must.some((m) => low(m) === low(n))
+          const url = icons?.[kind]?.[n]
+          const v = values[n]
+          return (
+            <div key={n} title={active ? n : `${n} — nobody assigned`} className="w-[68px] flex flex-col items-center gap-1">
+              <div
+                className={`relative w-12 h-12 rounded-lg flex items-center justify-center bg-ink/60 border ${
+                  missing ? 'border-danger ring-2 ring-danger/60' : active ? 'border-teal/40' : 'border-teal-deep/20'
+                }`}
+              >
+                {url && <img src={url} alt="" className={`w-9 h-9 ${active ? '' : 'opacity-25 grayscale'}`} />}
+                {v && active && (
+                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-1.5 rounded bg-ink border border-cream/30 text-[11px] font-bold text-cream tabular-nums">
+                    {v}
+                  </span>
+                )}
+              </div>
+              <span className={`text-[12px] text-center leading-tight ${missing ? 'text-danger' : active ? 'text-cream/90' : 'text-silver/35'}`}>{n}</span>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -310,41 +329,44 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
   const chips = items.filter((x) => x.length <= 26)
   const lines = items.filter((x) => x.length > 26)
   if (!editing) {
+    const provides = (r.provides || []).map((x) => (typeof x === 'string' ? { name: x } : x))
+    const title = r.title || [r.role2, r.role].filter(Boolean).join(' ')
     return (
-      <div className="py-3 border-b border-teal-deep/15 last:border-0 last:pb-1">
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
-            <RoleChip role={r.role} />
-            {r.role2 && (
-              <span className="px-2 py-0.5 rounded-md bg-cream/10 border border-cream/25 text-cream text-[11px] font-bold uppercase tracking-wide">
-                {r.role2}
-              </span>
-            )}
-            {r.unsure && (
-              <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Taken from the meeting transcript — needs confirming">
-                confirm
-              </span>
-            )}
-          </div>
-          {r.purpose && (
-            <div className="text-[13px] text-silver/75 leading-relaxed mt-1">{r.purpose}</div>
+      <div className="py-3.5 border-b border-teal-deep/15 last:border-0 last:pb-1">
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+          <RoleChip role={r.role} />
+          <span className="text-[17px] font-bold text-cream leading-tight">{title}</span>
+          {r.unsure && (
+            <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Needs confirming">
+              confirm
+            </span>
           )}
-          {chips.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-1.5">
+        </div>
+        {provides.length > 0 && (
+          <div className="mt-2.5">
+            <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1">Provides</div>
+            <div className="flex flex-wrap gap-1.5">
+              {provides.map((p, j) => (
+                <DutyChip key={j} duty={p.name} label={p.value ? `${p.name} · ${p.value}` : p.name} icons={icons} />
+              ))}
+            </div>
+          </div>
+        )}
+        {chips.length > 0 && (
+          <div className="mt-2.5">
+            <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1">Responsibilities</div>
+            <div className="flex flex-wrap gap-1.5">
               {chips.map((d, j) => (
                 <DutyChip key={j} duty={d} icons={icons} />
               ))}
             </div>
-          )}
-          {lines.map((t, j) => (
-            <div
-              key={j}
-              className={`mt-1.5 text-[13px] leading-relaxed ${t.includes('⚙') ? 'text-amber-300/90' : 'text-silver/75'}`}
-            >
-              <NotesText text={t} icons={icons} />
-            </div>
-          ))}
-        </div>
+          </div>
+        )}
+        {lines.map((t, j) => (
+          <div key={j} className={`mt-2 text-[14px] leading-relaxed ${t.includes('⚙') ? 'text-amber-300/90' : 'text-silver/80'}`}>
+            <NotesText text={t} icons={icons} />
+          </div>
+        ))}
       </div>
     )
   }
@@ -391,7 +413,7 @@ export default function PlanView({
   const steps = plan?.steps || []
   const maps = plan?.maps || []
   const phases = plan?.phases || []
-  const sq = squadCoverage(plan, cov)
+  const sq = squadCoverage(plan, cov, icons)
   const st = PLAN_STATUS[plan?.status] || PLAN_STATUS.draft
 
   const set = (patch) => onChange?.({ ...plan, ...patch })
@@ -477,23 +499,11 @@ export default function PlanView({
           </div>
         )}
 
-        {!compact && (sq.boons.length > 0 || sq.condis.length > 0 || sq.jobs.length > 0) && (
-          <div className="mt-4 pt-4 border-t border-teal-deep/25 grid sm:grid-cols-3 gap-x-6 gap-y-4">
-            <Chips title="Boons on the squad" items={sq.boons} cls="bg-teal-deep/35 text-teal-light" empty="nothing yet" />
-            <Chips title="Conditions on the boss" items={sq.condis} cls="bg-amber-400/15 text-amber-300" empty="nothing yet" />
-            <Chips title="Responsibilities" items={sq.jobs} cls="bg-cream/10 text-cream/90" empty="nothing yet" />
+        {!compact && (
+          <div className="mt-5 pt-5 border-t border-teal-deep/25 space-y-5">
+            <CoverageGrid title="Boons on the squad" names={sq.BOONS} on={sq.boons} values={plan?.values} must={BASELINE_REQUIRES} icons={icons} kind="boons" />
+            <CoverageGrid title="Conditions on the boss" names={sq.CONDIS} on={sq.condis} values={plan?.values} must={BASELINE_REQUIRES} icons={icons} kind="conditions" />
           </div>
-        )}
-
-        {cov.missingReq.length > 0 && (
-          <ul className="mt-3 space-y-1">
-            {cov.missingReq.map((r) => (
-              <li key={r} className="text-xs text-danger/90 flex items-start gap-1.5">
-                <span className="mt-[2px]">▲</span>
-                <span>Nobody covers {r}</span>
-              </li>
-            ))}
-          </ul>
         )}
       </Section>
 
@@ -538,7 +548,9 @@ export default function PlanView({
       )}
 
       {/* ---- fight notes ---- */}
-      {(notes.length > 0 || editing) && (
+      {/* Once a fight is split into phases, its notes live inside each phase.
+          Fights not migrated yet keep showing their old notes so nothing is lost. */}
+      {(notes.length > 0 || editing) && phases.length === 0 && (
         <Section
           compact={compact}
           title="Fight notes"

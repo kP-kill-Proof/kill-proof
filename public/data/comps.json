@@ -6,7 +6,16 @@
       "profile": {
         "dmg": "hybrid",
         "style": "burst",
-        "note": "Power burst is the baseline, but condi builds belong here too: a good share of their damage is power, and Vale Guardian's armor is low enough that they benefit from it."
+        "tags": [
+          "Power",
+          "Condi hybrid",
+          "Burst"
+        ],
+        "notes": [
+          "Power burst is the ideal.",
+          "For condi, a good hybrid build is the most optimal way to do it.",
+          "Vale Guardian has very low armor, so condi builds with a big chunk of power damage are very beneficial."
+        ]
       },
       "mechanics": [
         "Tank (highest toughness holds boss)",

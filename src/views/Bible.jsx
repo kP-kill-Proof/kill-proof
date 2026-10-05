@@ -31,11 +31,21 @@ function BossPage({ wing, boss, onBack }) {
             )}
           </div>
           <div className="flex flex-wrap gap-2 mt-3">
-            <span className="chip bg-teal-deep/40 text-teal-light uppercase">{k.profile?.dmg || 'any'}</span>
-            <span className="chip bg-silver/10 text-silver uppercase">{k.profile?.style || 'sustained'}</span>
+            {(k.profile?.tags || [k.profile?.dmg || 'any', k.profile?.style || 'sustained']).map((t, i) => (
+              <span key={t} className={`px-3 py-1 rounded-lg text-sm font-bold uppercase tracking-wide ${i === 0 ? 'bg-teal-deep/50 text-teal-light' : 'bg-silver/10 text-silver'}`}>
+                {t}
+              </span>
+            ))}
           </div>
-          {k.profile?.note && (
-            <p className="text-[13px] text-silver/65 mt-2 max-w-2xl leading-relaxed">{k.profile.note}</p>
+          {(k.profile?.notes || (k.profile?.note ? [k.profile.note] : [])).length > 0 && (
+            <ul className="mt-3 space-y-1.5 max-w-3xl">
+              {(k.profile.notes || [k.profile.note]).map((n, i) => (
+                <li key={i} className="flex gap-2 text-[15px] text-cream/85 leading-relaxed">
+                  <span className="text-teal-light mt-[1px]">•</span>
+                  <span>{n}</span>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
         <div className="text-right shrink-0">

@@ -544,12 +544,9 @@ export default function SaleDay() {
                     <span className="strike-name font-bold text-cream text-sm truncate block" title={b.name}>
                       {b.name} {b.isDaily && <span className="text-cream/90">★</span>}
                     </span>
-                    {/* Tags on their own line so a long boss name can never cut them off. */}
-                    {(isNext || b.preEvent) && (
+                    {/* The list is already in run order, so no 'next' tag; pre-event gets its own line. */}
+                    {b.preEvent && (
                       <span className="flex gap-1.5 mt-0.5">
-                        {isNext && (
-                          <span className="px-1.5 rounded bg-teal/25 text-teal-light text-[10px] font-bold uppercase tracking-wider">Next</span>
-                        )}
                         {b.preEvent && (
                           <span className="px-1.5 rounded bg-danger/15 text-danger/90 text-[10px] font-bold uppercase tracking-wider" title="Mandatory pre-event included">
                             Pre-event

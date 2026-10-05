@@ -541,11 +541,22 @@ export default function SaleDay() {
                   </button>
                   <span className="text-silver/40 font-bold w-4 text-right text-sm shrink-0">{i + 1}</span>
                   <div className="flex-1 min-w-0">
-                    <span className="strike-name font-bold text-cream text-sm truncate block">
+                    <span className="strike-name font-bold text-cream text-sm truncate block" title={b.name}>
                       {b.name} {b.isDaily && <span className="text-cream/90">★</span>}
-                      {b.preEvent && <span className="text-danger/70 text-xs font-normal ml-1" title="Mandatory pre-event included">+pre</span>}
-                      {isNext && <span className="text-teal-light text-xs font-normal ml-1">next</span>}
                     </span>
+                    {/* Tags on their own line so a long boss name can never cut them off. */}
+                    {(isNext || b.preEvent) && (
+                      <span className="flex gap-1.5 mt-0.5">
+                        {isNext && (
+                          <span className="px-1.5 rounded bg-teal/25 text-teal-light text-[10px] font-bold uppercase tracking-wider">Next</span>
+                        )}
+                        {b.preEvent && (
+                          <span className="px-1.5 rounded bg-danger/15 text-danger/90 text-[10px] font-bold uppercase tracking-wider" title="Mandatory pre-event included">
+                            Pre-event
+                          </span>
+                        )}
+                      </span>
+                    )}
                   </div>
                   <div className="text-right shrink-0 leading-tight">
                     <div className="font-bold text-cream tabular-nums text-sm">{fmtTime(b.time)}</div>

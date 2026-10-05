@@ -26,49 +26,45 @@
   ],
   "bosses": {
     "vale_guardian": {
-      "status": "confirmed",
+      "status": "draft",
       "comp": [
         {
           "sub": 1,
           "role": "Heal",
-          "role2": "",
-          "build": "Heal Alac Druid",
-          "player": "Vexio",
+          "role2": "Alacrity",
+          "build": "",
+          "purpose": "Keeps the squad up and holds the fight together: controls the seekers, lands the main CC and pulls the greens.",
           "duties": [
             "Alacrity",
-            "Heal"
+            "Seeker control",
+            "Main CC",
+            "Pull green",
+            "Fury",
+            "Protection"
           ],
           "note": ""
         },
         {
           "sub": 1,
           "role": "Support",
-          "role2": "",
-          "build": "Condi Quick Firebrand",
-          "player": "",
+          "role2": "Quickness",
+          "build": "",
+          "purpose": "Quickness plus real damage: this slot is expected to burst, not just buff.",
           "duties": [
-            "Quickness"
+            "Quickness",
+            "Burst",
+            "Might (8-10 stacks avg)"
           ],
           "note": ""
         },
         {
           "sub": 1,
           "role": "DPS",
-          "role2": "",
-          "build": "Condi DPS",
-          "player": "",
+          "role2": "Condi",
+          "build": "",
+          "purpose": "Hybrid damage is ideal here to take advantage of Vale Guardian's low armor.",
           "duties": [
-            "Condi"
-          ],
-          "note": ""
-        },
-        {
-          "sub": 2,
-          "role": "DPS",
-          "role2": "",
-          "build": "Condi DPS",
-          "player": "",
-          "duties": [
+            "Condi",
             "Vulnerability"
           ],
           "note": ""
@@ -76,19 +72,35 @@
         {
           "sub": 2,
           "role": "DPS",
-          "role2": "",
-          "build": "Power DPS",
-          "player": "",
-          "duties": [],
+          "role2": "Condi",
+          "build": "",
+          "purpose": "Hybrid damage is ideal here to take advantage of Vale Guardian's low armor.",
+          "duties": [
+            "Condi",
+            "Vulnerability"
+          ],
           "note": ""
         },
         {
           "sub": 2,
           "role": "DPS",
-          "role2": "",
-          "build": "Power DPS",
-          "player": "",
-          "duties": [],
+          "role2": "Power",
+          "build": "",
+          "purpose": "Burst damage for the guardian phases and the split pushes.",
+          "duties": [
+            "Burst"
+          ],
+          "note": ""
+        },
+        {
+          "sub": 2,
+          "role": "DPS",
+          "role2": "Power",
+          "build": "",
+          "purpose": "Burst damage for the guardian phases and the split pushes.",
+          "duties": [
+            "Burst"
+          ],
           "note": ""
         }
       ],
@@ -125,7 +137,53 @@
       ],
       "rejected": [],
       "gaps": [
-        "Spirit Woods skipped for now"
+        "Every phase still needs its goal, its steps and its arena image — Herman dictates, Claude structures.",
+        "Expected kill time missing.",
+        "The comp purposes come from the Vale Guardian slide; confirm they match how we actually run it."
+      ],
+      "goal": "Kill the three coloured guardians to drop the blue shield, then burn Vale Guardian while keeping the greens soaked and the seekers off the stack.",
+      "kill": "",
+      "phases": [
+        {
+          "label": "Phase 1",
+          "from": 100,
+          "to": 66,
+          "goal": "",
+          "steps": [],
+          "map": null
+        },
+        {
+          "label": "Split 1",
+          "from": 66,
+          "to": 66,
+          "goal": "",
+          "steps": [],
+          "map": null
+        },
+        {
+          "label": "Phase 2",
+          "from": 66,
+          "to": 33,
+          "goal": "",
+          "steps": [],
+          "map": null
+        },
+        {
+          "label": "Split 2",
+          "from": 33,
+          "to": 33,
+          "goal": "",
+          "steps": [],
+          "map": null
+        },
+        {
+          "label": "Phase 3",
+          "from": 33,
+          "to": 0,
+          "goal": "",
+          "steps": [],
+          "map": null
+        }
       ]
     },
     "gorseval": {

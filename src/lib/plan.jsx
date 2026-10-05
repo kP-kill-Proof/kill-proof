@@ -44,16 +44,30 @@ export function planCoverage(plan, buildsData) {
   const comp = plan?.comp || []
   const covered = new Set()
   const bySub = { 1: new Set(), 2: new Set() }
+  // Kept apart from `covered` so the fight page can show two honest columns:
+  // what the squad gets, and what actually lands on the boss.
+  const boons = new Map()
+  const condis = new Map()
+  const addTo = (map, name, who) => {
+    const k = name
+    if (!map.has(k)) map.set(k, [])
+    if (who && !map.get(k).includes(who)) map.get(k).push(who)
+  }
 
   for (const r of comp) {
+    const who = r.role2 || r.role
     for (const d of r.duties || []) covered.add(low(d))
     const info = resolveBuildInfo(r.build, buildsData)
     if (!info) continue
     for (const b of info.boons || []) {
       covered.add(low(b))
       bySub[r.sub]?.add(b)
+      addTo(boons, b, who)
     }
-    for (const c of info.condis || []) covered.add(low(c))
+    for (const c of info.condis || []) {
+      covered.add(low(c))
+      addTo(condis, c, who)
+    }
   }
 
   const isCovered = (req) => {
@@ -69,6 +83,8 @@ export function planCoverage(plan, buildsData) {
   return {
     covered,
     bySub,
+    boons,
+    condis,
     missingReq: requires.filter((r) => !isCovered(r)),
     okReq: requires.filter((r) => isCovered(r)),
     // a note pointing at a comp row that no longer exists lost its owner
@@ -142,6 +158,128 @@ export function CoveragePanel({ cov, compact = false }) {
   )
 }
 
+// What the comp actually puts out, in two columns: boons on the squad and
+// conditions on the boss. Derived from builds.json, so swapping a class updates
+// it without anyone editing the fight.
+function CoverageTable({ cov }) {
+  const cols = [
+    { title: 'Boons on the squad', map: cov.boons, cls: 'text-teal-light' },
+    { title: 'Conditions on the boss', map: cov.condis, cls: 'text-amber-300' },
+  ]
+  if (!cov.boons.size && !cov.condis.size) return null
+  return (
+    <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
+      {cols.map((c) => (
+        <div key={c.title}>
+          <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1.5">{c.title}</div>
+          {c.map.size === 0 ? (
+            <p className="text-sm text-silver/40 italic">nothing yet</p>
+          ) : (
+            <table className="w-full text-sm">
+              <tbody>
+                {[...c.map.entries()].map(([name, who]) => (
+                  <tr key={name} className="border-b border-teal-deep/15 last:border-0">
+                    <td className={`py-1 pr-3 font-semibold ${c.cls}`}>{name}</td>
+                    <td className="py-1 text-right text-silver/60 text-[13px]">{who.join(' · ') || '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// One phase of the fight: the HP window it covers, what we are trying to do in
+// it, the ordered steps, and its own arena picture. The fight is split this way
+// because this is the part that never changes when the meta does.
+function PhaseBlock({ ph, i, editing, icons, onChange, onDelete, onMove, last }) {
+  const steps = ph.steps || []
+  const setSteps = (v) => onChange({ ...ph, steps: v })
+  const range = [ph.from, ph.to].filter((x) => x != null)
+  return (
+    <div className="rounded-xl border border-teal-deep/25 bg-ink/40 p-4">
+      <div className="flex flex-wrap items-center gap-2 mb-2">
+        {editing ? (
+          <>
+            <Field value={ph.label} placeholder="phase name" className="w-48" onCommit={(v) => onChange({ ...ph, label: v })} />
+            <Field value={ph.from ?? ''} placeholder="from %" className="w-20" onCommit={(v) => onChange({ ...ph, from: v === '' ? null : Number(v) })} />
+            <span className="text-silver/40">→</span>
+            <Field value={ph.to ?? ''} placeholder="to %" className="w-20" onCommit={(v) => onChange({ ...ph, to: v === '' ? null : Number(v) })} />
+            <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={i === 0} onClick={() => onMove(-1)}>↑</button>
+            <button className="px-1 text-silver hover:text-cream disabled:opacity-30" disabled={last} onClick={() => onMove(1)}>↓</button>
+            <button className="px-1 text-danger/70 hover:text-danger ml-auto" onClick={onDelete}>✕</button>
+          </>
+        ) : (
+          <>
+            <span className="text-sm uppercase tracking-[0.15em] text-teal-light font-bold">{ph.label || `Phase ${i + 1}`}</span>
+            {range.length === 2 && (
+              <span className="px-2 py-0.5 rounded-md bg-teal-deep/30 text-[11px] text-silver/80 tabular-nums">
+                {ph.from}% → {ph.to}%
+              </span>
+            )}
+          </>
+        )}
+      </div>
+
+      {editing ? (
+        <Field
+          value={ph.goal}
+          placeholder="what are we trying to do in this phase?"
+          className="w-full mb-2"
+          onCommit={(v) => onChange({ ...ph, goal: v })}
+        />
+      ) : (
+        ph.goal && <p className="text-[15px] text-cream/90 mb-2 leading-relaxed">{ph.goal}</p>
+      )}
+
+      <ol className="space-y-1.5">
+        {steps.map((s, j) => (
+          <li key={j} className="flex items-start gap-2 text-sm">
+            <span className="w-6 h-6 shrink-0 rounded-full bg-teal-deep/50 border border-teal/40 text-teal-light text-xs font-bold flex items-center justify-center">
+              {j + 1}
+            </span>
+            {editing ? (
+              <>
+                <Field value={s.who} placeholder="who" className="w-28 shrink-0" onCommit={(v) => setSteps(steps.map((x, k) => (k === j ? { ...x, who: v } : x)))} />
+                <Field textarea value={s.text} placeholder="what happens / what we do" className="flex-1 min-h-[42px]" onCommit={(v) => setSteps(steps.map((x, k) => (k === j ? { ...x, text: v } : x)))} />
+                <button className="px-1 text-danger/70 hover:text-danger" onClick={() => setSteps(steps.filter((_, k) => k !== j))}>✕</button>
+              </>
+            ) : (
+              <span className="text-cream/90 leading-relaxed pt-0.5">
+                {s.who && <span className="font-bold text-teal-light mr-1.5">{s.who}</span>}
+                <NotesText text={s.text} icons={icons} />
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+      {editing && (
+        <button className="btn btn-ghost text-[11px] mt-2" onClick={() => setSteps([...steps, { who: '', text: '' }])}>
+          + step
+        </button>
+      )}
+
+      {(ph.map || editing) && (
+        <div className="mt-3">
+          {ph.map ? (
+            <StrategyImage seg={ph.map} editing={editing} onChange={(next) => onChange({ ...ph, map: next })} />
+          ) : (
+            <button
+              className="btn btn-ghost text-[11px]"
+              onClick={() => onChange({ ...ph, map: { name: '', image: null, pins: [], draw: [], imgSize: 'md' } })}
+            >
+              + arena image for this phase
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // A section defined at module level — defining it inside the view would make
 // React remount the whole subtree on every keystroke (and jump scroll to top).
 function Section({ title, children, right, compact }) {
@@ -183,6 +321,9 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
               </span>
             )}
           </div>
+          {r.purpose && (
+            <div className="text-[13px] text-silver/75 leading-relaxed mt-1">{r.purpose}</div>
+          )}
           {chips.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mt-1.5">
               {chips.map((d, j) => (
@@ -213,6 +354,12 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
         <button className="px-1 text-danger/70 hover:text-danger shrink-0" title="Remove slot" onClick={onDelete}>✕</button>
       </div>
       <Field
+        value={r.purpose}
+        placeholder="purpose of this slot — what it is here to do, no class names"
+        className="w-full"
+        onCommit={(v) => onChange({ ...r, purpose: v })}
+      />
+      <Field
         textarea
         value={items.join('\n')}
         placeholder=""
@@ -238,6 +385,7 @@ export default function PlanView({
   const notes = plan?.notes || plan?.mechanics || []
   const steps = plan?.steps || []
   const maps = plan?.maps || []
+  const phases = plan?.phases || []
   const st = PLAN_STATUS[plan?.status] || PLAN_STATUS.draft
 
   const set = (patch) => onChange?.({ ...plan, ...patch })
@@ -271,6 +419,36 @@ export default function PlanView({
             <span className={`px-2 py-0.5 rounded-md border text-[10px] uppercase tracking-wider ${st.cls}`}>{st.label}</span>
           )}
           <span className="text-xs text-silver/60">6-man · the buyer never counts</span>
+        </div>
+      )}
+
+      {/* ---- the goal, and how long it should take ---- */}
+      {!compact && (editing || plan?.goal || plan?.kill) && (
+        <div className="card p-5">
+          {editing ? (
+            <div className="space-y-2">
+              <Field
+                textarea
+                value={plan?.goal}
+                placeholder="in one sentence: what has to happen for this to die?"
+                className="w-full min-h-[52px]"
+                onCommit={(v) => set({ goal: v })}
+              />
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-silver/60">Expected kill</span>
+                <Field value={plan?.kill} placeholder="mm:ss" className="w-24" onCommit={(v) => set({ kill: v })} />
+              </div>
+            </div>
+          ) : (
+            <>
+              {plan?.goal && <p className="text-lg text-cream leading-relaxed">{plan.goal}</p>}
+              {plan?.kill && (
+                <div className="mt-2 text-sm text-silver/60">
+                  Expected kill <span className="text-cream font-bold tabular-nums">{plan.kill}</span>
+                </div>
+              )}
+            </>
+          )}
         </div>
       )}
 
@@ -351,6 +529,53 @@ export default function PlanView({
           </div>
         )}
       </Section>
+
+      {/* ---- what the comp puts out ---- */}
+      {!compact && (cov.boons.size > 0 || cov.condis.size > 0) && (
+        <Section compact={compact} title="What we cover">
+          <CoverageTable cov={cov} />
+        </Section>
+      )}
+
+      {/* ---- phases ---- */}
+      {!compact && (phases.length > 0 || editing) && (
+        <Section
+          compact={compact}
+          title="Phases & strategy"
+          right={
+            editing && (
+              <button
+                className="btn btn-ghost text-xs"
+                onClick={() => set({ phases: [...phases, { label: `Phase ${phases.length + 1}`, from: null, to: null, goal: '', steps: [] }] })}
+              >
+                + phase
+              </button>
+            )
+          }
+        >
+          {editing && (
+            <p className="text-xs text-silver/60 mb-2">
+              Split by what the boss does, not by who is playing what. This part stays true when the meta changes.
+            </p>
+          )}
+          <div className="space-y-3">
+            {phases.map((ph, i) => (
+              <PhaseBlock
+                key={i}
+                ph={ph}
+                i={i}
+                last={i === phases.length - 1}
+                editing={editing}
+                icons={icons}
+                onChange={(next) => set({ phases: phases.map((x, j) => (j === i ? next : x)) })}
+                onDelete={() => set({ phases: phases.filter((_, j) => j !== i) })}
+                onMove={(dir) => move(phases, 'phases', i, dir)}
+              />
+            ))}
+            {phases.length === 0 && <p className="text-sm text-silver/50 italic">No phases defined yet.</p>}
+          </div>
+        </Section>
+      )}
 
       {/* ---- fight notes ---- */}
       {(notes.length > 0 || editing) && (

@@ -350,26 +350,32 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
             </span>
           )}
         </div>
-        {provides.length > 0 && (
-          <div className="mt-2.5">
-            <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1">Provides</div>
+        {/* Every slot always shows both blocks, so a missing one reads as
+            "not defined yet" instead of silently disappearing. */}
+        <div className="mt-2.5">
+          <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1">Provides</div>
+          {provides.length > 0 ? (
             <div className="flex flex-wrap gap-1.5">
               {provides.map((p, j) => (
                 <DutyChip key={j} duty={p.name} label={p.value ? `${p.name} · ${p.value}` : p.name} icons={icons} />
               ))}
             </div>
-          </div>
-        )}
-        {chips.length > 0 && (
-          <div className="mt-2.5">
-            <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1">Responsibilities</div>
+          ) : (
+            <span className="text-sm text-silver/35 italic">not defined yet</span>
+          )}
+        </div>
+        <div className="mt-2.5">
+          <div className="text-[11px] uppercase tracking-widest text-silver/50 font-bold mb-1">Responsibilities</div>
+          {chips.length > 0 ? (
             <div className="flex flex-wrap gap-1.5">
               {chips.map((d, j) => (
                 <DutyChip key={j} duty={d} icons={icons} />
               ))}
             </div>
-          </div>
-        )}
+          ) : (
+            <span className="text-sm text-silver/35 italic">not defined yet</span>
+          )}
+        </div>
         {lines.map((t, j) => (
           <div key={j} className={`mt-2 text-[14px] leading-relaxed ${t.includes('⚙') ? 'text-amber-300/90' : 'text-silver/80'}`}>
             <NotesText text={t} icons={icons} />

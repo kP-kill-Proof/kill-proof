@@ -1,4 +1,4 @@
 {
-  "build": "2026-10-05 22:40 UTC",
-  "includes": "boss portraits, comp slots as separate cards, VG phases reduced to Phases + Splits, draw on phase images with shared auto-save, role markers in the image editor"
+  "build": "2026-10-05 23:00 UTC",
+  "includes": "every comp slot always shows Provides and Responsibilities"
 }

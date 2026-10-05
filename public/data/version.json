@@ -1,4 +1,4 @@
 {
-  "build": "2026-10-05 19:20 UTC",
-  "includes": "evergreen fight pages: goal + expected kill, slot purpose instead of class, coverage table (boons on squad / condis on boss), phases by HP% with their own arena image"
+  "build": "2026-10-05 19:45 UTC",
+  "includes": "coverage table credits the build, singular player count, kill time only in the header"
 }

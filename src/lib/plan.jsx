@@ -55,7 +55,9 @@ export function planCoverage(plan, buildsData) {
   }
 
   for (const r of comp) {
-    const who = r.role2 || r.role
+    // The build is the most useful label here when there is one; the role is the
+    // fallback so a slot with no class picked still says who is responsible.
+    const who = r.build || r.role2 || r.role
     for (const d of r.duties || []) covered.add(low(d))
     const info = resolveBuildInfo(r.build, buildsData)
     if (!info) continue
@@ -422,32 +424,21 @@ export default function PlanView({
         </div>
       )}
 
-      {/* ---- the goal, and how long it should take ---- */}
-      {!compact && (editing || plan?.goal || plan?.kill) && (
+      {/* ---- the goal ---- */}
+      {/* Kill time deliberately lives in wings.json and is shown in the page
+          header, so there is only ever one source for it. */}
+      {!compact && (editing || plan?.goal) && (
         <div className="card p-5">
           {editing ? (
-            <div className="space-y-2">
-              <Field
-                textarea
-                value={plan?.goal}
-                placeholder="in one sentence: what has to happen for this to die?"
-                className="w-full min-h-[52px]"
-                onCommit={(v) => set({ goal: v })}
-              />
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-silver/60">Expected kill</span>
-                <Field value={plan?.kill} placeholder="mm:ss" className="w-24" onCommit={(v) => set({ kill: v })} />
-              </div>
-            </div>
+            <Field
+              textarea
+              value={plan?.goal}
+              placeholder="in one sentence: what has to happen for this to die?"
+              className="w-full min-h-[52px]"
+              onCommit={(v) => set({ goal: v })}
+            />
           ) : (
-            <>
-              {plan?.goal && <p className="text-lg text-cream leading-relaxed">{plan.goal}</p>}
-              {plan?.kill && (
-                <div className="mt-2 text-sm text-silver/60">
-                  Expected kill <span className="text-cream font-bold tabular-nums">{plan.kill}</span>
-                </div>
-              )}
-            </>
+            <p className="text-lg text-cream leading-relaxed">{plan.goal}</p>
           )}
         </div>
       )}
@@ -483,7 +474,8 @@ export default function PlanView({
                       Subgroup {g}
                     </span>
                     <span className="ml-auto text-xs text-silver/50 whitespace-nowrap shrink-0">
-                      {comp.filter((r) => r.sub === g).length} players
+                      {comp.filter((r) => r.sub === g).length}{' '}
+                      {comp.filter((r) => r.sub === g).length === 1 ? 'player' : 'players'}
                     </span>
                   </div>
                   {cov.bySub[g].size > 0 && (

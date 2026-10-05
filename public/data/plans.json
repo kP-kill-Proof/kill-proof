@@ -32,7 +32,7 @@
           "sub": 1,
           "role": "Heal",
           "role2": "Alacrity",
-          "build": "",
+          "build": "Heal Alac Druid",
           "purpose": "Keeps the squad up and holds the fight together: controls the seekers, lands the main CC and pulls the greens.",
           "duties": [
             "Alacrity",
@@ -138,11 +138,9 @@
       "rejected": [],
       "gaps": [
         "Every phase still needs its goal, its steps and its arena image — Herman dictates, Claude structures.",
-        "Expected kill time missing.",
         "The comp purposes come from the Vale Guardian slide; confirm they match how we actually run it."
       ],
       "goal": "Kill the three coloured guardians to drop the blue shield, then burn Vale Guardian while keeping the greens soaked and the seekers off the stack.",
-      "kill": "",
       "phases": [
         {
           "label": "Phase 1",

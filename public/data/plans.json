@@ -110,37 +110,12 @@
           ]
         }
       ],
-      "notes": [
-        {
-          "label": "Pre-event: everyone goes full Condi, then swap to the normal comp",
-          "slot": -1,
-          "note": ""
-        },
-        {
-          "label": "Vulnerability",
-          "slot": 3,
-          "note": ""
-        },
-        {
-          "label": "Everyone brings Boonstrip Prevent",
-          "slot": -1,
-          "note": ""
-        }
-      ],
+      "notes": [],
       "steps": [],
       "requires": [
         "Vulnerability"
       ],
-      "decisions": [
-        {
-          "what": "All Condi for the pre-event",
-          "why": "Kills the pre-event much faster"
-        },
-        {
-          "what": "Two condi players: the Firebrand plus one more",
-          "why": "Covers the pre-event condi damage without losing quickness"
-        }
-      ],
+      "decisions": [],
       "rejected": [],
       "gaps": [],
       "phases": [

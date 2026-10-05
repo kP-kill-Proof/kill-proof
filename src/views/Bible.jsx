@@ -81,7 +81,6 @@ export default function Bible({ target }) {
     { id: 'raid', label: 'Raids' },
     { id: 'strike', label: 'Strikes' },
   ]
-  const sectionWings = wings.wings.filter((w) => w.type === nav.section)
   const wing = wings.wings.find((w) => w.id === nav.wingId)
   const boss = wing?.bosses.find((b) => b.id === nav.bossId)
 
@@ -99,42 +98,40 @@ export default function Bible({ target }) {
         </p>
       </div>
 
-      <div className="flex gap-2">
-        {sections.map((s) => (
-          <button
-            key={s.id}
-            className={`tab-btn ${nav.section === s.id && !nav.wingId ? 'tab-active' : 'tab-idle'} border border-teal-deep/40`}
-            onClick={() => setNav({ section: s.id, wingId: null, bossId: null })}
-          >
-            {s.label}
-          </button>
-        ))}
-        {wing && <span className="tab-btn tab-active border border-teal-deep/40">{wing.short}</span>}
-      </div>
+      {wing && (
+        <button className="btn btn-ghost text-sm" onClick={() => setNav({ ...nav, wingId: null })}>← All wings</button>
+      )}
 
       {!wing ? (
-        <div className="grid md:grid-cols-2 gap-4">
-          {sectionWings.map((w, i) => {
-            const total = w.bosses.reduce((s, b) => s + (b.time ?? 0), 0)
-            const pending = w.bosses.filter((b) => b.time == null).length
-            return (
-              <button
-                key={w.id}
-                className="card p-5 text-left hover:scale-[1.01] cursor-pointer anim-in"
-                style={{ animationDelay: `${i * 0.04}s` }}
-                onClick={() => setNav({ ...nav, wingId: w.id })}
-              >
-                <div className="flex items-baseline justify-between">
-                  <h3 className="font-bold text-cream text-lg"><span className="text-teal-light mr-2">{w.short}</span>{w.name}</h3>
-                  <span className="text-teal-light text-xl">→</span>
-                </div>
-                <div className="text-sm text-silver/60 mt-2">
-                  {w.bosses.length} encounters · known total {fmtTime(total)}
-                  {pending > 0 && <span className="text-danger/80"> · {pending} pending times</span>}
-                </div>
-              </button>
-            )
-          })}
+        <div className="space-y-6">
+          {sections.map((sec) => (
+            <div key={sec.id}>
+              <h2 className="text-sm uppercase tracking-widest text-teal-light/80 font-bold mb-2.5">{sec.label}</h2>
+              <div className="space-y-3">
+                {wings.wings.filter((w) => w.type === sec.id).map((w, i) => {
+                  const total = w.bosses.reduce((s, b) => s + (b.time ?? 0), 0)
+                  const pending = w.bosses.filter((b) => b.time == null).length
+                  return (
+                    <button
+                      key={w.id}
+                      className="card w-full p-5 text-left hover:scale-[1.005] cursor-pointer anim-in"
+                      style={{ animationDelay: `${i * 0.03}s` }}
+                      onClick={() => setNav({ ...nav, wingId: w.id })}
+                    >
+                      <div className="flex items-baseline justify-between">
+                        <h3 className="font-bold text-cream text-lg"><span className="text-teal-light mr-2">{w.short}</span>{w.name}</h3>
+                        <span className="text-teal-light text-xl">→</span>
+                      </div>
+                      <div className="text-sm text-silver/60 mt-2">
+                        {w.bosses.length} encounters · known total {fmtTime(total)}
+                        {pending > 0 && <span className="text-danger/80"> · {pending} pending times</span>}
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="space-y-2.5">

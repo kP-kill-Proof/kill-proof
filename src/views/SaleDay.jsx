@@ -512,6 +512,38 @@ export default function SaleDay() {
           {liTarget === 0 && (
             <p className="text-sm text-silver/50 mb-2">Set an LI target to build the full run — showing dailies only.</p>
           )}
+          <div className="pb-2">
+            {adding ? (
+              <select
+                autoFocus
+                className={`${'w-full rounded-xl bg-ink/70 border border-teal/50 px-3 py-2 text-sm text-cream'}`}
+                defaultValue=""
+                onChange={(e) => addKill(e.target.value)}
+                onBlur={() => setAdding(false)}
+              >
+                <option value="" disabled>Which fight?</option>
+                {wings.wings.map((w) => (
+                  <optgroup key={w.id} label={`${w.short} · ${w.name}`}>
+                    {w.bosses
+                      .filter((b) => (b.li ?? 1) > 0 && !completed.includes(b.id))
+                      .map((b) => (
+                        <option key={b.id} value={b.id}>
+                          {b.name}{dailyIds.includes(b.id) ? ' ★' : ''}
+                        </option>
+                      ))}
+                  </optgroup>
+                ))}
+              </select>
+            ) : (
+              <button
+                className="w-full rounded-xl border border-dashed border-teal/40 py-2.5 text-sm font-semibold text-teal-light/90 hover:text-cream hover:border-teal-light cursor-pointer"
+                onClick={() => setAdding(true)}
+              >
+                + Add a kill
+              </button>
+            )}
+          </div>
+
           {visibleList.map((b, i) => {
             const isNext = b.id === nextId
             const isSel = selectedBoss?.id === b.id
@@ -570,38 +602,6 @@ export default function SaleDay() {
               </div>
             )
           })}
-
-          <div className="pt-2">
-            {adding ? (
-              <select
-                autoFocus
-                className={`${'w-full rounded-xl bg-ink/70 border border-teal/50 px-3 py-2 text-sm text-cream'}`}
-                defaultValue=""
-                onChange={(e) => addKill(e.target.value)}
-                onBlur={() => setAdding(false)}
-              >
-                <option value="" disabled>Which fight did we kill?</option>
-                {wings.wings.map((w) => (
-                  <optgroup key={w.id} label={`${w.short} · ${w.name}`}>
-                    {w.bosses
-                      .filter((b) => (b.li ?? 1) > 0 && !completed.includes(b.id))
-                      .map((b) => (
-                        <option key={b.id} value={b.id}>
-                          {b.name}{dailyIds.includes(b.id) ? ' ★' : ''}
-                        </option>
-                      ))}
-                  </optgroup>
-                ))}
-              </select>
-            ) : (
-              <button
-                className="w-full rounded-xl border border-dashed border-teal/40 py-2.5 text-sm font-semibold text-teal-light/90 hover:text-cream hover:border-teal-light cursor-pointer"
-                onClick={() => setAdding(true)}
-              >
-                + Add a fight we killed
-              </button>
-            )}
-          </div>
 
           {completed.length > 0 && (
             <div className="pt-3">

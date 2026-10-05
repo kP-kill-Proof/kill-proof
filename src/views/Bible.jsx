@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { fetchShared, saveShared } from '../lib/sync.js'
 import { useData } from '../App.jsx'
 import { fmtTime } from '../lib/gw2.js'
 import { BuildChip, NotesText } from '../lib/icons.jsx'
@@ -6,13 +7,87 @@ import PlanView, { PLAN_STATUS, planCoverage, planIsEmpty } from '../lib/plan.js
 
 const EMPTY_PLAN = { status: 'draft', comp: [], notes: [], steps: [], maps: [], requires: [], decisions: [], rejected: [], gaps: [] }
 
+// Boss portrait from the official wiki. Wiki art comes in every aspect ratio, so
+// it is cropped square from the top (where the face usually is). Encounters with
+// no boss art get a plain tile with the initials instead of a broken image.
+// Phase images are the one thing the squad edits from the page: drawing a fight
+// is easier with a mouse than through Claude. They live in the shared store
+// under the old "plans" key, which nothing reads anymore since the plan text
+// moved to the repo; the "kind" tag keeps the two shapes from ever mixing.
+const IMG_KEY = 'plans'
+const IMG_KIND = 'bible-images'
+const emptyImgDoc = () => ({ kind: IMG_KIND, bosses: {} })
+
+function BossPortrait({ boss, size = 56 }) {
+  const [bad, setBad] = useState(false)
+  const initials = boss.name.split(/[\s/]+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('')
+  const box = { width: size, height: size }
+  if (!boss.portrait || bad) {
+    return (
+      <div style={box} className="shrink-0 rounded-xl bg-teal-deep/30 border border-teal-deep/50 flex items-center justify-center font-display text-teal-light/70" >
+        <span style={{ fontSize: size * 0.34 }}>{initials}</span>
+      </div>
+    )
+  }
+  return (
+    <img
+      src={boss.portrait}
+      alt=""
+      loading="lazy"
+      onError={() => setBad(true)}
+      style={box}
+      className="shrink-0 rounded-xl object-cover object-top border border-teal-deep/50 bg-ink"
+    />
+  )
+}
+
 function BossPage({ wing, boss, onBack }) {
   const { comps, icons, builds, players, plans } = useData()
   const k = comps.bosses?.[boss.id] || {}
   // Read-only, straight from the repo: every edit goes through Claude, so the
   // whole squad opens the same Bible with nobody pressing save and no local
   // copy quietly shadowing a newer deploy.
-  const plan = plans?.bosses?.[boss.id] || EMPTY_PLAN
+  const base = plans?.bosses?.[boss.id] || EMPTY_PLAN
+
+  const [imgDoc, setImgDoc] = useState(emptyImgDoc)
+  const [imgStatus, setImgStatus] = useState('')
+  const timer = useRef(null)
+  const pending = useRef({})
+  useEffect(() => {
+    fetchShared(IMG_KEY).then((d) => setImgDoc(d?.kind === IMG_KIND ? d : emptyImgDoc()))
+    return () => clearTimeout(timer.current)
+  }, [])
+
+  const overlay = imgDoc.bosses?.[boss.id] || {}
+  const plan = {
+    ...base,
+    phases: (base.phases || []).map((ph, i) => ({ ...ph, map: overlay[ph.id ?? String(i)] ?? ph.map })),
+  }
+
+  // Saves after a short pause so a drawing session is one write, not fifty.
+  // Re-reads the stored copy first and only touches this fight, so two people
+  // drawing different fights never overwrite each other.
+  const onPhaseMap = (pid, map) => {
+    setImgDoc((d) => ({ ...d, bosses: { ...d.bosses, [boss.id]: { ...(d.bosses?.[boss.id] || {}), [pid]: map } } }))
+    pending.current[pid] = map
+    setImgStatus('Saving…')
+    clearTimeout(timer.current)
+    timer.current = setTimeout(async () => {
+      const changes = pending.current
+      pending.current = {}
+      try {
+        const latest = await fetchShared(IMG_KEY)
+        const doc = latest?.kind === IMG_KIND ? latest : emptyImgDoc()
+        doc.bosses = doc.bosses || {}
+        doc.bosses[boss.id] = { ...(doc.bosses[boss.id] || {}), ...changes }
+        doc.updated = new Date().toISOString()
+        await saveShared(IMG_KEY, doc)
+        setImgStatus('Saved for everyone')
+      } catch (e) {
+        setImgStatus(`Not saved: ${e.message || e}`)
+      }
+    }, 1200)
+  }
 
   return (
     <div className="space-y-5">
@@ -22,7 +97,9 @@ function BossPage({ wing, boss, onBack }) {
           question — what is this fight and how do we hit it. LI belongs to
           Today's Sale; the Bible is about how we play, not what it pays. */}
       <div className="card p-5 flex flex-wrap items-start justify-between gap-4">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1 flex gap-5 items-start">
+          <BossPortrait boss={boss} size={96} />
+          <div className="min-w-0">
           <h1 className="font-display text-3xl text-cream">{boss.name}</h1>
           <div className="text-sm text-silver/60 mt-1 flex flex-wrap gap-2 items-center">
             <span>{wing.name}</span>
@@ -47,6 +124,7 @@ function BossPage({ wing, boss, onBack }) {
               ))}
             </ul>
           )}
+          </div>
         </div>
         <div className="text-right shrink-0">
           <div className="text-xs text-silver/50 uppercase tracking-wider">kill time</div>
@@ -61,6 +139,8 @@ function BossPage({ wing, boss, onBack }) {
         builds={builds}
         players={players?.players || []}
         editing={false}
+        onPhaseMap={onPhaseMap}
+        imageStatus={imgStatus}
       />
 
     </div>
@@ -145,6 +225,7 @@ export default function Bible({ target }) {
                 onClick={() => setNav({ ...nav, bossId: b.id })}
               >
                 <span className="text-silver/40 font-bold w-5 text-right">{i + 1}</span>
+                <BossPortrait boss={b} size={56} />
                 <div className="flex-1">
                   <div className="font-bold text-cream">
                     {b.name}

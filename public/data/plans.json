@@ -120,44 +120,24 @@
       "gaps": [],
       "phases": [
         {
-          "label": "Phase 1",
-          "from": 100,
-          "to": 66,
+          "id": "phase",
+          "label": "Phases",
+          "from": null,
+          "to": null,
           "goal": "",
           "steps": [],
-          "map": null
+          "map": null,
+          "note": "100% → 66%, 66% → 33% and 33% → 0% — all three play the same way."
         },
         {
-          "label": "Split 1",
-          "from": 66,
-          "to": 66,
+          "id": "split",
+          "label": "Splits",
+          "from": null,
+          "to": null,
           "goal": "",
           "steps": [],
-          "map": null
-        },
-        {
-          "label": "Phase 2",
-          "from": 66,
-          "to": 33,
-          "goal": "",
-          "steps": [],
-          "map": null
-        },
-        {
-          "label": "Split 2",
-          "from": 33,
-          "to": 33,
-          "goal": "",
-          "steps": [],
-          "map": null
-        },
-        {
-          "label": "Phase 3",
-          "from": 33,
-          "to": 0,
-          "goal": "",
-          "steps": [],
-          "map": null
+          "map": null,
+          "note": "At 66% and 33% — both play the same way."
         }
       ]
     },

@@ -224,7 +224,7 @@ function CoverageGrid({ title, names, on, values = {}, must = [], icons, kind })
 // One phase of the fight: the HP window it covers, what we are trying to do in
 // it, the ordered steps, and its own arena picture. The fight is split this way
 // because this is the part that never changes when the meta does.
-function PhaseBlock({ ph, i, editing, icons, onChange, onDelete, onMove, last }) {
+function PhaseBlock({ ph, i, editing, drawing, icons, onChange, onMap, onDelete, onMove, last }) {
   const steps = ph.steps || []
   const setSteps = (v) => onChange({ ...ph, steps: v })
   const range = [ph.from, ph.to].filter((x) => x != null)
@@ -243,7 +243,8 @@ function PhaseBlock({ ph, i, editing, icons, onChange, onDelete, onMove, last })
           </>
         ) : (
           <>
-            <span className="text-sm uppercase tracking-[0.15em] text-teal-light font-bold">{ph.label || `Phase ${i + 1}`}</span>
+            <span className="text-base uppercase tracking-[0.15em] text-teal-light font-bold">{ph.label || `Phase ${i + 1}`}</span>
+            {ph.note && <span className="text-sm text-silver/70">{ph.note}</span>}
             {range.length === 2 && (
               <span className="px-2 py-0.5 rounded-md bg-teal-deep/30 text-[11px] text-silver/80 tabular-nums">
                 {ph.from}% → {ph.to}%
@@ -291,16 +292,23 @@ function PhaseBlock({ ph, i, editing, icons, onChange, onDelete, onMove, last })
         </button>
       )}
 
-      {(ph.map || editing) && (
+      {(ph.map || editing || drawing) && (
         <div className="mt-3">
           {ph.map ? (
-            <StrategyImage seg={ph.map} editing={editing} onChange={(next) => onChange({ ...ph, map: next })} />
+            <StrategyImage
+              seg={ph.map}
+              editing={editing || drawing}
+              onChange={(next) => (editing ? onChange({ ...ph, map: next }) : onMap?.(next))}
+            />
           ) : (
             <button
-              className="btn btn-ghost text-[11px]"
-              onClick={() => onChange({ ...ph, map: { name: '', image: null, pins: [], draw: [], imgSize: 'md' } })}
+              className="btn btn-ghost text-sm"
+              onClick={() => {
+                const blank = { name: '', image: null, pins: [], draw: [], imgSize: 'lg' }
+                editing ? onChange({ ...ph, map: blank }) : onMap?.(blank)
+              }}
             >
-              + arena image for this phase
+              + add the arena image for this phase
             </button>
           )}
         </div>
@@ -332,7 +340,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
     const provides = (r.provides || []).map((x) => (typeof x === 'string' ? { name: x } : x))
     const title = r.title || [r.role2, r.role].filter(Boolean).join(' ')
     return (
-      <div className="py-3.5 border-b border-teal-deep/15 last:border-0 last:pb-1">
+      <div className="rounded-xl border border-teal-deep/45 bg-teal-deep/10 px-4 py-3.5">
         <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
           <RoleChip role={r.role} />
           <span className="text-[17px] font-bold text-cream leading-tight">{title}</span>
@@ -406,7 +414,10 @@ export default function PlanView({
   editing = false,
   compact = false,
   onChange,
+  onPhaseMap,
+  imageStatus,
 }) {
+  const [drawing, setDrawing] = useState(false)
   const cov = planCoverage(plan, builds)
   const comp = plan?.comp || []
   const notes = plan?.notes || plan?.mechanics || []
@@ -469,7 +480,7 @@ export default function PlanView({
                     </span>
                   </div>
                 </div>
-                <div className={editing ? 'space-y-2 pt-1' : ''}>
+                <div className="space-y-3 pt-1">
                   {comp.map((r, i) =>
                     r.sub === g ? (
                       <CompRow
@@ -513,14 +524,22 @@ export default function PlanView({
           compact={compact}
           title="Phases & strategy"
           right={
-            editing && (
-              <button
-                className="btn btn-ghost text-xs"
-                onClick={() => set({ phases: [...phases, { label: `Phase ${phases.length + 1}`, from: null, to: null, goal: '', steps: [] }] })}
-              >
-                + phase
-              </button>
-            )
+            <div className="flex items-center gap-3">
+              {imageStatus && <span className="text-xs text-silver/60">{imageStatus}</span>}
+              {onPhaseMap && !editing && (
+                <button className={`btn text-sm ${drawing ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setDrawing(!drawing)}>
+                  {drawing ? '✓ Done drawing' : '✎ Draw on the images'}
+                </button>
+              )}
+              {editing && (
+                <button
+                  className="btn btn-ghost text-xs"
+                  onClick={() => set({ phases: [...phases, { label: `Phase ${phases.length + 1}`, from: null, to: null, goal: '', steps: [] }] })}
+                >
+                  + phase
+                </button>
+              )}
+            </div>
           }
         >
           {editing && (
@@ -536,7 +555,9 @@ export default function PlanView({
                 i={i}
                 last={i === phases.length - 1}
                 editing={editing}
+                drawing={drawing}
                 icons={icons}
+                onMap={(map) => onPhaseMap?.(ph.id ?? String(i), map)}
                 onChange={(next) => set({ phases: phases.map((x, j) => (j === i ? next : x)) })}
                 onDelete={() => set({ phases: phases.filter((_, j) => j !== i) })}
                 onMove={(dir) => move(phases, 'phases', i, dir)}

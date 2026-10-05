@@ -15,7 +15,8 @@
           ],
           "time": 180,
           "li": 1,
-          "shards": 10
+          "shards": 10,
+          "portrait": "https://wiki.guildwars2.com/images/d/d0/Vale_Guardian_portrait.png"
         },
         {
           "id": "gorseval",
@@ -26,7 +27,8 @@
           "time": 175,
           "li": 1,
           "directFromPrev": false,
-          "shards": 8
+          "shards": 8,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/8/83/Gorseval_the_Multifarious.jpg/200px-Gorseval_the_Multifarious.jpg"
         },
         {
           "id": "sabetha",
@@ -37,7 +39,8 @@
           "time": 258,
           "li": 1,
           "preEvent": true,
-          "shards": 10
+          "shards": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/4/48/Sabetha_the_Saboteur.jpg/200px-Sabetha_the_Saboteur.jpg"
         }
       ]
     },
@@ -55,7 +58,8 @@
           ],
           "time": 160,
           "li": 1,
-          "shards": 12
+          "shards": 12,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/2/2a/Giant_Sloth.jpg/200px-Giant_Sloth.jpg"
         },
         {
           "id": "trio",
@@ -77,7 +81,8 @@
           "time": 132,
           "li": 1,
           "preEvent": true,
-          "shards": 12
+          "shards": 12,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/2/28/Matthias_abomination.jpg/200px-Matthias_abomination.jpg"
         }
       ]
     },
@@ -106,7 +111,8 @@
           "time": 361,
           "li": 1,
           "shards": 12,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/e/e6/Keep_Construct.jpg/200px-Keep_Construct.jpg"
         },
         {
           "id": "twisted_castle",
@@ -124,7 +130,8 @@
           "aliases": [],
           "time": 180,
           "li": 1,
-          "shards": 12
+          "shards": 12,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/5/53/Xera_%28Illusion%29.jpg/200px-Xera_%28Illusion%29.jpg"
         }
       ]
     },
@@ -143,7 +150,8 @@
           "time": 113,
           "li": 1,
           "shards": 8,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/8/8d/Cairn_the_Indomitable.jpg/200px-Cairn_the_Indomitable.jpg"
         },
         {
           "id": "mursaat",
@@ -154,7 +162,8 @@
           "time": 115,
           "li": 1,
           "shards": 8,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/9/96/Mursaat_Overseer.jpg/200px-Mursaat_Overseer.jpg"
         },
         {
           "id": "samarog",
@@ -163,7 +172,8 @@
           "time": 326,
           "li": 1,
           "shards": 12,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/e/eb/Samarog.jpg/200px-Samarog.jpg"
         },
         {
           "id": "deimos",
@@ -172,7 +182,8 @@
           "time": 267,
           "li": 1,
           "shards": 14,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/7/7a/Deimos.jpg/200px-Deimos.jpg"
         }
       ]
     },
@@ -192,7 +203,8 @@
           "time": 220,
           "li": 1,
           "shards": 14,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/2/2b/Soulless_Horror.jpg/200px-Soulless_Horror.jpg"
         },
         {
           "id": "river",
@@ -212,7 +224,8 @@
           ],
           "time": null,
           "li": 1,
-          "shards": 4
+          "shards": 4,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/0/02/Statue_of_Darkness.jpg/200px-Statue_of_Darkness.jpg"
         },
         {
           "id": "eater",
@@ -223,7 +236,8 @@
           ],
           "time": null,
           "li": 1,
-          "shards": 3
+          "shards": 3,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/0/01/Eater_of_Souls.jpg/200px-Eater_of_Souls.jpg"
         },
         {
           "id": "broken_king",
@@ -233,7 +247,8 @@
           ],
           "time": null,
           "li": 1,
-          "shards": 3
+          "shards": 3,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/1/19/Broken_King.jpg/200px-Broken_King.jpg"
         },
         {
           "id": "dhuum",
@@ -242,7 +257,8 @@
           "time": 404,
           "li": 1,
           "shards": 16,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/d/d9/Dhuum.jpg/200px-Dhuum.jpg"
         }
       ]
     },
@@ -261,7 +277,8 @@
           "time": 177,
           "li": 1,
           "shards": 12,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/6/68/Conjured_Amalgamate.jpg/200px-Conjured_Amalgamate.jpg"
         },
         {
           "id": "largos",
@@ -275,7 +292,8 @@
           "li": 1,
           "preEvent": true,
           "shards": 12,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/9/9d/Nikare.jpg/200px-Nikare.jpg"
         },
         {
           "id": "qadim",
@@ -286,7 +304,8 @@
           "time": 420,
           "li": 1,
           "shards": 16,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/8/8e/Qadim.jpg/200px-Qadim.jpg"
         }
       ]
     },
@@ -305,7 +324,8 @@
           "time": 267,
           "li": 1,
           "shards": 8,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/8/8d/Cardinal_Sabir.jpg/200px-Cardinal_Sabir.jpg"
         },
         {
           "id": "adina",
@@ -316,7 +336,8 @@
           "time": 256,
           "li": 1,
           "shards": 14,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/5/53/Earth_Djinn.jpg/200px-Earth_Djinn.jpg"
         },
         {
           "id": "qtp",
@@ -328,7 +349,8 @@
           "time": 319,
           "li": 1,
           "shards": 14,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/9/98/Qadim_the_Peerless.jpg/200px-Qadim_the_Peerless.jpg"
         }
       ]
     },
@@ -348,7 +370,8 @@
           "li": 1,
           "preEvent": true,
           "shards": 16,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/8/8d/Greer%2C_the_Blightbringer.jpg/200px-Greer%2C_the_Blightbringer.jpg"
         },
         {
           "id": "decima",
@@ -360,7 +383,8 @@
           "li": 1,
           "preEvent": true,
           "shards": 14,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/b/bd/Decima%2C_the_Stormsinger.jpg/200px-Decima%2C_the_Stormsinger.jpg"
         },
         {
           "id": "ura",
@@ -371,7 +395,8 @@
           "time": null,
           "li": 1,
           "shards": 14,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/0/05/Ura.jpg/200px-Ura.jpg"
         }
       ]
     },
@@ -452,7 +477,8 @@
           ],
           "time": 203,
           "li": 1,
-          "shards": 10
+          "shards": 10,
+          "portrait": "https://wiki.guildwars2.com/images/4/47/Whisper_of_Jormag_portrait.png"
         }
       ]
     },
@@ -472,7 +498,8 @@
           "time": 270,
           "li": 1,
           "shards": 8,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/d/d6/Captain_Mai_Trin.jpg/200px-Captain_Mai_Trin.jpg"
         },
         {
           "id": "junkyard",
@@ -484,7 +511,8 @@
           "time": 240,
           "li": 1,
           "shards": 12,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/f/f6/Ankka.jpg/200px-Ankka.jpg"
         },
         {
           "id": "kaineng",
@@ -496,7 +524,8 @@
           "time": 540,
           "li": 1,
           "shards": 14,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/9/9f/Minister_Li.jpg/200px-Minister_Li.jpg"
         },
         {
           "id": "harvest_temple",
@@ -539,7 +568,8 @@
           "time": 360,
           "li": 1,
           "shards": 10,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/a/a1/Dagda.jpg/200px-Dagda.jpg"
         },
         {
           "id": "temple_of_febe",
@@ -551,7 +581,8 @@
           "time": 390,
           "li": 1,
           "shards": 12,
-          "shardsCM": 10
+          "shardsCM": 10,
+          "portrait": "https://wiki.guildwars2.com/images/thumb/2/21/Cerus.jpg/200px-Cerus.jpg"
         }
       ]
     },

@@ -7,6 +7,13 @@ import { Field, selCls } from './ui.jsx'
 const DRAW_COLORS = ['#4fb3d4', '#e05252', '#f5b942', '#39c07a', '#f2ead9']
 const B = import.meta.env.BASE_URL
 export const MAP_ICONS = [
+  // Role markers first: they are what a fight diagram uses most.
+  { id: 'role_tank', name: 'Tank', url: `${B}markers/roles/tank.svg` },
+  { id: 'role_heal', name: 'Healer', url: `${B}markers/roles/heal.svg` },
+  { id: 'role_power_support', name: 'Power support (boon DPS)', url: `${B}markers/roles/power_support.svg` },
+  { id: 'role_condi_support', name: 'Condi support (boon DPS)', url: `${B}markers/roles/condi_support.svg` },
+  { id: 'role_power_dps', name: 'Power DPS', url: `${B}markers/roles/power_dps.svg` },
+  { id: 'role_condi_dps', name: 'Condi DPS', url: `${B}markers/roles/condi_dps.svg` },
   { id: 'mesmer_portal', name: 'Mesmer Portal (Portal Entre)', url: 'https://render.guildwars2.com/file/BB7D7902B947C52DF3FC340AA66697F0CE669E31/103558.png' },
   { id: 'shadow_portal', name: 'Thief Portal (Prepare Shadow Portal)', url: 'https://render.guildwars2.com/file/D62F215C68C77A2F069238A39FD8A6A135B438C1/2175068.png' },
   { id: 'mass_invis', name: 'Mass Invisibility', url: 'https://render.guildwars2.com/file/E1EB3BC23A10BA9150EF992B03A813F4A26217A8/103755.png' },

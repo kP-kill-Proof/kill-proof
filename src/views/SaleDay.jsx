@@ -222,34 +222,25 @@ function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMove
   const comp = comps.bosses?.[boss.id]
   const k = comp || {}
 
-  const suggestions = useMemo(
-    () => suggestAssignments({ comp, players: presentPlayers }),
-    [comp, presentPlayers]
-  )
-  const assigned = suggestions
+  // Same source as the Bible: the repo plan, no local copies.
+  const plan = plans?.bosses?.[boss.id] || null
+  const hasComp = !!plan?.comp?.length
 
-  const coverage = useMemo(() => squadCoverage(assigned, builds), [assigned, builds])
-
-  const planOv = (() => { try { return JSON.parse(localStorage.getItem('kp_plans_v1')) || {} } catch { return {} } })()
-  const plan = planOv[boss.id] || plans?.bosses?.[boss.id] || null
-  const hasPlan = plan && !planIsEmpty(plan)
-  const cov = hasPlan ? planCoverage(plan, builds) : null
-
-  // which players have to swap template coming from the previous encounter
-  const swaps = useMemo(() => {
-    if (!hasPlan || !prevBoss) return []
-    const prev = planOv[prevBoss.id] || plans?.bosses?.[prevBoss.id]
-    if (!prev?.comp?.length) return []
-    const key = (r) => (r.player || '').split('|')[0].trim().toLowerCase()
-    const before = new Map(prev.comp.filter((r) => r.player).map((r) => [key(r), r.build]))
+  // Each of today's players takes the slot that matches the role they picked
+  // for the day: a Heal takes the Heal slot, a Support the Support slot, and so
+  // on. Classes are not assigned here — the Bible describes roles, not builds.
+  const { assignees, leftover } = useMemo(() => {
     const out = []
-    for (const r of plan.comp) {
-      if (!r.player) continue
-      const b = before.get(key(r))
-      if (b && r.build && b !== r.build) out.push({ who: r.player.split('|')[0].trim(), from: b, to: r.build })
+    const pool = [...presentPlayers]
+    for (const [i, r] of (plan?.comp || []).entries()) {
+      const j = pool.findIndex((p) => p.dayRole === r.role)
+      if (j >= 0) {
+        out[i] = pool[j].name.split('|')[0].trim()
+        pool.splice(j, 1)
+      }
     }
-    return out
-  }, [hasPlan, plan, prevBoss, plans])
+    return { assignees: out, leftover: pool }
+  }, [plan, presentPlayers])
 
   return (
     <div className="card p-5 lg:sticky lg:top-4 anim-in">
@@ -275,127 +266,31 @@ function BossDetail({ boss, prevBoss, presentPlayers, done, onToggleDone, onMove
               </span>
             )}
             {k.profile && (
-              <span className="chip bg-teal-deep/40 text-teal-light uppercase">{k.profile.dmg} · {k.profile.style}</span>
+              <span className="chip bg-teal-deep/40 text-teal-light uppercase">
+                {(k.profile.tags || [k.profile.dmg, k.profile.style]).join(' · ')}
+              </span>
             )}
           </div>
         </div>
         <button onClick={onToggleDone} className="btn btn-primary text-sm">✓ Complete</button>
       </div>
 
-      {hasPlan && (
-        <div className="py-4 border-b border-teal-deep/30 space-y-3">
-          <div className="flex items-center justify-between">
-            <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold">Our plan</h3>
-            <div className="flex items-center gap-2">
-              <span className={`px-2 py-0.5 rounded-md border text-[10px] uppercase tracking-wider ${(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).cls}`}>
-                {(PLAN_STATUS[plan.status] || PLAN_STATUS.draft).label}
-              </span>
-              <button className="btn btn-ghost text-xs" onClick={() => openBible(boss.wing.id, boss.id)} title="Open this encounter in the Bible to edit the plan">
-                ✎ Edit plan
-              </button>
-            </div>
-          </div>
-          {swaps.length > 0 && (
-            <div className="rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2">
-              <div className="text-[10px] uppercase tracking-wider text-amber-300/90 mb-1">Template swaps coming from {prevBoss.name}</div>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-amber-100/90">
-                {swaps.map((sw, i) => (
-                  <span key={i}><b>{sw.who}</b>: {sw.from} → {sw.to}</span>
-                ))}
-              </div>
-            </div>
+      {hasComp ? (
+        <div className="pt-4">
+          <PlanView plan={plan} icons={icons} builds={builds} only="comp" assignees={assignees} />
+          {presentPlayers.length > 0 && leftover.length > 0 && (
+            <p className="text-sm text-amber-300/90 mt-3">
+              No slot for today's role in this comp:{' '}
+              {leftover.map((p) => `${p.name.split('|')[0].trim()} (${p.dayRole})`).join(', ')}
+            </p>
           )}
-          <PlanView plan={plan} icons={icons} builds={builds} compact />
+          {!presentPlayers.length && (
+            <p className="text-sm text-silver/50 mt-3">Pick today's squad above to see who takes each slot.</p>
+          )}
         </div>
-      )}
-
-      <div className="py-4">
-        <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-3">Today's squad</h3>
-        {!presentPlayers.length ? (
-          <p className="text-sm text-silver/50">Select today's squad to see assignments.</p>
-        ) : (
-          <div className="grid lg:grid-cols-2 gap-4">
-            {[1, 2].map((g) => {
-              const groupRows = assigned.filter((a) => a.player?.subgroup === g)
-              const cov = squadCoverage(groupRows, builds)
-              return (
-                <div
-                  key={g}
-                  className="space-y-2 rounded-2xl border border-teal-deep/25 bg-ink/30 p-3 h-full"
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(e) => {
-                    e.preventDefault()
-                    const id = e.dataTransfer.getData('text/plain')
-                    if (id) onMoveToSubgroup(id, g - 1)
-                  }}
-                >
-                  <div className="text-[10px] uppercase tracking-widest text-teal-light/70 font-bold">Subgroup {g}</div>
-                  {groupRows.map((a) => {
-                    const i = assigned.indexOf(a)
-                    const info = resolveBuildInfo(a.build, builds)
-                    return (
-                      <div
-                        key={i}
-                        draggable
-                        onDragStart={(e) => e.dataTransfer.setData('text/plain', a.player?.id || '')}
-                        className="flex flex-wrap items-center gap-2.5 bg-ink/60 border border-teal-deep/30 rounded-xl px-3 py-2.5 cursor-grab active:cursor-grabbing hover:border-teal/50 transition-colors"
-                      >
-                        <span className="text-silver/40 select-none text-lg leading-none" title="Drag to move">⠿</span>
-                        <span className={`chip w-[4.5rem] justify-center ${a.slot.role === 'Heal' ? 'bg-teal/25 text-teal-light' : a.slot.role === 'Support' ? 'bg-cream/15 text-cream' : 'bg-silver/10 text-silver'}`}>
-                          {a.slot.role}
-                        </span>
-                        <span className="font-bold text-cream">{a.player?.name}</span>
-                        <span className="font-bold text-cream [&_img]:w-6 [&_img]:h-6">
-                          <BuildChip name={a.build} icons={icons} />
-                        </span>
-                        <span className="flex gap-1 items-center">
-                          {(info?.boons || []).slice(0, 3).map((b) => (
-                            <BoonIcon key={b} name={b} icons={icons} size="w-4 h-4" />
-                          ))}
-                        </span>
-                        {a.slot.notes && (
-                          <span className="w-full text-sm text-cream/90 bg-teal-deep/20 border border-teal-deep/40 rounded-lg px-3 py-1.5">
-                            <span className="text-teal-light font-black uppercase text-[10px] tracking-wider mr-2">Duty</span>
-                            <NotesText text={a.slot.notes} icons={icons} />
-                          </span>
-                        )}
-                      </div>
-                    )
-                  })}
-                  {!groupRows.length && (
-                    <p className="text-xs text-silver/40">Empty — place players in this row of the squad panel above.</p>
-                  )}
-                  {groupRows.length > 0 && (
-                    <div className="flex items-center gap-1.5 pt-1.5 border-t border-teal-deep/20">
-                      <span className="text-[10px] uppercase tracking-wider text-silver/40 font-bold mr-1">Boons</span>
-                      {KEY_BOONS.map((b) => (
-                        <BoonIcon key={b} name={b} icons={icons} size="w-5 h-5" missing={cov.missing.includes(b)} />
-                      ))}
-                      {cov.boons.filter((b) => !KEY_BOONS.includes(b)).map((b) => (
-                        <BoonIcon key={b} name={b} icons={icons} size="w-5 h-5" />
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-        )}
-        {presentPlayers.length > 0 && !comp?.slots?.length && (
-          <p className="text-xs text-silver/50 mt-2">No ideal comp in the Bible yet — slots built from today's roles.</p>
-        )}
-      </div>
-
-      {presentPlayers.length > 0 && (
-        <div className="pt-4 border-t border-teal-deep/30">
-          <h3 className="text-[11px] uppercase tracking-widest text-teal-light/80 font-bold mb-2">Condis on boss</h3>
-          <div className="flex gap-1.5 items-center">
-            {coverage.condis.length ? (
-              coverage.condis.map((c) => <BoonIcon key={c} name={c} icons={icons} />)
-            ) : (
-              <span className="text-xs text-silver/50">—</span>
-            )}
-          </div>
+      ) : (
+        <div className="py-4">
+          <p className="text-sm text-silver/50">No comp for this fight in the Bible yet.</p>
         </div>
       )}
     </div>
@@ -422,7 +317,11 @@ export default function SaleDay() {
     })
     return out
   }
-  const [liTargetStr, setLiTargetStr] = useState(run0.liTargetStr ?? '25')
+  // Days saved before the default moved to 25 still carried the old 10; bump
+  // them once (v2) and keep everything else about the day.
+  const [liTargetStr, setLiTargetStr] = useState(
+    run0.v === 2 ? run0.liTargetStr ?? '25' : run0.liTargetStr && run0.liTargetStr !== '10' ? run0.liTargetStr : '25'
+  )
   const [discarded, setDiscarded] = useState(run0.discarded ?? [])
   // Encounters the commander has already accepted. Skipping one pins the rest so
   // only the gap it leaves gets re-solved.
@@ -451,7 +350,7 @@ export default function SaleDay() {
   }, [wings])
 
   useEffect(() => {
-    localStorage.setItem(dayKey(), JSON.stringify({ liTargetStr, discarded, completed, roster, pinned, extras }))
+    localStorage.setItem(dayKey(), JSON.stringify({ v: 2, liTargetStr, discarded, completed, roster, pinned, extras }))
   }, [liTargetStr, discarded, completed, roster, pinned, extras])
 
   const dailyIds = (dailies || []).map((d) => d.bossId).filter(Boolean)

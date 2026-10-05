@@ -332,7 +332,7 @@ function Section({ title, children, right, compact }) {
 }
 
 // ---------------------------------------------------------------- comp
-function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) {
+function CompRow({ r, i, who, editing, icons, builds, players, onChange, onDelete }) {
   const items = (r.duties || []).filter((x) => x && x.trim())
   const chips = items.filter((x) => x.length <= 26)
   const lines = items.filter((x) => x.length > 26)
@@ -344,6 +344,7 @@ function CompRow({ r, i, editing, icons, builds, players, onChange, onDelete }) 
         <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
           <RoleChip role={r.role} />
           <span className="text-[17px] font-bold text-cream leading-tight">{title}</span>
+          {who && <span className="ml-auto text-[15px] font-semibold text-teal-light">{who}</span>}
           {r.unsure && (
             <span className="chip bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px]" title="Needs confirming">
               confirm
@@ -422,6 +423,11 @@ export default function PlanView({
   onChange,
   onPhaseMap,
   imageStatus,
+  // only="comp": just the squad composition and what it covers — used by
+  // Today's Sale, which does not need the fight execution.
+  only = null,
+  // names of today's players, aligned with plan.comp, shown on each slot
+  assignees = [],
 }) {
   const [drawing, setDrawing] = useState(false)
   const cov = planCoverage(plan, builds)
@@ -493,6 +499,7 @@ export default function PlanView({
                         key={i}
                         r={r}
                         i={i}
+                        who={assignees[i]}
                         editing={editing}
                         icons={icons}
                         builds={builds}
@@ -525,7 +532,7 @@ export default function PlanView({
       </Section>
 
       {/* ---- phases ---- */}
-      {!compact && (phases.length > 0 || editing) && (
+      {!only && !compact && (phases.length > 0 || editing) && (
         <Section
           compact={compact}
           title="Phases & strategy"
@@ -577,7 +584,7 @@ export default function PlanView({
       {/* ---- fight notes ---- */}
       {/* Once a fight is split into phases, its notes live inside each phase.
           Fights not migrated yet keep showing their old notes so nothing is lost. */}
-      {(notes.length > 0 || editing) && phases.length === 0 && (
+      {!only && (notes.length > 0 || editing) && phases.length === 0 && (
         <Section
           compact={compact}
           title="Fight notes"
@@ -646,7 +653,7 @@ export default function PlanView({
       )}
 
       {/* ---- route / steps ---- */}
-      {(steps.length > 0 || maps.length > 0 || editing) && (
+      {!only && (steps.length > 0 || maps.length > 0 || editing) && (
         <Section
           compact={compact}
           title="Route & strategy"
@@ -709,7 +716,7 @@ export default function PlanView({
         </Section>
       )}
 
-      {!compact && ((plan?.gaps || []).length > 0 || editing) && (
+      {!only && !compact && ((plan?.gaps || []).length > 0 || editing) && (
         <Section
           compact={compact}
           title="Pending"
